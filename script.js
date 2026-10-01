@@ -226,8 +226,16 @@
       });
     }
   }
+  // Let the phone keyboard close before scrolling, otherwise the page jumps twice.
+  function afterKeyboard(callback) {
+    const field = document.activeElement;
+    const typing = field && /^(INPUT|TEXTAREA)$/.test(field.tagName) && field.type !== 'file';
+    if (!typing) { requestAnimationFrame(callback); return; }
+    field.blur();
+    setTimeout(callback, 350);
+  }
   function focusReceipt() {
-    requestAnimationFrame(() => {
+    afterKeyboard(() => {
       if (receipt.hidden) return;
       receipt.focus({preventScroll:true});
       receipt.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',block:'center'});
@@ -312,7 +320,7 @@
       submissionState.rsvpStatus = { kind: 'success' };
       render();
       window.dispatchEvent(new CustomEvent('birthday:evidence'));
-      requestAnimationFrame(() => {
+      afterKeyboard(() => {
         root.querySelector('#party-evidence').scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
       });
     } catch (error) {

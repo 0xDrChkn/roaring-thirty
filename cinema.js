@@ -12,7 +12,7 @@
   let language = root.lang === 'nb' ? 'nb' : (config.appearance?.defaultLanguage === 'nb' ? 'nb' : 'en');
   const copy = {
     en: {
-      label: 'Your arrival at the party', skip: 'Skip to the invitation',
+      label: 'Your arrival at the party',
       chapter: `${fullName} · Chapter ${person.age || ''}`,
       opening: ['The twenties', 'are calling.'],
       openingNote: `${name}’s turning back the clock for one night. Dress accordingly.`,
@@ -23,7 +23,7 @@
       portrait: `${name} raising a champagne glass in a Gatsby-inspired AI portrait`
     },
     nb: {
-      label: 'Din ankomst til festen', skip: 'Gå til invitasjonen',
+      label: 'Din ankomst til festen',
       chapter: `${fullName} · Kapittel ${person.age || ''}`,
       opening: ['Tjueårene', 'kaller.'],
       openingNote: `${name} skrur klokken tilbake for én kveld. Kle deg for anledningen.`,
@@ -50,7 +50,6 @@
       <div class="cinema-grain" aria-hidden="true"></div>
       <div class="cinema-letterbox" aria-hidden="true"><span></span><span></span></div>
       <div class="cinema-nav">
-        <a class="cinema-skip" href="#invitation"><span data-cinema-copy="skip"></span><span aria-hidden="true">↘</span></a>
         <div class="cinema-languages" role="group" aria-label="Language / Språk">
           <button type="button" data-cinema-language="en" lang="en">EN</button>
           <span aria-hidden="true">/</span>
@@ -155,6 +154,19 @@
   const easeInOut = value => value < .5 ? 4 * value ** 3 : 1 - (-2 * value + 2) ** 3 / 2;
   const easeOut = value => 1 - (1 - value) ** 3;
   const stage = intro.querySelector('.cinema-sticky');
+  // Phones get the same story with fewer full-screen blend and blur layers.
+  const lite = window.matchMedia('(pointer: coarse), (max-width: 700px)').matches;
+  intro.classList.toggle('is-lite', lite);
+  // Freeze the screen-height unit: a phone keyboard or address bar must never resize this
+  // tall section (that shifts the whole form below it). Only a width change (rotation) updates it.
+  let lockedWidth = 0;
+  function lockHeight() {
+    if (window.innerWidth === lockedWidth) return;
+    lockedWidth = window.innerWidth;
+    const height = Math.round(window.visualViewport?.height || window.innerHeight);
+    root.style.setProperty('--cinema-vh', `${height / 100}px`);
+  }
+  lockHeight();
   let scheduled = false;
   let welcomeVisible = true;
   let progress = 0;
@@ -189,7 +201,7 @@
     const now = performance.now();
     const elapsed = Math.min(64, now - (updateScene.last || now));
     updateScene.last = now;
-    progress += (target - progress) * (1 - Math.exp(-elapsed / 110));
+    progress += (target - progress) * (1 - Math.exp(-elapsed / (lite ? 150 : 110)));
     if (Math.abs(target - progress) < .0004) progress = target;
     pointer.x += (pointer.tx - pointer.x) * (1 - Math.exp(-elapsed / 260));
     pointer.y += (pointer.ty - pointer.y) * (1 - Math.exp(-elapsed / 260));
@@ -230,7 +242,7 @@
       '--cinema-letterbox': 1 - ease(ramp(progress, .52, .74)),
       '--cinema-arrival-opacity': 1 - titleOut,
       '--cinema-arrival-blur': `${titleOut * 14}px`,
-      '--cinema-arrival-spacing': `${titleOut * .18}em`,
+      '--cinema-arrival-scale': 1 + titleOut * .14,
       '--cinema-arrival-y': `${-titleOut * 40}px`,
       '--cinema-guest-opacity': reveal,
       '--cinema-exposure': 1 - easeOut(ramp(progress, .62, .78)),
@@ -263,9 +275,12 @@
   let onScreen = true;
   const palette = ['#f6e3ae', '#e2c595', '#d3b580', '#fff4d6', '#b8902f'];
   function resizeCanvas() {
-    const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
-    canvas.width = Math.round(stage.clientWidth * ratio);
-    canvas.height = Math.round(stage.offsetHeight * ratio);
+    const ratio = Math.min(window.devicePixelRatio || 1, lite ? 1.25 : 1.5);
+    const nextWidth = Math.round(stage.clientWidth * ratio);
+    const nextHeight = Math.round(stage.offsetHeight * ratio);
+    if (canvas.width === nextWidth && canvas.height === nextHeight) return;
+    canvas.width = nextWidth;
+    canvas.height = nextHeight;
     context.setTransform(ratio, 0, 0, ratio, 0, 0);
   }
   function seedSpark(spark = {}, anywhere = false) {
@@ -379,7 +394,7 @@
   }
 
   window.addEventListener('scroll', scheduleScene, { passive: true });
-  window.addEventListener('resize', () => { scheduleScene(); if (!motion.matches) resizeCanvas(); }, { passive: true });
+  window.addEventListener('resize', () => { lockHeight(); scheduleScene(); if (!motion.matches) resizeCanvas(); }, { passive: true });
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     window.addEventListener('pointermove', event => {
       pointer.tx = event.clientX / window.innerWidth * 2 - 1;

@@ -6,13 +6,14 @@
 #gatsby-invitation .story-toolbar .party-language button { min-height: 44px; }
 #gatsby-invitation .story-brand { min-width: 0; color: var(--party-gold); font: 400 10px/1.6 'Jost', sans-serif; letter-spacing: .16em; text-transform: uppercase; }
 #gatsby-invitation .story-chapter-label { color: var(--party-muted); font: 400 10px/1.6 'Jost', sans-serif; letter-spacing: .18em; text-transform: uppercase; }
-#gatsby-invitation .story-chapter { position: relative; display: grid; place-items: center; min-height: 85svh; padding: clamp(80px, 13svh, 156px) clamp(18px, 6vw, 96px); isolation: isolate; scroll-margin-top: 24px; }
+#gatsby-invitation .story-chapter { position: relative; display: grid; place-items: center; min-height: calc(var(--cinema-vh, 1svh) * 85); padding: clamp(80px, calc(var(--cinema-vh, 1svh) * 13), 156px) clamp(18px, 6vw, 96px); isolation: isolate; scroll-margin-top: 24px; }
 #gatsby-invitation #party-when { background: radial-gradient(ellipse at 50% 45%, #28282840, transparent 68%), #080808; }
 #gatsby-invitation #party-rsvp { background: radial-gradient(ellipse at 50% 50%, #30303024, transparent 64%), #070707; }
 #gatsby-invitation #party-evidence { background: radial-gradient(ellipse at 60% 45%, #9d763518, transparent 67%), #090909; }
 #gatsby-invitation #party-memories { background: linear-gradient(180deg, #090909, #080808); }
 
-#gatsby-invitation .story-card { position: relative; width: 100%; max-width: 850px; margin: 0; padding: clamp(30px, 5.2vw, 70px); border: 1px solid #cfad7036; background: linear-gradient(145deg, #ffffff03, transparent 65%); opacity: var(--story-opacity, 1); transform: translate3d(0, var(--story-y, 0px), 0); }
+#gatsby-invitation .story-card { position: relative; width: 100%; max-width: 850px; margin: 0; padding: clamp(30px, 5.2vw, 70px); border: 1px solid #cfad7036; background: linear-gradient(145deg, #ffffff03, transparent 65%); opacity: var(--story-opacity, 1); transform: translate3d(0, var(--story-y, 0px), 0); transition: opacity 1s cubic-bezier(.2,.65,.2,1), transform 1.1s cubic-bezier(.2,.65,.2,1); }
+@media (prefers-reduced-motion: reduce) { #gatsby-invitation .story-card { transition: none; } }
 #gatsby-invitation .story-card::before, #gatsby-invitation .story-card::after { content: ''; position: absolute; width: 44px; height: 44px; pointer-events: none; border-color: #cfad7080; border-style: solid; }
 #gatsby-invitation .story-card::before { top: 8px; left: 8px; border-width: 1px 0 0 1px; }
 #gatsby-invitation .story-card::after { right: 8px; bottom: 8px; border-width: 0 1px 1px 0; }
@@ -68,7 +69,7 @@
 @media (max-width: 700px) {
   #gatsby-invitation .story-toolbar { width: calc(100% - 40px); gap: 15px; margin-top: 18px; }
   #gatsby-invitation .story-chapter-label { font-size: 9px; letter-spacing: .12em; }
-  #gatsby-invitation .story-chapter { min-height: 85svh; padding: 72px 18px; }
+  #gatsby-invitation .story-chapter { min-height: calc(var(--cinema-vh, 1svh) * 85); padding: 72px 18px; }
   #gatsby-invitation .story-card { padding: 32px 24px; }
   #gatsby-invitation .story-card.party-rsvp, #gatsby-invitation .story-card.party-contribute, #gatsby-invitation .story-card.party-album { padding-top: 32px; }
   #gatsby-invitation .story-number { margin-right: 12px; font-size: 25px; }
