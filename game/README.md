@@ -1,6 +1,6 @@
 # The Sara quiz
 
-A host-controlled game for one laptop connected to a television. Open [the game](https://0xdrchkn.github.io/saras-30th/game/).
+A host-controlled game for one laptop connected to a television. Open [the game](https://0xdrchkn.github.io/roaring-thirty/game/).
 
 1. Enter 2–6 team names and choose a timer duration: 15, 30, 45, 60, 90 or 120 seconds.
 2. Pick **six categories** from the ten-category bank. **Use recommended six** selects a complete 30-question board with no drafts.

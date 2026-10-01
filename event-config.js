@@ -13,9 +13,10 @@ window.BIRTHDAY_CONFIG = {
     "start": "2026-11-17T19:00:00+01:00",
     "timeZone": "Europe/Oslo",
     "venue": {
-      "street": "Blomstervegen 37B",
-      "postalCode": "2005",
-      "city": "Rælingen",
+      "name": "Nedre Løkka Cocktailbar",
+      "street": "Thorvald Meyers gate 89",
+      "postalCode": "0550",
+      "city": "Oslo",
       "country": {
         "en": "Norway",
         "nb": "Norge"
@@ -211,8 +212,8 @@ window.BIRTHDAY_CONFIG = {
       "rsvpYes": "I will be there",
       "rsvpNo": "Got better stuff to do",
       "rsvpNote": "Your reply is sent privately to the organiser.",
-      "food": "We’ll provide the food.",
-      "byob": "You’re encouraged to smuggle in your own drinks to keep the evening going. In defiance of the Prohibition authorities, naturally.",
+      "welcome": "Welcome drinks are on us.",
+      "bar": "After that, the bar is right there for whatever you fancy.",
       "contributeKicker": "A little help from {name}’s favourite people",
       "contributeTitle": "We need your evidence.",
       "contributeIntro": "Your favourite {name} story. Your three best photos. Help us make a birthday collage and a game to remember.",
@@ -226,9 +227,9 @@ window.BIRTHDAY_CONFIG = {
       "albumKicker": "The evidence, so far",
       "albumTitle": "The road to {age}.",
       "albumHint": "Tap a photograph. There’s always a story.",
-      "drinksKicker": "Food & drinks",
+      "drinksKicker": "Drinks",
       "drinksTitle": "The bootlegger’s bar.",
-      "drinksHistory": "Norway banned the sale of spirits from 1916 to 1927. For tonight’s operation, our “bootlegger’s licence” has secured a limited stash of champagne and wine."
+      "drinksHistory": "Norway banned the sale of spirits from 1916 to 1927. For tonight’s operation, we have secured a liquor licence. In defiance of the Prohibition authorities, naturally."
     },
     "nb": {
       "theme": "En kveld i ekte Gatsby-stil",
@@ -247,8 +248,8 @@ window.BIRTHDAY_CONFIG = {
       "locationTitle": "Byens minst hemmelige smuglerbar.",
       "locationBody": "Passord er ikke nødvendig. Det holder å kjenne bursdagsbarnet.",
       "map": "Finn adressen i Google Maps ↗",
-      "food": "Vi står for maten.",
-      "byob": "Smugle gjerne med deg egen drikke for å holde kvelden i gang. Til forbudstidens myndigheters store fortvilelse, selvfølgelig.",
+      "welcome": "Velkomstdrinkene spanderer vi.",
+      "bar": "Etterpå står baren klar med det du måtte ønske.",
       "albumKicker": "Bevismaterialet så langt",
       "albumTitle": "Veien til {age}.",
       "albumHint": "Trykk på et bilde. Det finnes alltid en historie.",
@@ -267,9 +268,9 @@ window.BIRTHDAY_CONFIG = {
       "photosHint": "Opptil 3 bilder · maks 20 MB per bilde. Velg bilder du synes det er greit å vise på festen.",
       "contributeButton": "Send historie og bilder",
       "contributeNote": "Historien og bildene sendes privat til arrangøren og kan brukes i bursdagscollagen eller quizen.",
-      "drinksKicker": "Mat og drikke",
+      "drinksKicker": "Drikke",
       "drinksTitle": "Smuglerbaren.",
-      "drinksHistory": "I Norge var salg av brennevin forbudt fra 1916 til 1927. Takket være kveldens «smuglerbevilling» har vi fått tak i en begrenset forsyning av champagne og vin."
+      "drinksHistory": "I Norge var salg av brennevin forbudt fra 1916 til 1927. For kveldens operasjon har vi sikret oss skjenkebevilling. Til forbudstidens myndigheters store fortvilelse, selvfølgelig."
     }
   },
   "story": {
@@ -279,7 +280,7 @@ window.BIRTHDAY_CONFIG = {
       "whenTitle": "A night to remember.",
       "whenIntro": "The Great Gatsby is calling. A little glamour, a little mischief, and our favourite people.",
       "dressAction": "What to wear",
-      "foodAction": "Food & drinks",
+      "foodAction": "Drinks",
       "toRsvp": "Now, about your grand entrance",
       "rsvpKicker": "The guest list",
       "rsvpTitle": "Who’s joining us?",
@@ -295,7 +296,7 @@ window.BIRTHDAY_CONFIG = {
       "whenTitle": "En kveld å huske.",
       "whenIntro": "The Great Gatsby kaller. Litt glamour, litt sprell og favorittmenneskene våre.",
       "dressAction": "Hva skal jeg ha på?",
-      "foodAction": "Mat og drikke",
+      "foodAction": "Drikke",
       "toRsvp": "Så var det din store entré",
       "rsvpKicker": "Gjestelisten",
       "rsvpTitle": "Hvem blir med?",

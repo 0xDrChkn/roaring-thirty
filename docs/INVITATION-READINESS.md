@@ -1,6 +1,6 @@
 # Invitation readiness — 22 September 2026
 
-Public invitation: https://0xdrchkn.github.io/saras-30th/
+Public invitation: https://0xdrchkn.github.io/roaring-thirty/
 
 ## Current route
 

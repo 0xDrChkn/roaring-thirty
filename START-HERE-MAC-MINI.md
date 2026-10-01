@@ -30,7 +30,7 @@ git commit --only hosting-config.js -m "Connect invitation to Mac mini"
 git push
 ```
 
-The usual share link stays https://0xdrchkn.github.io/saras-30th/. The direct Tailscale invitation link also works without this Pages update.
+The usual share link stays https://0xdrchkn.github.io/roaring-thirty/. The direct Tailscale invitation link also works without this Pages update.
 
 Before sending invites, test on a phone with Wi-Fi and Tailscale disconnected. Check the saved RSVP/story/photo in the organiser, restart the service, and confirm they remain. Test after a Mini reboot and login too.
 

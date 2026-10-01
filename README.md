@@ -2,7 +2,7 @@
 
 A reusable Gatsby birthday website: a cinematic invitation and a playable host-controlled TV party game. Plain HTML, CSS and JavaScript, served directly by GitHub Pages. No build step. A small Node.js service can store private replies and photos on an always-on Mac mini; no cloud database account is required.
 
-**[Open the invitation](https://0xdrchkn.github.io/saras-30th/)** · **[Play the game](https://0xdrchkn.github.io/saras-30th/game/)**
+**[Open the invitation](https://0xdrchkn.github.io/roaring-thirty/)** · **[Play the game](https://0xdrchkn.github.io/roaring-thirty/game/)**
 
 ## Start it on the Mac mini
 
@@ -22,17 +22,17 @@ To retain the GitHub Pages share link, commit and push the generated `hosting-co
 
 Sara Matilda Berner · 30 · 17 November 2026, 19:00 Europe/Oslo
 
-Blomstervegen 37B, 2005 Rælingen, Norway
+Nedre Løkka Cocktailbar, Thorvald Meyers gate 89, 0550 Oslo, Norway
 
 “Reliving your twenties” / “Tjueårene om igjen”
 
-The invitation has English and Norwegian Bokmål, a full-castle opening that fits the complete photograph on every screen, a scroll-driven approach through its open doorway, and one Sara greeting. Four separate chapters follow: time/location, name and RSVP, evidence after replying, and the photo album. Dress code and food/drinks open in focused dialogs. The programme is a surprise and is not published. The drinks copy references Norway’s historical spirits ban; see [the source note](docs/COPY-SOURCES.md). Mobile layouts and reduced-motion preferences are supported. Each chapter fades and rises into view with scrolling. The nine selected album photographs appear across three pages. Guests can skip the entrance.
+The invitation has English and Norwegian Bokmål, a full-castle opening that fits the complete photograph on every screen, a scroll-driven approach through its open doorway, and one Sara greeting. Four separate chapters follow: time/location, name and RSVP, evidence after replying, and the photo album. Dress code and drinks open in focused dialogs. The programme is a surprise and is not published. The drinks copy references Norway’s historical spirits ban; see [the source note](docs/COPY-SOURCES.md). Mobile layouts and reduced-motion preferences are supported. Each chapter fades and rises into view with scrolling. The nine selected album photographs appear across three pages. Guests can skip the entrance.
 
 **The custom RSVP, story/photo form and private organiser work with the new Mac-hosted service.** The local browser flow and storage tests pass; deployment to the actual Mac mini and a stable public HTTPS connection are still pending. Public GitHub Pages submissions remain disabled until that connection is verified. The website does not embed Tally.
 
-The [organiser dashboard](https://0xdrchkn.github.io/saras-30th/organiser/) shows attendance, optional emails, stories and photo downloads, with search, filters and CSV export. See [Mac mini installation and backups](docs/MAC-MINI.md), [current verification](docs/INVITATION-READINESS.md), and [the local demo](docs/LOCAL-TEST.md).
+The [organiser dashboard](https://0xdrchkn.github.io/roaring-thirty/organiser/) shows attendance, optional emails, stories and photo downloads, with search, filters and CSV export. See [Mac mini installation and backups](docs/MAC-MINI.md), [current verification](docs/INVITATION-READINESS.md), and [the local demo](docs/LOCAL-TEST.md).
 
-The [TV game](https://0xdrchkn.github.io/saras-30th/game/) supports 2–6 teams, six chosen categories from a bank of ten, 42 ready clues, the two selected Sara reactions, a configurable timer, plus/minus scoring, corrections, undo, private pack import/export and local saving. The recommended board has 30 ready clues. Eight personal/mashup slots still need genuine material. See [game usage](game/README.md), [the specification and reference comparison](docs/GAME-SPEC.md), and [category briefs](docs/GAME-CATEGORIES.md).
+The [TV game](https://0xdrchkn.github.io/roaring-thirty/game/) supports 2–6 teams, six chosen categories from a bank of ten, 42 ready clues, the two selected Sara reactions, a configurable timer, plus/minus scoring, corrections, undo, private pack import/export and local saving. The recommended board has 30 ready clues. Eight personal/mashup slots still need genuine material. See [game usage](game/README.md), [the specification and reference comparison](docs/GAME-SPEC.md), and [category briefs](docs/GAME-CATEGORIES.md).
 
 ## Use it for another person
 

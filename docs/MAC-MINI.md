@@ -9,7 +9,7 @@ The installer and recovery flow have been tested in isolated temporary folders o
 Use the Mac account that will stay logged in. Install **Node.js 24 or newer** from [nodejs.org](https://nodejs.org/en/download) if needed, and connect the Mini’s existing Tailscale app. Clone/open this repository on the Mini:
 
 ```sh
-git clone https://github.com/0xDrChkn/saras-30th.git
+git clone https://github.com/0xDrChkn/roaring-thirty.git
 cd saras-30th
 ./start-mac-mini.sh
 ```
@@ -50,7 +50,7 @@ The service listens only on `127.0.0.1:49200`. This local address cannot be shar
 
 Once the launcher’s HTTPS check passes, the direct invitation URL printed in Terminal serves the complete custom website from the Mini. The organiser is at `/organiser/` and the game is at `/game/`. Guests need no Tailscale app or account.
 
-To keep sharing [Sara’s 30th on GitHub Pages](https://0xdrchkn.github.io/saras-30th/), run these commands in the **source checkout on the Mini** after setup:
+To keep sharing [Sara’s 30th on GitHub Pages](https://0xdrchkn.github.io/roaring-thirty/), run these commands in the **source checkout on the Mini** after setup:
 
 ```sh
 git add hosting-config.js
