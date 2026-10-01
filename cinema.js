@@ -47,6 +47,7 @@
       <div class="cinema-vignette" aria-hidden="true"></div>
       <canvas class="cinema-sparks" aria-hidden="true"></canvas>
       <div class="cinema-bloom" aria-hidden="true"></div>
+      <div class="cinema-grain" aria-hidden="true"></div>
       <div class="cinema-letterbox" aria-hidden="true"><span></span><span></span></div>
       <div class="cinema-nav">
         <a class="cinema-skip" href="#invitation"><span data-cinema-copy="skip"></span><span aria-hidden="true">↘</span></a>
@@ -69,6 +70,7 @@
           <span class="cinema-arch-line cinema-arch-outer" aria-hidden="true"></span>
           <span class="cinema-arch-line cinema-arch-inner" aria-hidden="true"></span>
           <img class="cinema-portrait" decoding="async">
+          <span class="cinema-sheen" aria-hidden="true"></span>
         </div>
       </div>
       <div class="cinema-welcome">
@@ -156,6 +158,10 @@
   let scheduled = false;
   let welcomeVisible = true;
   let progress = 0;
+  let target = 0;
+  let applied = -1;
+  // Pointer depth on desktop, smoothed like the scroll.
+  const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
   // Where the open doorway sits on screen; the sparks stream out of it.
   const door = { x: 0, y: 0 };
   function setWelcomeVisibility(visible) {
@@ -178,21 +184,32 @@
     const rect = intro.getBoundingClientRect();
     const viewport = stage.offsetHeight;
     const width = stage.clientWidth;
-    progress = clamp(-rect.top / Math.max(1, rect.height - viewport));
+    target = clamp(-rect.top / Math.max(1, rect.height - viewport));
+    // Inertia: the scene glides toward the scroll position instead of jumping with each wheel step.
+    const now = performance.now();
+    const elapsed = Math.min(64, now - (updateScene.last || now));
+    updateScene.last = now;
+    progress += (target - progress) * (1 - Math.exp(-elapsed / 110));
+    if (Math.abs(target - progress) < .0004) progress = target;
+    pointer.x += (pointer.tx - pointer.x) * (1 - Math.exp(-elapsed / 260));
+    pointer.y += (pointer.ty - pointer.y) * (1 - Math.exp(-elapsed / 260));
+    const key = `${progress.toFixed(5)}:${pointer.x.toFixed(3)}:${pointer.y.toFixed(3)}:${width}:${viewport}`;
+    if (key === applied) return;
+    applied = key;
     // Fit the complete landscape photograph first, including on portrait screens.
     const imageAspect = 1672 / 941;
     const photoWidth = Math.min(width, viewport * imageAspect);
     const photoHeight = photoWidth / imageAspect;
     const wideDoorY = (viewport - photoHeight) / 2 + photoHeight * .655;
     const approach = easeInOut(ramp(progress, .03, .62));
-    const finalZoom = Math.min(10, width * .9 / (photoWidth * .065));
+    const finalZoom = Math.min(6.5, width * .9 / (photoWidth * .065));
     const zoom = Math.pow(finalZoom, approach);
     const cameraY = approach * (viewport * .5 - wideDoorY);
     door.x = width / 2;
     door.y = wideDoorY + cameraY;
     // The rush: echo copies stretch the picture outward while the camera moves fastest.
     const rush = Math.sin(Math.PI * ramp(progress, .14, .64));
-    const bloom = ramp(progress, .40, .62);
+    const bloom = ramp(progress, .34, .62);
     const flash = ramp(progress, .57, .63) * (1 - ramp(progress, .63, .72));
     const reveal = ramp(progress, .60, .66);
     const settle = easeOut(ramp(progress, .62, .88));
@@ -221,7 +238,10 @@
       '--cinema-frame': frame,
       '--cinema-sunburst': ease(ramp(progress, .66, .86)),
       '--cinema-welcome': welcomeIn,
-      '--cinema-cue-opacity': 1 - ramp(progress, .08, .2)
+      '--cinema-cue-opacity': 1 - ramp(progress, .08, .2),
+      '--cinema-sheen': ease(ramp(progress, .8, .97)),
+      '--cinema-px': pointer.x.toFixed(4),
+      '--cinema-py': pointer.y.toFixed(4)
     };
     Object.entries(values).forEach(([key, value]) => intro.style.setProperty(key, value));
     setWelcomeVisibility(progress >= .85);
@@ -277,6 +297,7 @@
   }
   function draw() {
     if (!running) return;
+    updateScene();
     const width = stage.clientWidth;
     const height = stage.offsetHeight;
     context.clearRect(0, 0, width, height);
@@ -342,6 +363,7 @@
   }
 
   function scheduleScene() {
+    if (running) return;
     if (scheduled) return;
     scheduled = true;
     requestAnimationFrame(updateScene);
@@ -349,6 +371,8 @@
   function setMotion() {
     intro.classList.toggle('is-animated', !motion.matches);
     intro.classList.toggle('is-static', motion.matches);
+    applied = -1;
+    progress = target = clamp(-intro.getBoundingClientRect().top / Math.max(1, intro.offsetHeight - stage.offsetHeight));
     updateScene();
     if (motion.matches) { stopLoop(); context.clearRect(0, 0, canvas.width, canvas.height); }
     else { setupSparks(); startLoop(); }
@@ -356,6 +380,24 @@
 
   window.addEventListener('scroll', scheduleScene, { passive: true });
   window.addEventListener('resize', () => { scheduleScene(); if (!motion.matches) resizeCanvas(); }, { passive: true });
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    window.addEventListener('pointermove', event => {
+      pointer.tx = event.clientX / window.innerWidth * 2 - 1;
+      pointer.ty = event.clientY / window.innerHeight * 2 - 1;
+    }, { passive: true });
+  }
+  // Film grain: one small noise tile, generated once and shifted by CSS.
+  const grainTile = document.createElement('canvas');
+  grainTile.width = grainTile.height = 160;
+  const grainContext = grainTile.getContext('2d');
+  const grainPixels = grainContext.createImageData(160, 160);
+  for (let i = 0; i < grainPixels.data.length; i += 4) {
+    const value = Math.random() * 255;
+    grainPixels.data[i] = grainPixels.data[i + 1] = grainPixels.data[i + 2] = value;
+    grainPixels.data[i + 3] = 255;
+  }
+  grainContext.putImageData(grainPixels, 0, 0);
+  intro.querySelector('.cinema-grain').style.backgroundImage = `url(${grainTile.toDataURL()})`;
   motion.addEventListener('change', setMotion);
   setMotion();
   // The opening shot: lights come up on the mansion once the photograph has loaded.
