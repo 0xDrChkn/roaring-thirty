@@ -20,7 +20,7 @@ To retain the GitHub Pages share link, commit and push the generated `hosting-co
 
 ## Current celebration
 
-Sara Matilda Berner · 30 · 17 November 2026, 19:00 Europe/Oslo
+Sara Matilda Berner · 30 · 14 November 2026, 19:00 Europe/Oslo
 
 Nedre Løkka Cocktailbar, Thorvald Meyers gate 89, 0550 Oslo, Norway
 

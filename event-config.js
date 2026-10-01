@@ -10,7 +10,7 @@ window.BIRTHDAY_CONFIG = {
     "age": 30
   },
   "event": {
-    "start": "2026-11-17T19:00:00+01:00",
+    "start": "2026-11-14T19:00:00+01:00",
     "timeZone": "Europe/Oslo",
     "venue": {
       "name": "Nedre Løkka Cocktailbar",
