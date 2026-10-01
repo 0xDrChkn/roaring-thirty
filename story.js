@@ -4,6 +4,7 @@
   const story = root.querySelector('.party-story');
   const chapters = [...story.querySelectorAll('.story-chapter')];
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const touch = window.matchMedia('(pointer: coarse)').matches;
   // Each chapter rises into place once, then stays put. Nothing is tied to the scroll
   // position or screen height, so the phone keyboard opening or closing never moves a form.
   function arrive(chapter) {
@@ -15,7 +16,8 @@
     if ('storyArrived' in chapter.dataset || 'storyReady' in chapter.dataset) return;
     chapter.dataset.storyReady = '';
     const top = chapter.querySelector('.story-card').getBoundingClientRect().top;
-    if (motion.matches || !observer || top < window.innerHeight * .9) { arrive(chapter); return; }
+    // Phones: plain native scrolling, chapters are simply there.
+    if (motion.matches || !observer || touch || top < window.innerHeight * .9) { arrive(chapter); return; }
     chapter.style.setProperty('--story-opacity', '0');
     chapter.style.setProperty('--story-y', '48px');
     observer.observe(chapter);

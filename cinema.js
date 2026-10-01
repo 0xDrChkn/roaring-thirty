@@ -157,6 +157,7 @@
   // Phones get the same story with fewer full-screen blend and blur layers.
   const lite = window.matchMedia('(pointer: coarse), (max-width: 700px)').matches;
   intro.classList.toggle('is-lite', lite);
+  const touch = window.matchMedia('(pointer: coarse)').matches;
   // Freeze the screen-height unit: a phone keyboard or address bar must never resize this
   // tall section (that shifts the whole form below it). Only a width change (rotation) updates it.
   let lockedWidth = 0;
@@ -201,7 +202,8 @@
     const now = performance.now();
     const elapsed = Math.min(64, now - (updateScene.last || now));
     updateScene.last = now;
-    progress += (target - progress) * (1 - Math.exp(-elapsed / (lite ? 150 : 110)));
+    // Touch screens follow the finger exactly; only mouse and trackpad get the glide.
+    progress = touch ? target : progress + (target - progress) * (1 - Math.exp(-elapsed / 110));
     if (Math.abs(target - progress) < .0004) progress = target;
     pointer.x += (pointer.tx - pointer.x) * (1 - Math.exp(-elapsed / 260));
     pointer.y += (pointer.ty - pointer.y) * (1 - Math.exp(-elapsed / 260));
