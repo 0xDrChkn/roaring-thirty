@@ -11,7 +11,6 @@ body { padding: 0; }
 #gatsby-invitation .cinema-mansion img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: contain; object-position: center; }
 #gatsby-invitation .cinema-wide-shot { transform-origin: 50% var(--cinema-door-y, 65.5%); }
 #gatsby-invitation .cinema-vignette { position: absolute; inset: 0; z-index: -2; pointer-events: none; background: linear-gradient(180deg, #000000a8, transparent 45%, #00000066 65%, #080808ed), radial-gradient(ellipse at 50% 42%, transparent 20%, #00000066 85%); }
-#gatsby-invitation .cinema-dust { position: absolute; inset: 0; z-index: 5; pointer-events: none; opacity: .36; background-image: radial-gradient(circle at 11% 62%, #ead59a 0 1px, transparent 2px), radial-gradient(circle at 29% 77%, #ead59a 0 1px, transparent 2px), radial-gradient(circle at 74% 45%, #ead59a 0 1px, transparent 2px), radial-gradient(circle at 89% 70%, #ead59a 0 1px, transparent 2px), radial-gradient(circle at 67% 87%, #ead59a 0 1px, transparent 2px); }
 #gatsby-invitation .cinema-nav { position: absolute; z-index: 20; top: max(18px, env(safe-area-inset-top)); left: clamp(18px, 4vw, 60px); right: clamp(18px, 4vw, 60px); display: flex; justify-content: space-between; align-items: center; gap: 20px; }
 #gatsby-invitation .cinema-skip, #gatsby-invitation .cinema-languages button { min-height: 44px; color: #f7efdf; font-size: 11px; letter-spacing: .12em; text-decoration: none; text-transform: uppercase; text-shadow: 0 2px 12px #000; }
 #gatsby-invitation .cinema-skip { display: inline-flex; align-items: center; gap: 10px; padding: 6px 0; }
@@ -38,8 +37,62 @@ body { padding: 0; }
 #gatsby-invitation .cinema-continue span:last-child { font-size: 22px; }
 #gatsby-invitation .cinema-scroll-cue, #gatsby-invitation .cinema-progress { display: none; }
 
+/* ——— Arrival sequence: lights up, dolly through the doorway, light floods, Sara in the arch ——— */
+#gatsby-invitation .cinema-rule { display: none; }
+#gatsby-invitation .cinema-arch { position: relative; width: min(90vw, 520px); margin: 0 auto; }
+#gatsby-invitation .cinema-arch .cinema-portrait { width: 100%; -webkit-mask-image: none; mask-image: none; border-radius: 999px 999px 0 0; object-fit: cover; }
+#gatsby-invitation .cinema-arch-line, #gatsby-invitation .cinema-sunburst { display: none; }
+#gatsby-invitation .cinema-name span { display: inline-block; }
+#gatsby-invitation .is-animated .cinema-mansion { background: #000; }
+#gatsby-invitation .is-animated .cinema-wide-shot { filter: brightness(.08) saturate(.6); transition: filter 2.6s cubic-bezier(.2,.6,.2,1); }
+#gatsby-invitation .is-animated.is-lit .cinema-wide-shot { filter: brightness(1) saturate(1); }
+#gatsby-invitation .is-animated .cinema-echo { opacity: calc(var(--cinema-rush, 0) * .32); mix-blend-mode: screen; pointer-events: none; }
+#gatsby-invitation .is-animated .cinema-echo-1 { transform: translateY(var(--cinema-camera-y, 0px)) scale(calc(var(--cinema-zoom, 1) * (1 + var(--cinema-rush, 0) * .045))); }
+#gatsby-invitation .is-animated .cinema-echo-2 { transform: translateY(var(--cinema-camera-y, 0px)) scale(calc(var(--cinema-zoom, 1) * (1 + var(--cinema-rush, 0) * .1))); opacity: calc(var(--cinema-rush, 0) * .2); }
+#gatsby-invitation .cinema-sparks { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 6; pointer-events: none; }
+#gatsby-invitation .is-animated .cinema-bloom { position: absolute; z-index: 4; left: 50%; top: var(--cinema-door-screen-y, 60%); width: var(--cinema-bloom-size, 18vmax); aspect-ratio: 1; border-radius: 50%; transform: translate(-50%, -50%); pointer-events: none; opacity: var(--cinema-bloom, 0); mix-blend-mode: screen;
+  background: radial-gradient(circle, #fffaf0 0%, #fff1cf calc(14% + var(--cinema-flash, 0) * 40%), #f3d394 calc(30% + var(--cinema-flash, 0) * 30%), #c99a4a 52%, #8a5f2000 70%); }
+#gatsby-invitation .is-animated .cinema-letterbox span { position: absolute; z-index: 9; left: 0; right: 0; height: 9svh; background: #000; pointer-events: none; transition: transform .1s linear; }
+#gatsby-invitation .is-animated .cinema-letterbox span:first-child { top: 0; transform: translateY(calc((var(--cinema-letterbox, 1) - 1) * 100%)); }
+#gatsby-invitation .is-animated .cinema-letterbox span:last-child { bottom: 0; transform: translateY(calc((1 - var(--cinema-letterbox, 1)) * 100%)); }
+#gatsby-invitation .is-animated .cinema-vignette { background: linear-gradient(180deg, #000000b0, transparent 42%, #00000055 66%, #080808f0), radial-gradient(ellipse at 50% var(--cinema-door-screen-y, 60%), transparent calc(30% - var(--cinema-rush, 0) * 14%), #000000c0 92%); }
+
+/* Opening title: rises in letter-light, leaves by spreading into blur. */
+#gatsby-invitation .is-animated .cinema-arrival { filter: blur(var(--cinema-arrival-blur, 0px)); }
+#gatsby-invitation .is-animated .cinema-opening { letter-spacing: calc(-.04em + var(--cinema-arrival-spacing, 0em)); }
+#gatsby-invitation .is-animated .cinema-rule { display: block; position: relative; width: min(340px, 60vw); height: 14px; margin: -14px auto 26px; }
+#gatsby-invitation .cinema-rule::before, #gatsby-invitation .cinema-rule::after { content: ''; position: absolute; top: 50%; width: calc(50% - 14px); height: 1px; background: linear-gradient(90deg, #d3b58000, #d3b580); transform-origin: right; transform: scaleX(0); transition: transform 1.6s 1.1s cubic-bezier(.2,.7,.2,1); }
+#gatsby-invitation .cinema-rule::before { left: 0; }
+#gatsby-invitation .cinema-rule::after { right: 0; transform-origin: left; background: linear-gradient(270deg, #d3b58000, #d3b580); }
+#gatsby-invitation .cinema-rule i { position: absolute; left: 50%; top: 50%; width: 9px; height: 9px; border: 1px solid #d3b580; transform: translate(-50%, -50%) rotate(45deg) scale(0); transition: transform .9s 1s cubic-bezier(.3,1.6,.4,1); }
+#gatsby-invitation .is-lit .cinema-rule::before, #gatsby-invitation .is-lit .cinema-rule::after { transform: scaleX(1); }
+#gatsby-invitation .is-lit .cinema-rule i { transform: translate(-50%, -50%) rotate(45deg) scale(1); }
+#gatsby-invitation .is-animated .cinema-opening span, #gatsby-invitation .is-animated .cinema-opening em, #gatsby-invitation .is-animated .cinema-arrival .cinema-eyebrow, #gatsby-invitation .is-animated .cinema-arrival-note { opacity: 0; transform: translateY(28px); filter: blur(8px); transition: opacity 1.4s, transform 1.6s cubic-bezier(.2,.7,.2,1), filter 1.4s; }
+#gatsby-invitation .is-lit .cinema-arrival .cinema-eyebrow { transition-delay: .5s; }
+#gatsby-invitation .is-lit .cinema-opening span { transition-delay: .8s; }
+#gatsby-invitation .is-lit .cinema-opening em { transition-delay: 1.15s; }
+#gatsby-invitation .is-lit .cinema-arrival-note { transition-delay: 1.6s; }
+#gatsby-invitation .is-lit .cinema-opening span, #gatsby-invitation .is-lit .cinema-opening em, #gatsby-invitation .is-lit .cinema-arrival .cinema-eyebrow, #gatsby-invitation .is-lit .cinema-arrival-note { opacity: 1; transform: none; filter: none; }
+#gatsby-invitation .cinema-opening em, #gatsby-invitation .cinema-name span { background: linear-gradient(100deg, #b8902f 0%, #f6e3ae 22%, #d3b580 38%, #fff4d6 50%, #c9a24a 64%, #f1d79c 82%, #b8902f 100%); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* Sara emerges from the light, framed by a drawn Art Deco arch and sunburst. */
+#gatsby-invitation .is-animated .cinema-guest-scene { z-index: 3; filter: brightness(calc(1 + var(--cinema-exposure, 0) * 2.4)) saturate(calc(1 - var(--cinema-exposure, 0) * .5)) sepia(calc(var(--cinema-exposure, 0) * .5)); }
+#gatsby-invitation .is-animated .cinema-arch { position: absolute; top: 50%; right: 7vw; width: min(66svh, 40vw, 600px); margin: 0; transform: translateY(-46%); }
+#gatsby-invitation .is-animated .cinema-arch .cinema-portrait { position: relative; inset: auto; top: auto; right: auto; width: 100%; aspect-ratio: 4 / 5; transform: none; object-position: 50% 20%; box-shadow: 0 30px 120px #000c, 0 0 80px #d3b58026; }
+#gatsby-invitation .is-animated .cinema-arch-line { display: block; position: absolute; pointer-events: none; border: 1px solid #d3b580; border-bottom: 0; border-radius: 999px 999px 0 0; clip-path: inset(calc((1 - var(--cinema-frame, 0)) * 100%) 0 0 0); }
+#gatsby-invitation .is-animated .cinema-arch-outer { inset: -26px -26px 0; border-color: #d3b580b0; }
+#gatsby-invitation .is-animated .cinema-arch-inner { inset: -12px -12px 0; border-width: 2px; border-color: #e2c595; }
+#gatsby-invitation .is-animated .cinema-arch::after { content: ''; position: absolute; left: -60px; right: -60px; bottom: -1px; height: 1px; background: linear-gradient(90deg, #d3b58000, #e2c595, #d3b58000); transform: scaleX(var(--cinema-frame, 0)); }
+#gatsby-invitation .is-animated .cinema-sunburst { display: block; position: absolute; z-index: -1; left: 50%; bottom: 0; width: 260%; aspect-ratio: 2 / 1; transform: translateX(-50%) scale(calc(.75 + var(--cinema-sunburst, 0) * .25)); transform-origin: 50% 100%; opacity: calc(var(--cinema-sunburst, 0) * .55); pointer-events: none;
+  background: repeating-conic-gradient(from -90deg at 50% 100%, #d3b58066 0deg 1.1deg, #d3b58000 1.1deg 7.5deg); -webkit-mask-image: radial-gradient(ellipse 50% 100% at 50% 100%, #000 18%, transparent 72%); mask-image: radial-gradient(ellipse 50% 100% at 50% 100%, #000 18%, transparent 72%); }
+#gatsby-invitation .is-animated .cinema-welcome { opacity: min(1, calc(var(--cinema-welcome, 0) * 3)); transform: translateY(-50%); }
+#gatsby-invitation .is-animated .cinema-welcome > .cinema-eyebrow, #gatsby-invitation .is-animated .cinema-welcome-note, #gatsby-invitation .is-animated .cinema-continue { opacity: clamp(0, calc(var(--cinema-welcome, 0) * 2.2 - .9), 1); transform: translateY(calc((1 - clamp(0, calc(var(--cinema-welcome, 0) * 2.2 - .9), 1)) * 18px)); }
+#gatsby-invitation .is-animated .cinema-welcome > .cinema-eyebrow { opacity: clamp(0, calc(var(--cinema-welcome, 0) * 4), 1); transform: none; }
+#gatsby-invitation .is-animated .cinema-name span { opacity: clamp(0, calc(var(--cinema-welcome, 0) * (var(--cinema-letters) + 3) - var(--i)), 1); transform: translateY(calc((1 - clamp(0, calc(var(--cinema-welcome, 0) * (var(--cinema-letters) + 3) - var(--i)), 1)) * .5em)) rotateX(calc((1 - clamp(0, calc(var(--cinema-welcome, 0) * (var(--cinema-letters) + 3) - var(--i)), 1)) * 80deg)); filter: blur(calc((1 - clamp(0, calc(var(--cinema-welcome, 0) * (var(--cinema-letters) + 3) - var(--i)), 1)) * 10px)); }
+#gatsby-invitation .is-animated .cinema-name { perspective: 600px; text-shadow: none; filter: drop-shadow(0 4px 30px #000); padding-bottom: .08em; }
+
 /* Variables are written once per animation frame; scrolling remains native. */
-#gatsby-invitation .cinema-intro.is-animated { height: 290svh; }
+#gatsby-invitation .cinema-intro.is-animated { height: 360svh; }
 #gatsby-invitation .is-animated .cinema-sticky { position: sticky; top: 0; height: 100svh; min-height: 0; padding: 0; }
 #gatsby-invitation .is-animated .cinema-mansion { opacity: var(--cinema-mansion-opacity, 1); }
 #gatsby-invitation .is-animated .cinema-wide-shot { transform: translateY(var(--cinema-camera-y, 0px)) scale(var(--cinema-zoom, 1)); will-change: transform; }
@@ -48,22 +101,24 @@ body { padding: 0; }
 #gatsby-invitation .is-animated .cinema-guest-scene { position: absolute; inset: 0; z-index: 1; opacity: var(--cinema-guest-opacity, 0); transform: scale(var(--cinema-guest-zoom, 1.04)); }
 #gatsby-invitation .is-animated .cinema-guest-backdrop { inset: -50px; }
 #gatsby-invitation .is-animated .cinema-portrait { position: absolute; top: 50%; right: 4vw; width: min(80svh, 64vw, 900px); height: auto; margin: 0; transform: translateY(-50%); }
-#gatsby-invitation .is-animated .cinema-welcome { position: absolute; left: clamp(24px, 8vw, 128px); right: 50%; top: 51%; margin: 0; text-align: left; opacity: var(--cinema-welcome-opacity, 0); transform: translateY(calc(-50% + var(--cinema-welcome-y, 26px))); }
+#gatsby-invitation .is-animated .cinema-welcome { position: absolute; left: clamp(24px, 8vw, 128px); right: 50%; top: 51%; margin: 0; text-align: left; }
 #gatsby-invitation .is-animated .cinema-scroll-cue { display: flex; flex-direction: column; align-items: center; gap: 15px; position: absolute; left: 24px; right: 24px; bottom: 24px; z-index: 8; opacity: var(--cinema-cue-opacity, 1); pointer-events: none; font: 400 10px/1.5 'Jost', sans-serif; text-transform: uppercase; letter-spacing: .22em; color: #eee4d2; }
 #gatsby-invitation .cinema-scroll-line { display: block; width: 1px; height: 48px; background: linear-gradient(#d3b580, #d3b58000); }
 #gatsby-invitation .is-animated .cinema-progress { display: block; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: #d3b58020; }
 #gatsby-invitation .cinema-progress span { display: block; width: 100%; height: 100%; background: #d3b58099; transform-origin: left; transform: scaleX(var(--cinema-progress, 0)); }
 
 @media (prefers-reduced-motion: no-preference) {
-  #gatsby-invitation .cinema-dust { animation: cinema-drift 16s ease-in-out infinite alternate; }
+  #gatsby-invitation .cinema-opening em, #gatsby-invitation .cinema-name span { animation: cinema-foil 7s ease-in-out infinite alternate; }
+  #gatsby-invitation .is-animated .cinema-sunburst { animation: cinema-breathe 6s ease-in-out infinite alternate; }
+  @keyframes cinema-foil { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+  @keyframes cinema-breathe { to { filter: brightness(1.5); } }
   #gatsby-invitation .cinema-revealed { animation: cinema-section-arrives 800ms cubic-bezier(.2,.65,.2,1) both; }
   #gatsby-invitation .party-portrait.cinema-revealed { animation-delay: 100ms; }
   #gatsby-invitation .cinema-revealed:focus-within, #gatsby-invitation .cinema-revealed:focus { animation: none; opacity: 1; transform: none; }
-  @keyframes cinema-drift { to { transform: translate3d(0,-22px,0); opacity: .65; } }
   @keyframes cinema-section-arrives { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 }
 @media (max-width: 700px) {
-  #gatsby-invitation .cinema-intro.is-animated { height: 260svh; }
+  #gatsby-invitation .cinema-intro.is-animated { height: 320svh; }
   #gatsby-invitation .cinema-nav { left: 18px; right: 14px; gap: 12px; }
   #gatsby-invitation .cinema-skip { font-size: 9px; letter-spacing: .08em; }
   #gatsby-invitation .cinema-eyebrow { font-size: 10px; letter-spacing: .16em; }
@@ -71,8 +126,12 @@ body { padding: 0; }
   #gatsby-invitation .is-animated .cinema-arrival { top: 22%; left: 18px; right: 18px; }
   #gatsby-invitation .is-animated .cinema-arrival .cinema-eyebrow { max-width: 290px; margin: 0 auto 24px; }
   #gatsby-invitation .cinema-arrival-note { max-width: 290px; margin-top: 20px; font-size: 14px; }
-  #gatsby-invitation .is-animated .cinema-portrait { top: max(72px, 10svh); right: 50%; width: min(116vw, 65svh); transform: translateX(50%); }
-  #gatsby-invitation .is-animated .cinema-welcome { left: 16px; right: 16px; top: auto; bottom: max(5svh, 24px); text-align: center; transform: translateY(var(--cinema-welcome-y, 26px)); }
+  #gatsby-invitation .is-animated .cinema-arch { top: max(76px, 10svh); right: 50%; width: min(80vw, 46svh); transform: translateX(50%); }
+  #gatsby-invitation .is-animated .cinema-arch-outer { inset: -18px -18px 0; }
+  #gatsby-invitation .is-animated .cinema-arch-inner { inset: -8px -8px 0; }
+  #gatsby-invitation .is-animated .cinema-letterbox span { height: 7svh; }
+  #gatsby-invitation .is-animated .cinema-rule { margin: -8px auto 20px; }
+  #gatsby-invitation .is-animated .cinema-welcome { left: 16px; right: 16px; top: auto; bottom: max(5svh, 24px); text-align: center; transform: none; }
   #gatsby-invitation .cinema-welcome h2 { font-size: clamp(72px, 19vw, 100px); }
   #gatsby-invitation .cinema-welcome-note { font-size: 14px; max-width: 300px; margin-top: 11px; }
   #gatsby-invitation .cinema-continue { margin-top: 15px; font-size: 10px; letter-spacing: .13em; gap: 20px; }
@@ -90,6 +149,6 @@ body { padding: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   #gatsby-invitation .cinema-intro { height: auto !important; }
-  #gatsby-invitation .cinema-dust, #gatsby-invitation .cinema-scroll-cue, #gatsby-invitation .cinema-progress { display: none !important; }
+  #gatsby-invitation .cinema-sparks, #gatsby-invitation .cinema-bloom, #gatsby-invitation .cinema-letterbox, #gatsby-invitation .cinema-echo, #gatsby-invitation .cinema-scroll-cue, #gatsby-invitation .cinema-progress { display: none !important; }
   #gatsby-invitation .cinema-revealed { animation: none; }
 }

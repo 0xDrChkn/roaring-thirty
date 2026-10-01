@@ -9,7 +9,7 @@ import { createServer, passwordHash } from './server.mjs';
 const env = process.env;
 const fail = message => { console.error(message); process.exit(1); };
 for (const name of ['DATA_DIR','ADMIN_EMAIL','ADMIN_PASSWORD','SIGNING_SECRET']) if (!env[name]) fail(`Missing environment variable: ${name}`);
-if (env.ADMIN_PASSWORD.length < 12) fail('ADMIN_PASSWORD must be at least 12 characters.');
+if (env.ADMIN_PASSWORD.length < 8) fail('ADMIN_PASSWORD must be at least 8 characters.');
 if (!/^[a-f0-9]{64,}$/i.test(env.SIGNING_SECRET)) fail('SIGNING_SECRET must be at least 64 hex characters.');
 
 const origins = (env.ALLOWED_ORIGINS || '').split(',').map(value => value.trim()).filter(Boolean);
