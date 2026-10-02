@@ -75,8 +75,8 @@ window.BIRTHDAY_CONFIG = {
     {
       "src": "assets/memory-12-teammates.jpg",
       "caption": {
-        "en": "Teammates for life",
-        "nb": "Lagvenninner for livet"
+        "en": "Always in your corner",
+        "nb": "Alltid i ditt hjørne"
       },
       "alt": {
         "en": "{name} hugging a teammate on a bench in a table tennis hall",
