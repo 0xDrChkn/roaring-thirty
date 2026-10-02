@@ -1,3 +1,5 @@
+> Current update (2 October 2026): the bank has 22 categories. The recommended six are Sara celebrity face blends, countries, bad film plots, music, Science + Tech and Typically Norwegian. Before/After and True/False have become open knowledge rounds. New celebrity clues use tight neutral face blends, without costumes or scenery. The preparation gallery lets the host select five portraits from the growing pool. See [the current party plan](PARTY-GAME-PLAN.md); the September inventory below is retained for historical context.
+
 # The Sara Show — category bank
 
 Updated 22 September 2026. The running pack now contains **10 categories, 50 slots, 42 playable clues and 8 clearly marked drafts**, in English and Norwegian Bokmål. The host chooses six columns for a 30-question board. The default six are complete, so a rehearsal has no blocked tiles.

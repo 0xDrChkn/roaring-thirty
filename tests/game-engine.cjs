@@ -61,7 +61,7 @@ test('names are bounded data, preserve untrusted text, and cannot collide', () =
   assert.throws(() => game.create([{ toString: () => 'Injected' }, 'Two'], pack()), code('invalid_name'));
 });
 
-test('wrong answers deduct points; a different team can then win the clue', () => {
+test('low-level awards reject duplicate scoring and preserve host-selected teams', () => {
   let state = openForTeam(start(), 'film-500');
   state = game.award(state, -1);
   assert.equal(state.teams[0].score, -500);
@@ -78,7 +78,7 @@ test('wrong answers deduct points; a different team can then win the clue', () =
 
 test('score changes require a clue, selected team, and an explicit sign', () => {
   assert.throws(() => game.award(start(), 1), code('no_clue'));
-  assert.throws(() => game.award(game.openClue(start(), 'film-100'), 1), code('no_team'));
+  assert.equal(game.award(game.openClue(start(), 'film-100'), 1).teams[0].score, 100);
   assert.throws(() => game.award(openForTeam(start()), 100), code('invalid_award'));
   assert.throws(() => game.selectTeam(start(), '__proto__'), code('unknown_team'));
 });
@@ -139,9 +139,8 @@ test('closing a clue preserves existing points and duplicate-award protection', 
   assert.equal(state.currentClueId, null);
   assert.equal(state.completedClueIds.length, 0);
   state = game.openClue(state, 'film-100');
-  // A reopened clue starts with no team selected, so points cannot go to the previous team by accident.
-  assert.equal(state.selectedTeamId, null);
-  assert.throws(() => game.award(state, -1), code('no_team'));
+  // Reopening automatically offers the clue to the next team that has not tried.
+  assert.equal(state.selectedTeamId, 'team-2');
   state = game.selectTeam(state, state.teams[0].id);
   assert.throws(() => game.award(state, -1), code('duplicate_award'));
   assert.equal(state.teams[0].score, -100);
@@ -303,4 +302,107 @@ test('manual corrections reject missing team, invalid numbers and absent reasons
   ['',null,'a'.repeat(161),'line\nbreak'].forEach(reason => assert.throws(() => game.adjustScore(start(),'team-1',50,reason),code('invalid_reason')));
   const saved = JSON.parse(game.serialize(start()));
   assert.equal(game.restore({...saved,history:[{type:'adjust',teamId:'team-1',amount:1,reason:'Fine',injected:true}]},pack()),null);
+});
+
+
+test('automatic turns take correct clues, wrap, and survive undo/reload', () => {
+  let state = start();
+  assert.equal(state.turnTeamId,'team-1');
+  state = game.answerClue(game.openClue(state,'film-100'),1);
+  assert.equal(state.currentClueId,null);
+  assert.deepEqual(state.completedClueIds,['film-100']);
+  assert.equal(state.turnTeamId,'team-2');
+  state = game.restore(game.serialize(state),pack());
+  state = game.answerClue(game.openClue(state,'film-500'),1);
+  assert.deepEqual(state.teams.map(team=>team.score),[100,500]);
+  assert.equal(state.turnTeamId,'team-1');
+  state = game.undo(state);
+  assert.equal(state.currentClueId,'film-500');
+  assert.equal(state.turnTeamId,'team-2');
+  assert.equal(state.selectedTeamId,'team-2');
+  assert.deepEqual(state.teams.map(team=>team.score),[100,0]);
+});
+test('wrong answers immediately retire the tile, advance the turn, and restore with undo', () => {
+  const opened = game.openClue(start(),'film-100');
+  const state = game.answerClue(opened,-1);
+  assert.equal(state.currentClueId,null);
+  assert.deepEqual(state.completedClueIds,['film-100']);
+  assert.equal(state.turnTeamId,'team-2');
+  assert.equal(state.selectedTeamId,'team-2');
+  assert.deepEqual(state.teams.map(team=>team.score),[-100,0]);
+  assert.throws(()=>game.answerClue(state,-1),code('no_clue'));
+  assert.throws(()=>game.openClue(state,'film-100'),code('completed_clue'));
+  const restored=game.restore(game.serialize(state),pack());
+  assert.deepEqual(restored,state);
+  assert.deepEqual(game.undo(restored),opened);
+  const revealed=game.answerClue(game.reveal(opened),-1);
+  assert.equal(revealed.currentClueId,null);
+  assert.deepEqual(revealed.completedClueIds,['film-100']);
+  assert.deepEqual(revealed.teams.map(team=>team.score),[-100,0]);
+});
+test('a stolen clue retires after either judgement and advances the original primary turn', () => {
+  for (const sign of [-1,1]) {
+    const opened=game.openClue(game.create(['One','Two','Three'],pack()),'film-100');
+    const stolen=game.usePower(opened,'steal','team-3');
+    const state=game.answerClue(stolen,sign);
+    assert.equal(state.currentClueId,null);
+    assert.deepEqual(state.completedClueIds,['film-100']);
+    assert.deepEqual(state.teams.map(team=>team.score),[0,0,sign*100]);
+    assert.equal(state.turnTeamId,'team-2');
+    assert.equal(state.selectedTeamId,'team-2');
+    assert.equal(state.powerUps[2].steal,true);
+    assert.equal(state.powerUps[0].steal,false);
+    assert.throws(()=>game.usePower(state,'steal','team-2'),code('no_clue'));
+    const restored=game.restore(game.serialize(state),pack());
+    assert.deepEqual(restored,state);
+    assert.deepEqual(game.undo(restored),stolen);
+    assert.deepEqual(game.undo(game.undo(restored)),opened);
+  }
+});
+test('Double Up affects only its user, is once per round, and undo restores the stake', () => {
+  let state=game.usePower(game.openClue(start(),'film-100'),'double');
+  state=game.answerClue(state,-1);
+  assert.equal(state.teams[0].score,-200);
+  assert.equal(state.currentClueId,null);
+  assert.deepEqual(state.completedClueIds,['film-100']);
+  assert.equal(state.turnTeamId,'team-2');
+  assert.equal(state.teams[1].score,0);
+  state=game.undo(state);
+  assert.equal(state.doubleTeamId,'team-1');
+  assert.equal(state.powerUps[0].double,true);
+  state=game.answerClue(state,1);
+  assert.equal(state.teams[0].score,200);
+  state=game.selectTeam(game.openClue(state,'film-500'),'team-1');
+  assert.throws(()=>game.usePower(state,'double'),code('power_used'));
+});
+test('First Letter and Steal preserve turn order and reject used, late and invalid uses', () => {
+  let state=game.usePower(game.openClue(start(),'film-100'),'letter');
+  assert.equal(state.letterRevealed,true);
+  assert.throws(()=>game.usePower(state,'letter'),code('power_used'));
+  state=game.usePower(state,'steal','team-2');
+  assert.equal(state.selectedTeamId,'team-2');
+  assert.equal(state.turnTeamId,'team-1');
+  assert.equal(state.powerUps[1].steal,true);
+  assert.deepEqual(game.restore(game.serialize(state),pack()),state);
+  state=game.undo(state);
+  assert.equal(state.selectedTeamId,'team-1');
+  assert.equal(state.powerUps[1].steal,false);
+  state=game.reveal(state);
+  assert.throws(()=>game.usePower(state,'double'),code('power_unavailable'));
+  assert.throws(()=>game.usePower(start(),'letter'),code('no_clue'));
+});
+test('a full twenty-two-category testing board can restore', () => {
+  const bank={id:'wide',categories:Array.from({length:22},(_,n)=>({id:'c'+n,clues:[{id:'q'+n,value:100,question:'Q',answer:'A'}]}))};
+  const state=game.create(['One','Two'],bank);
+  assert.equal(state.categoryIds.length,22);
+  assert.deepEqual(game.restore(game.serialize(state),bank),state);
+});
+test('cancelling retains a doubled stake on reopening, never transferring it to another clue', () => {
+  let state=game.usePower(game.openClue(start(),'film-100'),'double');
+  state=game.openClue(game.cancelClue(state),'film-100');
+  assert.equal(state.doubleTeamId,'team-1');
+  assert.equal(game.answerClue(state,1).teams[0].score,200);
+  state=game.openClue(game.cancelClue(state),'film-500');
+  assert.equal(state.doubleTeamId,null);
+  assert.equal(game.answerClue(state,1).teams[0].score,500);
 });

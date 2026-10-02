@@ -56,7 +56,7 @@
     const availableIds = pack.categories.map(category => category?.id);
     if (availableIds.some(id => !validId(id)) || new Set(availableIds).size !== availableIds.length) fail('invalid_pack', 'Each category needs a unique ID.');
     const selectedIds = categoryIds === undefined ? availableIds : categoryIds;
-    if (!Array.isArray(selectedIds) || !selectedIds.length || selectedIds.length > 12 || new Set(selectedIds).size !== selectedIds.length || selectedIds.some(id => !availableIds.includes(id))) fail('invalid_categories', 'Choose distinct categories from this question bank.');
+    if (!Array.isArray(selectedIds) || !selectedIds.length || selectedIds.length > 40 || new Set(selectedIds).size !== selectedIds.length || selectedIds.some(id => !availableIds.includes(id))) fail('invalid_categories', 'Choose distinct categories from this question bank.');
     const selected = selectedIds.map(id => pack.categories.find(category => category.id === id));
     const clueIds = new Set();
     const clues = [];
@@ -91,7 +91,7 @@
   }
 
   function freeze(state) {
-    ['teams', 'clueCatalog', 'attempts', 'history'].forEach(key => {
+    ['teams', 'clueCatalog', 'attempts', 'history', 'powerUps'].forEach(key => {
       state[key].forEach(item => Object.freeze(item));
       Object.freeze(state[key]);
     });
@@ -111,7 +111,12 @@
       teams: names.map((name, index) => ({ id: 'team-' + (index + 1), name, score: 0 })),
       clueCatalog: pack.clues.map(clue => ({ ...clue })),
       currentClueId: null,
-      selectedTeamId: null,
+      turnTeamId: 'team-1',
+      selectedTeamId: 'team-1',
+      powerUps: names.map((_, index) => ({ teamId: 'team-' + (index + 1), double: false, letter: false, steal: false })),
+      doubleTeamId: null,
+      doubleClueId: null,
+      letterRevealed: false,
       revealed: false,
       resolved: false,
       completedClueIds: [],
@@ -134,6 +139,20 @@
     return getClue(state, state.currentClueId);
   }
 
+  function nextTeam(state, teamId) {
+    const index = state.teams.findIndex(team => team.id === teamId);
+    return state.teams[(index + 1) % state.teams.length].id;
+  }
+
+  function availableTeam(state, fromTeamId, clueId) {
+    let id = fromTeamId;
+    for (let index = 0; index < state.teams.length; index += 1) {
+      if (!state.attempts.some(attempt => attempt.clueId === clueId && attempt.teamId === id)) return id;
+      id = nextTeam(state, id);
+    }
+    return null;
+  }
+
   function eventShape(event, expectedKeys) {
     if (!isRecord(event) || Object.keys(event).sort().join(',') !== expectedKeys.slice().sort().join(',')) fail('invalid_history', 'The saved game contains an invalid action.');
   }
@@ -151,7 +170,9 @@
         if (state.completedClueIds.includes(clue.id)) fail('completed_clue', 'That clue has already been completed.');
         next.currentClueId = clue.id;
         next.revealed = false;
-        next.selectedTeamId = null;
+        next.selectedTeamId = availableTeam(state, state.doubleClueId === clue.id && state.doubleTeamId ? state.doubleTeamId : state.turnTeamId, clue.id);
+        if (state.doubleClueId !== clue.id) next.doubleTeamId = null;
+        next.letterRevealed = state.history.some(action => action.type === 'power' && action.kind === 'letter' && action.clueId === clue.id);
         next.resolved = state.attempts.some(attempt => attempt.clueId === clue.id && attempt.sign === 1);
         break;
       }
@@ -160,7 +181,34 @@
         if (!state.teams.some(team => team.id === event.teamId)) fail('unknown_team', 'Choose one of the teams in this game.');
         if (state.selectedTeamId === event.teamId) return state;
         next.selectedTeamId = event.teamId;
+        if (!state.currentClueId) next.turnTeamId = event.teamId;
         break;
+      case 'power': {
+        eventShape(event, ['type', 'kind', 'teamId', 'clueId']);
+        const clue = requireCurrent(state);
+        if (event.clueId !== clue.id || state.revealed || state.resolved) fail('power_unavailable', 'Use a power-up before revealing or resolving the clue.');
+        if (!['double', 'letter', 'steal'].includes(event.kind)) fail('invalid_power', 'Choose an available power-up.');
+        const tokens = state.powerUps.find(item => item.teamId === event.teamId);
+        if (!tokens) fail('unknown_team', 'Choose a team in this game.');
+        if (tokens[event.kind]) fail('power_used', 'This team has already used that power-up this round.');
+        if (state.attempts.some(attempt => attempt.clueId === clue.id && attempt.teamId === event.teamId)) fail('duplicate_award', 'This team has already attempted the clue.');
+        if (event.kind === 'steal') {
+          if (event.teamId === state.selectedTeamId) fail('power_unavailable', 'Another team must steal the clue.');
+          next.selectedTeamId = event.teamId;
+          next.doubleTeamId = null;
+          next.doubleClueId = null;
+        } else {
+          if (event.teamId !== state.selectedTeamId) fail('power_unavailable', 'Only the answering team can use this power-up.');
+          if (event.kind === 'double') { next.doubleTeamId = event.teamId; next.doubleClueId = clue.id; }
+          if (event.kind === 'letter') {
+            if (state.letterRevealed) fail('power_unavailable', 'The first letter is already visible.');
+            next.letterRevealed = true;
+          }
+        }
+        next.powerUps = state.powerUps.map(item => item.teamId === event.teamId ? { ...item, [event.kind]: true } : item);
+        next.undoIndex = state.history.length;
+        break;
+      }
       case 'reveal':
         eventShape(event, ['type']);
         requireCurrent(state);
@@ -174,8 +222,11 @@
         if (!state.selectedTeamId) fail('no_team', 'Choose the answering team first.');
         if (state.resolved) fail('resolved_clue', 'A correct answer has already resolved this clue.');
         if (state.attempts.some(attempt => attempt.clueId === clue.id && attempt.teamId === state.selectedTeamId)) fail('duplicate_award', 'This team has already attempted the clue. Undo to change the decision.');
-        next.teams = state.teams.map(team => team.id === state.selectedTeamId ? { ...team, score: team.score + event.sign * clue.value } : team);
-        next.attempts = state.attempts.concat({ clueId: clue.id, teamId: state.selectedTeamId, sign: event.sign, value: clue.value });
+        const value = clue.value * (state.doubleTeamId === state.selectedTeamId ? 2 : 1);
+        next.teams = state.teams.map(team => team.id === state.selectedTeamId ? { ...team, score: team.score + event.sign * value } : team);
+        next.attempts = state.attempts.concat({ clueId: clue.id, teamId: state.selectedTeamId, sign: event.sign, value });
+        next.doubleTeamId = null;
+        next.doubleClueId = null;
         next.resolved = event.sign === 1;
         next.undoIndex = state.history.length;
         break;
@@ -197,6 +248,11 @@
         next.currentClueId = null;
         next.revealed = false;
         next.resolved = false;
+        next.turnTeamId = nextTeam(state, state.turnTeamId);
+        next.selectedTeamId = next.turnTeamId;
+        next.doubleTeamId = null;
+        next.doubleClueId = null;
+        next.letterRevealed = false;
         break;
       }
       case 'cancel':
@@ -205,6 +261,7 @@
         next.currentClueId = null;
         next.revealed = false;
         next.resolved = false;
+        next.selectedTeamId = state.turnTeamId;
         break;
       default:
         fail('invalid_history', 'The saved game contains an unknown action.');
@@ -263,6 +320,11 @@
     return playable.length > 0 && playable.every(clue => state.completedClueIds.includes(clue.id));
   }
 
+  function answerClue(state, sign) {
+    const scored = transition(state, { type: 'award', sign });
+    return transition(scored, { type: 'finish' });
+  }
+
   return Object.freeze({
     VERSION,
     create,
@@ -270,6 +332,8 @@
     selectTeam: (state, teamId) => transition(state, { type: 'select', teamId }),
     reveal: state => transition(state, { type: 'reveal' }),
     award: (state, deltaSign) => transition(state, { type: 'award', sign: deltaSign }),
+    answerClue,
+    usePower: (state, kind, teamId = state.selectedTeamId) => transition(state, { type: 'power', kind, teamId, clueId: state.currentClueId }),
     adjustScore: (state, teamId, amount, reason) => transition(state, { type: 'adjust', teamId, amount, reason }),
     finishClue: state => transition(state, { type: 'finish' }),
     cancelClue: state => transition(state, { type: 'cancel' }),

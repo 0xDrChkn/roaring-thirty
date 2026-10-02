@@ -24,20 +24,31 @@ dialog{width:min(1200px,calc(100% - 48px));max-width:none;max-height:calc(100svh
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}@keyframes sticker-pop{0%{opacity:0;transform:scale(.55) rotate(-15deg)}60%{opacity:1;transform:scale(1.12) rotate(5deg)}100%{transform:scale(1) rotate(0)}}@keyframes sticker-shake{0%{opacity:0;transform:translateX(30px)}25%{opacity:1;transform:translateX(-16px) rotate(-8deg)}50%{transform:translateX(12px) rotate(6deg)}75%{transform:translateX(-6px) rotate(-3deg)}100%{transform:translateX(0)}}
 @media(max-width:1050px){.setup{gap:48px 5%;grid-template-columns:1fr 1fr}.utility{gap:12px}.adjudication{display:block}.award-buttons{justify-content:flex-end;margin-top:14px}.board-tools{gap:12px}.reaction-preview{grid-template-columns:1fr}.reaction-gallery{justify-content:flex-start}.sticker-button{width:65px}.team-score{padding:13px 14px;gap:10px}.team-score .team-name{font-size:11px}.team-score strong{font-size:30px}.clue-stage{min-height:180px}}
 @media(max-width:700px){.game-shell{padding:0 18px}.masthead{min-height:82px;gap:10px}.wordmark{font-size:9px;gap:10px;letter-spacing:.12em}.wordmark-sub{font-size:6px;letter-spacing:.12em}.deco-mark{width:26px;height:32px;font-size:25px}.utility{gap:10px;font-size:10px}.utility .icon-button{font-size:20px;min-width:28px}.setup{grid-template-columns:1fr;gap:32px;padding-top:40px}.setup-intro h1{font-size:65px}.rules-strip{margin-top:27px;gap:42px}.team-form{padding:28px}.reaction-preview{gap:20px}.reaction-preview h2{font-size:30px}.sticker-button{width:55px}.board-heading{align-items:flex-start;gap:10px;flex-direction:column;padding:26px 0 20px}.board-heading h1{font-size:54px}.board-tools{width:100%;justify-content:space-between}.scoreboard{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:20px}.team-score{padding:12px 15px;min-height:60px}.quiz-board{min-width:750px}.category-column{grid-template-rows:68px repeat(5,64px);gap:7px}.category-heading h2{font-size:12px}.clue-tile{font-size:32px}.board-footer{align-items:flex-start;flex-direction:column;gap:0}.site-footer{font-size:7px;align-items:center}.site-footer a{font-size:10px}dialog{width:calc(100% - 20px);max-height:calc(100svh - 20px);padding:16px}.clue-top{gap:6px}.clue-top .eyebrow{font-size:9px}.clue-meta{gap:7px}.clue-stage{flex-direction:column;gap:15px;padding:24px 0}.clue-stage h2,.clue-stage.has-image h2{font-size:32px;text-align:center}.clue-stage img{width:100%;height:200px}.clue-controls{gap:8px}.clue-controls .secondary{font-size:12px;padding:12px}.timer{gap:6px}.timer output{font-size:30px}.timer button{font-size:10px}.timer .icon-button{min-width:28px}.award-buttons{width:100%}.award-buttons button{flex:1;min-width:0;padding:12px;font-size:13px}.clue-team{font-size:11px;padding:8px 10px}.clue-bottom{flex-wrap:wrap;gap:2px 15px}.clue-bottom p{order:3;width:100%;padding-bottom:5px}.small-dialog{padding:25px}.dialog-actions{flex-direction:column}.reaction-dialog{padding:14px 12px}.standings h2{font-size:42px}}
-/* Keep the entire board in view on a television or laptop in landscape. */
+/* Share the available TV height across the board, including turns and tokens. */
 @media(min-width:701px){
-  .playing .masthead{min-height:70px}
-  .playing .board-heading{padding:20px 0 18px}
-  .playing .board-heading h1{font-size:54px;margin-top:8px}
-  .playing .scoreboard{margin-bottom:18px}
-  .playing .team-score{min-height:58px;padding-block:10px}
-  .playing .category-column{grid-template-rows:64px repeat(5,clamp(45px,calc((100svh - 415px)/5),112px));gap:8px}
+  .playing .game-shell{height:100svh;display:flex;flex-direction:column}
+  .playing .masthead{min-height:56px;flex-shrink:0}
+  .playing main{flex:1;min-height:0;display:flex;flex-direction:column}
+  .playing #play{flex:1;min-height:0;display:flex;flex-direction:column}
+  .playing .board-heading{padding:10px 0 12px;gap:20px;flex-shrink:0}
+  .playing .board-heading h1{font-size:44px;margin-top:4px}
+  .playing .board-tools{gap:18px}
+  .playing .turn-banner{padding:7px 0;margin-bottom:8px;flex-shrink:0}
+  .playing .turn-banner strong{font-size:26px}
+  .playing .scoreboard{margin-bottom:10px;flex-shrink:0}
+  .playing .team-score{min-height:66px;padding:8px 16px}
+  .playing .team-details{gap:3px}
+  .playing .team-powers span{padding:2px 5px}
+  .playing .board-scroll{flex:1;min-height:306px}
+  .playing .quiz-board{height:100%;gap:8px}
+  .playing .category-column{height:100%;grid-template-rows:54px repeat(5,minmax(44px,1fr));gap:6px}
   .playing .category-heading h2{font-size:clamp(13px,1.2vw,18px)}
-  .playing .clue-tile{font-size:clamp(32px,3.6vw,52px)}
+  .playing .clue-tile{font-size:clamp(32px,3.2vw,52px)}
   .playing .clue-tile.draft{font-size:26px}
   .playing .clue-tile.used{font-size:24px}
-  .playing .board-footer{margin:4px 0 8px}
-  .playing .site-footer{padding:12px 0}
+  .playing .last-answer{padding:6px 12px;margin-top:6px;flex-shrink:0}
+  .playing .board-footer{margin:0;gap:16px;flex-shrink:0}
+  .playing .site-footer{padding:6px 0;flex-shrink:0}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
@@ -82,3 +93,13 @@ select{font:inherit;color:var(--ivory);background:var(--black);border:1px solid 
 .round-dialog .dialog-actions{justify-content:center}
 @media(min-width:1400px){.clue-team{font-size:17px;padding:12px 18px;min-height:52px}.clue-bottom p{font-size:16px}.clue-bottom button{font-size:15px}.timer button{font-size:15px}}
 @media(max-width:700px){.mode-choice,.tournament-options{grid-template-columns:1fr}}
+
+/* The host follows the highlighted turn; completed tickets stay visibly taken. */
+.turn-banner{display:flex;justify-content:space-between;align-items:center;gap:24px;border-block:1px solid var(--line);padding:14px 0;margin-bottom:16px}.turn-banner strong{font:500 30px/1.2 'Cormorant Garamond',serif;color:var(--gold)}.turn-banner>div:last-child{text-align:right;max-width:60%}.turn-banner span{font-size:9px;letter-spacing:.15em;color:var(--gold)}.turn-banner p:last-child{font-size:11px;line-height:1.6;color:var(--muted)}.team-details{display:grid;gap:6px}.turn-label{font-size:8px;letter-spacing:.13em;color:var(--gold)}.team-powers{display:flex;gap:6px}.team-powers span{font-size:10px;border:1px solid var(--line);padding:3px 6px;color:var(--gold)}.team-powers .spent{color:#696969;border-color:#ffffff12;text-decoration:line-through}.clue-tile.used{background:#161616;border-color:#ffffff12;color:#686868}.clue-tile.used small{color:#777}.answering-team{font:500 29px/1.2 'Cormorant Garamond',serif;color:var(--gold)}.power-controls{padding:12px 0;border-top:1px solid var(--line)}.power-buttons{display:flex;flex-wrap:wrap;gap:8px}.power-buttons button{padding:10px 16px;font-size:12px}.power-controls .form-hint{margin-top:8px;font-size:10px}.letter-hint{margin-top:10px;color:var(--gold);font-size:20px}.adjudication{align-items:center}
+@media(max-width:700px){.turn-banner{align-items:flex-start}.turn-banner strong{font-size:25px}.turn-banner>div:last-child{max-width:48%}.team-score strong{font-size:30px}.adjudication{flex-wrap:wrap}.power-buttons button{flex:1;white-space:nowrap;padding:10px}.power-buttons button:last-child{flex-basis:100%}}
+
+.quiz-board{min-width:calc(var(--board-columns,6) * 140px)}.category-shortcuts{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}.category-shortcuts button{font-size:12px}.category-prep-heading{align-items:center}@media(max-width:700px){.category-shortcuts{justify-content:flex-start}.category-prep-heading{flex-direction:column;align-items:flex-start}}
+
+.last-answer{padding:12px 16px;background:#cfad7008;border:1px solid var(--line);font-size:13px;line-height:1.5;color:var(--gold);margin-top:12px}
+
+.celebrity-picker{border-block:1px solid var(--line);padding:22px 0;margin:22px 0}.celebrity-picker summary{font-size:14px;color:var(--gold);cursor:pointer}.portrait-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin:20px 0}.portrait-card{display:grid;position:relative;gap:6px;border:1px solid var(--line);padding:8px;cursor:pointer}.portrait-card:has(input:checked){border-color:var(--gold);background:#cfad700c}.portrait-card img{width:100%;aspect-ratio:1;object-fit:cover}.portrait-card input{position:absolute;top:15px;right:15px;accent-color:var(--gold);width:19px;height:19px}.portrait-card strong{font-size:12px;font-weight:400}.portrait-card span{font-size:11px;color:var(--gold)}#portrait-count{font-size:12px;color:var(--muted);margin-bottom:12px}

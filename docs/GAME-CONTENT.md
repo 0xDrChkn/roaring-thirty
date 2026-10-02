@@ -115,3 +115,18 @@ Every question specifies the event being compared. The country matters for relea
 ## Limits
 
 The public static pack exposes its answers in source code. It is rehearsal content, not a protected party vault. Real guest stories and unrevealed final assets belong in a private host pack. The two personal columns still need eight completed entries; this expansion does not claim to have generated their missing images or obtained personal answers. Difficulty and name recognition should be rehearsed with this particular guest group.
+
+
+## Open knowledge update — 2 October 2026
+
+True/False was replaced by Science + Tech, and Before/After by Time Machine (open year questions using the chronology sources above). Condensation and Magnus-effect clues now ask for the process/effect directly. The recommended board is Sara celebrity pictures, country pictures, bad film plots, music, Science + Tech and Typically Norwegian.
+
+Science + Tech sources, checked for the party plan:
+
+- st-100 Mars: [NASA](https://science.nasa.gov/mars/).
+- st-200 carbon dioxide/photosynthesis: [NASA carbon cycle](https://science.nasa.gov/earth/earth-observatory/the-carbon-cycle/).
+- st-300 Au/gold: [Royal Society of Chemistry](https://periodic-table.rsc.org/element/79/gold).
+- st-400 central processing unit: [IBM](https://www.ibm.com/think/topics/central-processing-unit).
+- st-500 light-year: [NASA](https://science.nasa.gov/exoplanets/what-is-a-light-year/).
+
+The [party plan](PARTY-GAME-PLAN.md) records bilingual clue drafts, answer variants, timing assumptions and research limits. Old category inventories earlier in this file describe the September pack.

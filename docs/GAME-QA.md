@@ -1,57 +1,68 @@
-# Game verification — 22 September 2026
+# Game verification — 2 October 2026
 
-Scope: `/game/`, the expanded bank, local preparation and host controls. Guest RSVP/storage is a separate feature.
+Scope: `/game/`, the 22-category public bank, local preparation, automatic turns and host controls. Guest RSVP/storage is separate. These checks describe local files; public deployment is verified separately by the release task.
 
 ## Automated checks
 
-`node --test tests/game-engine.cjs tests/session-store.cjs tests/game-pack.cjs` — **39 tests pass** (20 engine, 13 session-store, 6 pack tests).
+```sh
+node --test tests/game-engine.cjs tests/game-pack.cjs tests/session-store.cjs tests/celebrity-faces.cjs
+```
+
+**51 tests pass:** 27 engine, 7 pack, 13 session-store and 4 portrait-picker tests.
 
 The suite covers:
 
-- 2–6 teams, unique names, positive/negative scores, repeated-attempt protection, wrong→another team→correct, reveal, finish, cancel and undo after completion.
-- Exactly selected category catalogs, unknown/duplicate selection rejection, selection restoration and independence from changes to unselected categories.
-- Signed manual corrections, required reasons, replay, undo separately from clue awards and malformed-history rejection.
-- A complete recommended 30-clue game from the real ten-category bank, completion and restore.
-- JSON round-trip, private embedded media, bilingual fallback, rejected external/active image references, oversized/malformed data, duplicate IDs and invalid clue values.
-- Restore rejecting changed selected clues; saved totals cannot override replayed scores.
+- 2–6 teams, unique names, signed scoring, duplicate-award protection, reveal, skip, cancel and undo.
+- Correct and Wrong retiring the tile immediately, advancing the primary turn, surviving reload and restoring the score/tile/turn together with Undo.
+- Steal before judgement, original primary turn order, one Double Up/First Letter/Steal per team per round, late-token rejection, doubled gain/loss, and token undo/replay.
+- Selected category catalogs from one through the expanded bank, unknown/duplicate selection rejection and independence from changes to unselected categories.
+- A complete six-team, recommended 30-clue game, completion, restoration and final-result undo.
+- Signed manual corrections, required reasons and malformed-history rejection; saved totals cannot override replayed scoring.
+- JSON round-trip, private raster media, bilingual fallback, rejected external/active images, oversized/malformed data, duplicate IDs and invalid clue values.
+- Five portraits chosen from sixteen preserving selection order, scoring values and exported/restored content; invalid or duplicate choices rejected and bundled image paths present. The five latest portraits also produce a complete board with named answers.
 - Stale-tab writes, storage denial, transient failures and newer-save conflict detection.
 
-Syntax checks for changed game JavaScript and `git diff --check` also pass.
+`node --check` passes for `app.js`, `engine.js`, `pack.js`, `pack-tools.js`, `celebrity-faces.js` and `session-store.js`. `git diff --check` also passes.
 
 ## Browser checks
 
-Isolated local origins `http://127.0.0.1:49176/game/` and `http://127.0.0.1:49177/game/` were used so the user's earlier saved game at port 49174 was preserved. One agent checked import/export while a second independently checked scoring and setup. Viewport: 1280×720.
+CUA used a disposable game at **http://localhost:8766/game/**, separate from both the user's `127.0.0.1:8765` origin and an older `localhost:8765` save. Neither existing game was reset or overwritten. Viewport: 1280×720.
 
 | Check | Observed result |
 | --- | --- |
-| Full bank and selection | Ten categories shown; defaults select six with 30 ready clues. Five selected disables Start. |
-| Category swap | Replacing Before or After with The Impostor yields six board columns / 30 playable tiles. |
-| Team and timer setup | Custom team name retained; selecting 60 seconds gives a 60-second clue timer that starts and pauses. |
-| Score correction | −250 with a reason applied, survived reload and appeared in Recent corrections. Undo restored zero. |
-| Wrong then correct | First team −100, another team +100; repeated award disabled. |
-| Meme assignment | Wrong uses only `reaction-06.webp`; correct uses only `reaction-02.webp`. |
-| Finish/reload/undo | Played tile and −100/+100 scores survive reload. Undo after finishing reopens the clue and removes only the latest +100. |
-| Norwegian | Board and clue switch to Norwegian without losing the game. |
-| Private import | A synthetic private question bank loads; the imported question, accepted answer and context display. |
-| Bad import | Invalid JSON layout shows an error; the earlier private bank still starts successfully. |
-| Private reload | Open revealed private clue, answer and context restored after reload. |
-| Export | Downloaded `sara-rehearsal-v1.json` was read from Downloads: 28,632 bytes and contained the synthetic private question. The IAB download-event helper timed out, but the actual file was created correctly. |
-| TV layout | Full six-column board fits in 1280×720, no page-level horizontal overflow, neutral black/gold palette. |
-| Console | No browser errors/warnings in the private import/reload test tab. |
+| Setup | 22 categories visible; recommended six select 30 ready clues. |
+| Automatic timer | Opening Science + Tech · 100 selected The Bootleggers and started the 45-second timer. |
+| Wrong retires tile | One Wrong click deducted exactly 100, closed the clue, showed Mars as the last answer and made the tile grey, checked and disabled. Progress became 1/30. |
+| Turn advance | Champagne Problems became the next primary team immediately; the wrong clue offered no second attempt or post-judgement Steal. |
+| Reload | The −100 score, disabled tile and next team survived reload without another deduction. |
+| Undo | One Undo reopened the original clue with The Bootleggers selected. Closing it showed all scores at zero, progress 0/30 and the tile playable again. |
+| Double Up / First Letter | Declaring both before judging changed the stakes to ±200, revealed `M`, and disabled those used controls. |
+| Steal | Steal selected Champagne Problems before judgement, reset the timer and cleared the previous team's doubled stake to ±100. |
+| Correct after Steal | Correct gave Champagne Problems +100 and retired the tile. The next primary turn remained Champagne Problems, following the original choosing-team order. |
+| English / Norwegian help | Both languages say Correct and Wrong take the tile immediately and move the turn to the next team. Tokens must be used before judging or revealing the answer. |
+| Browser console | No captured errors or warnings. |
+| TV layout | The original added turn/token rows made the page 897px tall. After compact flex sizing and a refreshed stylesheet URL, the parent QA tab verified a 720px page height at 1280×720: 44px title, 54px category header, approximately 45px tiles, all tiles and footer visible, and no page-level horizontal overflow. Wider banks retain horizontal scrolling. |
 
-The synthetic private QA pack/files remain outside Git under ignored `tmp/game-qa/`. No real guest story or attachment was uploaded to the public game.
+Evidence:
 
-## Existing safeguards retained
+- [`wrong-retires-tile.jpg`](../artifacts/game-flow/wrong-retires-tile.jpg): −100, next team and disabled tile.
+- [`undo-restores-tile.jpg`](../artifacts/game-flow/undo-restores-tile.jpg): zero scores, original turn and restored tile.
+- [`steal-correct-turn-order.jpg`](../artifacts/game-flow/steal-correct-turn-order.jpg): +100 to the stealing team and original primary order.
+- [`compact-board-1280x720.jpg`](../artifacts/game-flow/compact-board-1280x720.jpg): final compact layout with all 30 tiles, turn banner, scores, last answer and footer visible at 1280×720.
 
-A browser save is compared with the raw snapshot the tab last read/wrote. A newer save locks the older tab and offers reload instead of overwriting scores. The existing 13 session-store tests remain passing. A previous browser pass exercised actual stale-tab closing/reload; the new pass retained the same helper and exercised ordinary score reloads.
+The earlier [`taken-ticket.jpg`](../artifacts/game-flow/taken-ticket.jpg) records an earlier 2 October build. Its automatic pass after Wrong has been superseded by immediate retirement; it is not evidence for the current Wrong rule.
 
-The timer remains manually started and pauses when the page hides. Timeout does not score. The existing timeout/reset behavior was browser-verified in the prior pass; new duration selection/start/pause was checked this pass. Reduced-motion styling and default-off reactions remain; no new system-level reduced-motion test was run.
+## Existing safeguards and prior checks
+
+The September browser pass exercised private JSON import/export, invalid import leaving the prior bank intact, revealed private-clue restoration, signed corrections and actual stale-tab conflict/reload. The helpers retain their automated coverage in this pass; those longer flows were not all repeated on 2 October.
+
+A browser save is compared with the raw snapshot the tab last read/wrote. A newer save locks the older tab instead of overwriting scores. The timer pauses when the page hides; timeout does not score. Reduced-motion styling and default-off reactions remain; no new system-level reduced-motion test was run.
 
 ## Remaining work and limits
 
-- Eight personal/mashup slots still require host-confirmed content. The default selection avoids them and is fully playable.
-- Private preparation uses JSON. There is no visual clue editor, image-file packaging UI, named preset list or in-progress game export.
-- Imported banks and scores live in browser storage; there is no remote backup, multi-host synchronization or guest phone joining. A large import may exceed browser storage quota, which is reported visibly.
-- Team renaming during play, separate choosing-team control, Double Up/other tokens, sounds, wildcards and finale video remain unimplemented.
-- The actual TV and narrow mobile display still need a rehearsal. Mobile intentionally uses a horizontally scrollable board.
-- Public deployment is verified separately by the root task; these results describe the exact local files, not proof of a Pages deployment.
+- Four Sara Archives slots require host-confirmed content. The recommended board is fully playable.
+- Private preparation uses JSON; there is no visual clue editor, image packaging UI, named preset list or in-progress game export.
+- Banks and scores live in one browser/device; there is no remote backup, multi-host synchronization or guest phone joining. Storage quota failures are reported visibly.
+- Team renaming during play, curated timed heats, explicit tournament tiebreaks, sounds, wildcards, intermissions and finale video remain unimplemented. Tournament heat/final transitions reset scores and tokens; existing advancement includes ties.
+- Physical TV, narrow mobile and final portrait-recognition rehearsals remain necessary. Wide category selections scroll horizontally.
+- The sixteen-portrait catalogue has passed the bundled-image and selection tests. Final portrait recognition still needs rehearsal with the host.

@@ -1,36 +1,18 @@
 # Sara's birthday game — specification and reference comparison
 
-Updated 22 September 2026. The host plays from one laptop connected to a TV. Teams answer aloud; the host operates the mouse, timer and scores. No phone joining or game backend is needed.
+Updated 2 October 2026. The host plays from one laptop connected to a TV. Teams answer aloud; the host operates the mouse, timer and scores. No phone joining or game backend is needed.
 
-## Current game
+## Current game — 2 October 2026
 
-Keep the neutral black, warm gold and ivory Art Deco presentation. The public bank now has **10 categories / 50 slots / 42 playable clues**. Setup selects **six categories** so the TV board remains six columns wide. The recommended selection has **30 fully playable clues**:
+The public bank has 22 categories and 110 slots. Recommended categories: The Birthday Girl, What's That Country?, Bad Movie Plots, Name That Tune, Science + Tech and Typically Norwegian. True/False has been replaced by Science + Tech; Before/After is now Time Machine with open year questions. Select any 1–40 categories for testing; wide boards scroll horizontally. Draft image/personal clues stay locked.
 
-| Default category | Format |
-| --- | --- |
-| Famous Saras | Celebrity and fictional Sara/Sarah clues. |
-| What's That Country? | Five country silhouettes; the hardest also asks for its capital. |
-| The Roaring Twenties | Gatsby, dance, Prohibition vocabulary and historical chronology. |
-| Bad Movie Plots | Identify a film from an unhelpful description. |
-| Name That Tune | Identify a song from text clues; no audio playback required. |
-| Before or After? | Compare two cultural or historical events. |
+Teams play in entry order. Opening a clue selects the active team and starts its timer. Correct awards points; Wrong deducts points. Either judgement immediately takes the tile and advances the primary turn. A wrong answer does not leave the clue available for another attempt. A steal never changes the primary turn sequence. A completed tile is grey, checked and disabled; the last answer remains visible on the board.
 
-Alternatives: **Hold My Drink** (party science), **The Impostor** (odd one out), **The Birthday Girl** (celebrity mashups) and **The Sara Archives** (personal clues). The two personal columns each have one ready clue and four disabled drafts. The host must supply four verified mashups and four personal questions. See [GAME-CATEGORIES.md](GAME-CATEGORIES.md) for formats and [GAME-CONTENT.md](GAME-CONTENT.md) for sources.
+Each team has one Double Up, First Letter and Steal per round. Double Up doubles that team's gain or loss, First Letter reveals the meaningful initial, and Steal passes to the next eligible team with its own unused Steal token. Tokens are declared before judging or revealing the answer. Steal is available only while the clue is still open; a judged clue has already been retired. Undo reverses score/token decisions, including completion and turn navigation. Reload replays scores, turn order and tokens, restoring the timer paused. Existing score correction, private JSON and stale-tab protection remain available.
 
-Implemented host controls:
+Tournament heats/final each start fresh scores and tokens. See [PARTY-GAME-PLAN.md](PARTY-GAME-PLAN.md) for the proposed two-heat format, small teams, equal-turn budgets and explicit tiebreaks. The existing tournament still shuffles category banks and advances ties; the report labels the improvements that remain to implement.
 
-- 2–6 unique team names; stable team IDs; answering-team selection.
-- Exactly six categories selected before starting, with ready/draft counts and a recommended preset.
-- 100–500 clues; text or picture; correct/incorrect decisions; negative scores; one attempt per team per clue; another team after a miss.
-- Manual answer reveal, automatic reveal after a correct decision, reveal-only answer image/accepted variants/context when provided.
-- Finish a clue or return without finishing; repeatable undo after scoring or completion.
-- **Adjust scores**: signed integer correction, required reason, recent correction log and the same undo history. This does not create a clue attempt.
-- Timer duration of 15, 30, 45, 60, 90 or 120 seconds. Manual start, pause/resume and reset. Timeout never deducts points.
-- EN/NB, fullscreen with fallback, final winning team(s), local restoration of the selected board, imported bank, scores, current clue and paused timer.
-- Private JSON bank import/export at setup. Invalid imports leave the previous bank intact.
-- Stale-tab protection: another tab's newer save pauses the older tab and requires reload.
-
-The host still manages choosing order and steals. Revealing an answer does not lock adjudication, so the host can judge an answer already spoken. There is no automatic shouting-speed detector, phone buzzer or token system.
+The host can select five of sixteen celebrity blends, with selection order setting 100–500 points. Face clues follow the host's latest reference: blend Sara's central facial features into the celebrity's facial structure in a neutral portrait, without recognizable outfits, props or scenery. The earlier Gatsby scene remains a separate warm-up; new face clues must not disclose the name in their image alt text.
 
 ## Sara reactions
 
@@ -49,7 +31,7 @@ The public pack is a rehearsal bank: its answers are visible in public source co
 
 Setup's **Prepare a private question pack** lets the host download JSON, edit it locally and import it again. The imported bank stays in browser storage and exported local files; nothing is sent to a server. A game must be reset before replacing its bank. The two fixed Sara reactions remain regardless of import contents.
 
-Import constraints: 6–12 categories with unique IDs; five uniquely identified clues per category with values 100–500 in order; six valid default category IDs; up to 2 MB total. Text may be a string or `{en, nb}`; either supplied language fills an absent translation. Required question/answer fields must be present unless an answer is explicitly a draft. Supported optional fields are `image`, `imageAlt`, `answerImage`, `acceptedAnswers`, `explanation`, `hostNote` and reserved `hint`.
+Import constraints: 6–40 categories with unique IDs; five uniquely identified clues per category with values 100–500 in order; six valid default category IDs; up to 2 MB total. Text may be a string or `{en, nb}`; either supplied language fills an absent translation. Required question/answer fields must be present unless an answer is explicitly a draft. Supported optional fields are `image`, `imageAlt`, `answerImage`, `acceptedAnswers`, `explanation`, `hostNote` and reserved `hint`.
 
 Private media is embedded PNG/JPEG/WebP data URLs. Already bundled picture paths are allowed, including trusted country SVGs. Arbitrary external URLs, local filesystem paths and uploaded SVGs are rejected. Imported strings render as text. The file is validated before it replaces the previous bank; malformed data cannot silently replace a working selection.
 
@@ -61,29 +43,27 @@ The [Bright Play Show reference](https://bright-play-show.lovable.app/) and its 
 
 | Observed reference feature | Sara game now | Next decision |
 | --- | --- | --- |
-| Category editor: text, picture, answers, upload/URL, add/reorder | Ten-category bank; choose six; private JSON import/export | Add a visual preparation editor with local media packaging. |
+| Category editor: text, picture, answers, upload/URL, add/reorder | 22-category bank; choose any available categories; private JSON import/export | Add a visual preparation editor with local media packaging. |
 | Named presets with teams/settings/content | Recommended six and replaceable private JSON bank | Save named local presets; add whole-game backup if useful. |
 | Editable teams, host turn selector, standalone ±100 | Setup names, answering team, arbitrary signed score correction with reason/undo | Team rename and separate choosing-team state remain missing. |
-| Configurable timer; auto-start; multiple timer styles | 15–120 seconds; manual start/pause/reset | Keep manual start by default; extra styles are unnecessary. |
+| Configurable timer; auto-start; multiple timer styles | 15–120 seconds; starts when a clue opens; host pause/reset | Extra timer styles are optional. |
 | Correct/wrong image and rotating entrance effects | Requested two fixed memes, frameless, six entrance effects total | Optional effect size preference later. |
 | Correct/wrong sound pools and time-up clips | Silent | Optional local permitted clips, mute/volume and media-failure fallback. |
-| DOUBLE UP, FIRST LETTER and STEAL tokens | None | Define exact scoring/undo rules before implementation. |
+| DOUBLE UP, FIRST LETTER and STEAL tokens | One of each per team per round, with undo/reload | Judge either correct or wrong to retire the clue. |
 | Joker pool with speed/reverse/shuffle pranks | None | Optional later; avoid disrupting the first rehearsal. |
 | Scheduled wildcards/intermissions | None | Host-written surprises after completed clue counts, if wanted. |
 | Finale video and winner/fireworks controls | Winner/tie panel | A skippable finale can follow reliable base gameplay. |
 | Themes, text sizes, ambient settings | Black/gold TV layout, reduced-motion handling | Keep Gatsby style; test readability on the real TV. |
 
-The reference's editor exposes more categories than its initial board. Our game deliberately shows only the six selected columns, with the full bank visible during preparation. The reference is an interaction reference; it is not embedded or copied into the invitation.
+The reference's editor exposes more categories than its initial board. Our game shows the selected categories, with the full bank visible during preparation. The recommended six fit the TV; larger selections scroll horizontally. The reference is an interaction reference; it is not embedded or copied into the invitation.
 
-## Rules for future tokens and choosing order
+## Scoring, tokens and choosing order
 
-These are proposals, **not current controls**:
-
-1. Separate the team choosing the next tile from the team answering a steal. A correct team chooses next; an unanswered clue preserves the previous choosing team.
-2. Allow a host-offered steal after a miss, before exposing the answer. A team gets at most one attempt per clue.
-3. Optional Double Up is declared before answering, once per team: ±2× the clue value. A later steal remains the ordinary value.
-4. If a first-letter token is added, define its positive/negative scoring before building it. Avoid combining a paid steal token with free ordinary steals.
-5. Score, token and turn changes must share one undo boundary and survive validated reload.
+1. The primary turn follows team entry order. A Steal changes the answering team without changing the primary team whose turn advances after completion.
+2. Both Correct and Wrong immediately retire the tile. Correct awards the value; Wrong deducts the value. A completed clue cannot be reopened or scored again unless the host undoes the judgement.
+3. Double Up is declared before judging or revealing the answer, once per team per round: ±2× the clue value. A Steal clears the previous team's doubled stake; the stealing team's own token must be declared to double its attempt.
+4. First Letter and Steal are also once per team per round and must be used before judging or revealing the answer.
+5. Undo removes the score decision, clue completion and turn advance together. Earlier token declarations remain until separately undone. Scores, tokens and turns survive validated reload.
 
 ## Implementation boundaries
 

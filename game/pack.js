@@ -1,6 +1,6 @@
 /* Public rehearsal pack. Keep private guest stories out of this file.
  * All text fields accept { en, nb }; image paths are relative to /game/.
- * Choose six categories from the bank. The default board is complete.
+ * Choose any categories for testing; six are recommended for the party.
  * A draft clue is intentionally unavailable until its answer is verified.
  */
 (() => {
@@ -16,7 +16,7 @@
     id: 'sara-rehearsal-v1',
     title: text('The Sara Show', 'Sara-showet'),
     subtitle: text('A roaring birthday quiz', 'En bursdagsquiz med stil'),
-    defaultCategoryIds: ['cocktail-hour', 'emoji-cinema', 'finish-the-lyric', 'true-or-false', 'norway-knows', 'movie-plots'],
+    defaultCategoryIds: ['birthday-girl', 'countries', 'movie-plots', 'name-that-tune', 'science-tech', 'norway-knows'],
     categories: [
       {
         id: 'cocktail-hour',
@@ -151,15 +151,15 @@
         ]
       },
       {
-        id: 'true-or-false',
-        title: text('True or False?', 'Sant eller usant?'),
-        description: text('Things everyone “knows”. Some of them are even true.', 'Ting «alle vet». Noen av dem er til og med sanne.'),
+        id: 'science-tech',
+        title: text('Science + Tech', 'Vitenskap + teknologi'),
+        description: text('Space, nature and the technology around us. Name the answer.', 'Verdensrommet, naturen og teknologien rundt oss. Gi svaret.'),
         clues: [
-          { id: 'tf-100', value: 100, question: text('True or false: you can see the Great Wall of China from the Moon with the naked eye.', 'Sant eller usant: Den kinesiske mur kan ses fra månen med det blotte øye.'), answer: text('False', 'Usant') },
-          { id: 'tf-200', value: 200, question: text('True or false: goldfish only have a three-second memory.', 'Sant eller usant: Gullfisker husker bare i tre sekunder.'), answer: text('False. They can remember for months.', 'Usant. De kan huske i flere måneder.') },
-          { id: 'tf-300', value: 300, question: text('True or false: botanically, bananas are berries.', 'Sant eller usant: Botanisk sett er bananer bær.'), answer: text('True', 'Sant') },
-          { id: 'tf-400', value: 400, question: text('True or false: Napoleon was unusually short for a Frenchman of his time.', 'Sant eller usant: Napoleon var uvanlig lav for en franskmann på sin tid.'), answer: text('False. He was about average height.', 'Usant. Han var omtrent gjennomsnittlig høy.') },
-          { id: 'tf-500', value: 500, question: text('True or false: Oxford University is older than the Aztec capital Tenochtitlan.', 'Sant eller usant: Oxford-universitetet er eldre enn aztekernes hovedstad Tenochtitlan.'), answer: text('True. Teaching at Oxford began by 1096; Tenochtitlan was founded around 1325.', 'Sant. Undervisning i Oxford fantes allerede i 1096; Tenochtitlan ble grunnlagt rundt 1325.') }
+          { id: 'st-100', value: 100, question: text('Which planet is nicknamed the Red Planet?', 'Hvilken planet kalles den røde planeten?'), answer: text('Mars') },
+          { id: 'st-200', value: 200, question: text('Which gas do green plants take in from the air during photosynthesis?', 'Hvilken gass tar grønne planter opp fra luften under fotosyntesen?'), answer: text('Carbon dioxide', 'Karbondioksid'), acceptedAnswers: ['CO2', 'CO₂'] },
+          { id: 'st-300', value: 300, question: text('What is the chemical symbol for gold?', 'Hva er det kjemiske symbolet for gull?'), answer: text('Au') },
+          { id: 'st-400', value: 400, question: text('In a computer, what does CPU stand for?', 'Hva står den engelske forkortelsen CPU for i en datamaskin?'), answer: text('Central processing unit'), acceptedAnswers: [text('Central processor', 'Sentralprosessor')] },
+          { id: 'st-500', value: 500, question: text('Define one light-year.', 'Hva er ett lysår?'), answer: text('The distance light travels through a vacuum in one year.', 'Avstanden lyset tilbakelegger i vakuum på ett år.') }
         ]
       },
       {
@@ -177,13 +177,13 @@
       {
         id: 'birthday-girl',
         title: text('The Birthday Girl', 'Bursdagsbarnet'),
-        description: text('Sara takes over the big screen. Name the original star.', 'Sara tar over lerretet. Hvem var den opprinnelige stjernen?'),
+        description: text('Two faces, one portrait. Who is mixed with Sara?', 'To ansikter, ett portrett. Hvem er blandet med Sara?'),
         clues: [
-          { id: 'bg-100', value: 100, question: text('Sara has borrowed an iconic Gatsby toast. Which actor raised the glass in the 2013 film?', 'Sara har lånt en ikonisk Gatsby-skål. Hvilken skuespiller løftet glasset i filmen fra 2013?'), answer: text('Leonardo DiCaprio'), image: 'assets/clue-bg-100.jpg', imageAlt: text('Sara raising a glass in a recreated film scene.', 'Sara løfter et glass i en gjenskapt filmscene.') },
-          draft('bg-200', 200, 'Celebrity mashup — image and accepted answer needed.', 'Kjendismiks — bilde og godkjent svar mangler.'),
-          draft('bg-300', 300, 'Celebrity mashup — image and accepted answer needed.', 'Kjendismiks — bilde og godkjent svar mangler.'),
-          draft('bg-400', 400, 'Celebrity mashup — image and accepted answer needed.', 'Kjendismiks — bilde og godkjent svar mangler.'),
-          draft('bg-500', 500, 'Celebrity mashup — image and accepted answer needed.', 'Kjendismiks — bilde og godkjent svar mangler.')
+          { id: 'bg-100', value: 100, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Leonardo DiCaprio'), image: 'assets/clue-bg-100.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
+          { id: 'bg-200', value: 200, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Gordon Ramsay'), image: 'assets/clue-bg-200.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
+          { id: 'bg-300', value: 300, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Marilyn Monroe'), image: 'assets/face-marilyn-monroe.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
+          { id: 'bg-400', value: 400, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Rihanna'), image: 'assets/clue-bg-400.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
+          { id: 'bg-500', value: 500, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Ryan Gosling'), image: 'assets/clue-bg-500.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') }
         ]
       },
       {
@@ -247,15 +247,15 @@
         ]
       },
       {
-        id: 'before-or-after',
-        title: text('Before or After?', 'Før eller etter?'),
-        description: text('Two things you remember. One timeline you probably don’t.', 'To ting du husker. En tidslinje du kanskje har glemt.'),
+        id: 'timeline',
+        title: text('Time Machine', 'Tidsmaskinen'),
+        description: text('Films and technology: name the year, without either-or guesses.', 'Film og teknologi: finn årstallet.'),
         clues: [
-          { id: 'ba-100', value: 100, question: text('Did the first Shrek film arrive BEFORE or AFTER Apple unveiled the first iPhone?', 'Kom den første Shrek-filmen FØR eller ETTER at Apple presenterte den første iPhonen?'), answer: text('Before. Shrek: 2001. First iPhone unveiled: 2007.', 'Før. Shrek: 2001. Første iPhone presentert: 2007.') },
-          { id: 'ba-200', value: 200, question: text('Was Google incorporated as a company BEFORE or AFTER the original release of Titanic with Leonardo DiCaprio?', 'Ble Google stiftet som selskap FØR eller ETTER at Titanic med Leonardo DiCaprio først kom på kino?'), answer: text('After. Titanic: 1997. Google incorporated: 1998.', 'Etter. Titanic: 1997. Google stiftet: 1998.') },
-          { id: 'ba-300', value: 300, question: text('Did the first Toy Story reach US cinemas BEFORE or AFTER the original PlayStation launched in Japan?', 'Kom den første Toy Story på kino i USA FØR eller ETTER at den første PlayStation ble lansert i Japan?'), answer: text('After. PlayStation in Japan: December 1994. Toy Story: November 1995.', 'Etter. PlayStation i Japan: desember 1994. Toy Story: november 1995.') },
-          { id: 'ba-400', value: 400, question: text('Was the first SMS text message sent BEFORE or AFTER Jurassic Park was first released?', 'Ble den første SMS-en sendt FØR eller ETTER at Jurassic Park først kom på kino?'), answer: text('Before. First SMS: December 1992. Jurassic Park: 1993.', 'Før. Første SMS: desember 1992. Jurassic Park: 1993.') },
-          { id: 'ba-500', value: 500, question: text('Both happened in 1995. Did Windows 95 go on sale BEFORE or AFTER Toy Story first reached US cinemas?', 'Begge deler skjedde i 1995. Kom Windows 95 i salg FØR eller ETTER at Toy Story først kom på kino i USA?'), answer: text('Before. Windows 95: 24 August. Toy Story: 22 November.', 'Før. Windows 95: 24. august. Toy Story: 22. november.') }
+          { id: 'ba-100', value: 100, question: text('Apple unveiled the first iPhone in which year?', 'I hvilket år presenterte Apple den første iPhonen?'), answer: text('2007') },
+          { id: 'ba-200', value: 200, question: text('Titanic with Leonardo DiCaprio was first released in which year?', 'I hvilket år ble Titanic med Leonardo DiCaprio først lansert?'), answer: text('1997') },
+          { id: 'ba-300', value: 300, question: text('The original PlayStation launched in Japan in which year?', 'I hvilket år ble den første PlayStation lansert i Japan?'), answer: text('1994') },
+          { id: 'ba-400', value: 400, question: text('In which year was the first SMS text message sent?', 'I hvilket år ble den første SMS-en sendt?'), answer: text('1992') },
+          { id: 'ba-500', value: 500, question: text('Google was incorporated as a company in which year?', 'I hvilket år ble Google stiftet som selskap?'), answer: text('1998') }
         ]
       },
       {
@@ -264,10 +264,10 @@
         description: text('Fizz, melting ice and a ball with a mind of its own.', 'Bobler, smeltende is og en ball som nekter å gå rett frem.'),
         clues: [
           { id: 'ps-100', value: 100, question: text('The fizz in your Champagne is mostly bubbles of which gas?', 'Boblene i champagnen består hovedsakelig av hvilken gass?'), answer: text('Carbon dioxide / CO₂.', 'Karbondioksid / CO₂.') },
-          { id: 'ps-200', value: 200, question: text('The outside of a cold glass gets wet. Is the water coming through the glass, or out of the surrounding air?', 'Utsiden av et kaldt glass blir våt. Kommer vannet gjennom glasset eller fra luften rundt?'), answer: text('From the air. Water vapour condenses on the cold surface.', 'Fra luften. Vanndamp kondenserer på den kalde overflaten.') },
+          { id: 'ps-200', value: 200, question: text('Which process makes water droplets form on the outside of a cold glass?', 'Hvilken prosess får vanndråper til å dannes på utsiden av et kaldt glass?'), answer: text('Condensation. Water vapour from the air condenses on the cold surface.', 'Kondensasjon. Vanndamp fra luften kondenserer på den kalde overflaten.') },
           { id: 'ps-300', value: 300, question: text('Ice cubes are floating in plain water. Ignoring evaporation and temperature expansion, does the water level rise, fall or stay the same when they melt?', 'Isbiter flyter i rent vann. Se bort fra fordamping og varmeutvidelse: Stiger nivået, synker det, eller er det uendret når isen smelter?'), answer: text('It stays the same. The floating ice already displaces its own weight in water.', 'Det er uendret. Isen fortrenger allerede sin egen vekt i vann.') },
           { id: 'ps-400', value: 400, question: text('Two identical sparkling wines: one warm, one chilled. Which generally loses more dissolved gas when poured?', 'To like musserende viner: én varm og én avkjølt. Hvilken mister vanligvis mest oppløst gass når du skjenker?'), answer: text('The warm one. Chilling helps retain the dissolved carbon dioxide.', 'Den varme. Avkjøling hjelper vinen med å beholde oppløst karbondioksid.') },
-          { id: 'ps-500', value: 500, question: text('Sara puts topspin on a table-tennis ball. Does the spin’s extra aerodynamic force bend its flight upward or downward?', 'Sara slår en bordtennisball med overskru. Bøyer den ekstra aerodynamiske kraften ballbanen oppover eller nedover?'), answer: text('Downward. This is the Magnus effect; naming the effect is not required.', 'Nedover. Dette er Magnus-effekten; navnet på effekten er ikke nødvendig.') }
+          { id: 'ps-500', value: 500, question: text('Which aerodynamic effect curves the flight of a spinning table-tennis ball?', 'Hvilken aerodynamisk effekt bøyer ballbanen til en roterende bordtennisball?'), answer: text('The Magnus effect', 'Magnus-effekten') }
         ]
       },
       {
