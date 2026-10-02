@@ -19,7 +19,7 @@
     timerSetting:'Sekunder per spørsmål', timerHint:'Start klokken når dere er klare. Tiden endrer aldri poengsummen.', chooseBoard:'Velg brettet ↓',
     categoryEyebrow:'SPØRSMÅLSBANKEN', chooseSix:'Velg seks kategorier.', categoryHint:'Et fullt brett har 30 spørsmål. Uferdige personlige spørsmål er låst til de er klargjort.', recommended:'Bruk de seks anbefalte',
     adjustScores:'Juster poeng', adjustHint:'Rett en poengsum eller gi en bonus etter husreglene. Hver endring har en begrunnelse og kan angres.', adjustTeam:'Lag', adjustAmount:'Poeng som legges til eller trekkes fra', adjustReason:'Begrunnelse', applyCorrection:'Bruk endringen',
-    how:'Slik spiller dere', edition:'SPILLKVELD I GATSBYS ÅND', setupTitle:'Litt vennskapelig<br><em>konkurranse.</em>',
+    how:'Slik spiller dere', edition:'THE GREAT MATILDA SPILLKVELD', setupTitle:'Litt vennskapelig<br><em>konkurranse.</em>',
     setupIntro:'Seks kategorier. Favorittmenneskene dine. Og Sara, som følger med på poengene.',
     points:'POENG PER SPØRSMÅL', teams:'LAG RUNDT BORDET', host:'VERT MED KONTROLL',
     starter:'Bygg brettet fra kategoribanken. Velg seks ferdige kategorier, eller ta med Saras personlige runder når de er klare.',

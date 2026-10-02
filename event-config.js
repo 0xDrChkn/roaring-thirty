@@ -185,7 +185,7 @@ window.BIRTHDAY_CONFIG = {
   ],
   "hero": {
     "en": {
-      "masthead": "The Great Gatsby · {name} turns {age}",
+      "masthead": "The Great Matilda · {name} turns {age}",
       "headline": [
         {
           "text": "Reliving"
@@ -205,7 +205,7 @@ window.BIRTHDAY_CONFIG = {
       "signoff": "Good company. A little glamour. A night for {name}."
     },
     "nb": {
-      "masthead": "The Great Gatsby · {name} fyller {age}",
+      "masthead": "The Great Matilda · {name} fyller {age}",
       "headline": [
         {
           "text": "Tjueårene"
@@ -311,7 +311,7 @@ window.BIRTHDAY_CONFIG = {
       "edition": "Reliving your twenties · {name} turns {age}",
       "whenKicker": "The invitation",
       "whenTitle": "A night to remember.",
-      "whenIntro": "The Great Gatsby is calling. A little glamour, a little mischief, and our favourite people.",
+      "whenIntro": "The Great Matilda is calling. A little glamour, a little mischief, and our favourite people.",
       "dressAction": "What to wear",
       "foodAction": "Drinks",
       "toRsvp": "Now, about your grand entrance",
@@ -327,7 +327,7 @@ window.BIRTHDAY_CONFIG = {
       "edition": "Tjueårene om igjen · {name} fyller {age}",
       "whenKicker": "Invitasjonen",
       "whenTitle": "En kveld å huske.",
-      "whenIntro": "The Great Gatsby kaller. Litt glamour, litt sprell og favorittmenneskene våre.",
+      "whenIntro": "The Great Matilda kaller. Litt glamour, litt sprell og favorittmenneskene våre.",
       "dressAction": "Hva skal jeg ha på?",
       "foodAction": "Drikke",
       "toRsvp": "Så var det din store entré",
