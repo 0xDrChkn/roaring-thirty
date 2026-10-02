@@ -1,6 +1,6 @@
 /* Public rehearsal pack. Keep private guest stories out of this file.
  * All text fields accept { en, nb }; image paths are relative to /game/.
- * Choose six categories from the ten-category bank. The default board is complete.
+ * Choose six categories from the bank. The default board is complete.
  * A draft clue is intentionally unavailable until its answer is verified.
  */
 (() => {
@@ -16,8 +16,152 @@
     id: 'sara-rehearsal-v1',
     title: text('The Sara Show', 'Sara-showet'),
     subtitle: text('A roaring birthday quiz', 'En bursdagsquiz med stil'),
-    defaultCategoryIds: ['famous-saras', 'countries', 'twenties', 'movie-plots', 'name-that-tune', 'before-or-after'],
+    defaultCategoryIds: ['cocktail-hour', 'emoji-cinema', 'finish-the-lyric', 'true-or-false', 'norway-knows', 'movie-plots'],
     categories: [
+      {
+        id: 'cocktail-hour',
+        title: text('Cocktail Hour', 'Cocktailtimen'),
+        description: text('We are at a cocktail bar, after all.', 'Vi er tross alt på en cocktailbar.'),
+        clues: [
+          { id: 'ch-100', value: 100, question: text('Which spirit is the base of a classic Margarita?', 'Hvilken brennevinstype er basen i en klassisk Margarita?'), answer: text('Tequila') },
+          { id: 'ch-200', value: 200, question: text('Rum, lime, mint, sugar and soda water. Name this Cuban classic.', 'Rom, lime, mynte, sukker og soda. Hva heter denne cubanske klassikeren?'), answer: text('A Mojito', 'Mojito') },
+          { id: 'ch-300', value: 300, question: text('How does James Bond famously like his martini?', 'Hvordan liker James Bond martinien sin?'), answer: text('Shaken, not stirred.', 'Ristet, ikke rørt.') },
+          { id: 'ch-400', value: 400, question: text('Vodka, triple sec and lime. Which juice turns a Cosmopolitan pink?', 'Vodka, triple sec og lime. Hvilken juice gjør en Cosmopolitan rosa?'), answer: text('Cranberry juice', 'Tranebærjuice') },
+          { id: 'ch-500', value: 500, question: text('Whiskey, sweet vermouth and bitters, named after a New York borough. Which cocktail?', 'Whisky, søt vermut og bitter, oppkalt etter en bydel i New York. Hvilken cocktail?'), answer: text('A Manhattan', 'Manhattan') }
+        ]
+      },
+      {
+        id: 'norway-knows',
+        title: text('Typically Norwegian', 'Typisk norsk'),
+        description: text('Fjords, polar heroes and one very useful kitchen tool.', 'Fjorder, polarhelter og ett svært nyttig kjøkkenredskap.'),
+        clues: [
+          { id: 'no-100', value: 100, question: text('On which date does Norway celebrate Constitution Day?', 'Hvilken dato feirer Norge grunnlovsdagen?'), answer: text('17 May', '17. mai') },
+          { id: 'no-200', value: 200, question: text('Which Norwegian artist painted The Scream?', 'Hvilken norsk kunstner malte Skrik?'), answer: text('Edvard Munch') },
+          { id: 'no-300', value: 300, question: text('What is the name of Norway’s longest fjord?', 'Hva heter Norges lengste fjord?'), answer: text('Sognefjorden (the Sognefjord)', 'Sognefjorden') },
+          { id: 'no-400', value: 400, question: text('In December 1911, Roald Amundsen’s expedition was the first to reach which place?', 'I desember 1911 ble Roald Amundsens ekspedisjon de første som nådde hvilket sted?'), answer: text('The South Pole', 'Sydpolen') },
+          { id: 'no-500', value: 500, question: text('This Norwegian carpenter patented the cheese slicer in 1925. Who was he?', 'Denne norske snekkeren patenterte ostehøvelen i 1925. Hvem var han?'), answer: text('Thor Bjørklund') }
+        ]
+      },
+      {
+        id: 'emoji-cinema',
+        title: text('Emoji Cinema', 'Emoji-kino'),
+        description: text('A whole film in a few small pictures.', 'En hel film i noen få små bilder.'),
+        clues: [
+          { id: 'em-100', value: 100, question: text('🦁 👑 🌅  Name the film.', '🦁 👑 🌅  Hvilken film?'), answer: text('The Lion King', 'Løvenes konge') },
+          { id: 'em-200', value: 200, question: text('👸 ❄️ ⛄ 🏰  Name the film.', '👸 ❄️ ⛄ 🏰  Hvilken film?'), answer: text('Frozen', 'Frost') },
+          { id: 'em-300', value: 300, question: text('👻 🚫 📞  Name the film.', '👻 🚫 📞  Hvilken film?'), answer: text('Ghostbusters') },
+          { id: 'em-400', value: 400, question: text('🐀 👨‍🍳 🇫🇷  Name the film.', '🐀 👨‍🍳 🇫🇷  Hvilken film?'), answer: text('Ratatouille') },
+          { id: 'em-500', value: 500, question: text('🌽 🚀 🕳️ ⏳  Name the film.', '🌽 🚀 🕳️ ⏳  Hvilken film?'), answer: text('Interstellar') }
+        ]
+      },
+      {
+        id: 'guess-the-year',
+        title: text('Guess the Year', 'Hvilket år?'),
+        description: text('Exact year for the points. The host decides on near misses.', 'Nøyaktig år gir poeng. Verten avgjør nesten-treff.'),
+        clues: [
+          { id: 'gy-100', value: 100, question: text('The Berlin Wall falls. Which year?', 'Berlinmuren faller. Hvilket år?'), answer: text('1989') },
+          { id: 'gy-200', value: 200, question: text('Euro notes and coins go into everyday use. Which year?', 'Euroens sedler og mynter tas i bruk. Hvilket år?'), answer: text('2002') },
+          { id: 'gy-300', value: 300, question: text('The first Harry Potter book is published in the UK. Which year?', 'Den første Harry Potter-boken kommer ut i Storbritannia. Hvilket år?'), answer: text('1997') },
+          { id: 'gy-400', value: 400, question: text('Facebook launches for Harvard students. Which year?', 'Facebook lanseres for Harvard-studenter. Hvilket år?'), answer: text('2004') },
+          { id: 'gy-500', value: 500, question: text('Norway votes no to joining the EU for the second time. Which year?', 'Norge stemmer nei til EU for andre gang. Hvilket år?'), answer: text('1994') }
+        ]
+      },
+      {
+        id: 'throwback-2000s',
+        title: text('Throwback 2000s', '2000-tallet tilbake'),
+        description: text('Flip phones, Disney musicals and Idol fever.', 'Klapptelefoner, Disney-musikaler og Idol-feber.'),
+        clues: [
+          { id: 'tb-100', value: 100, question: text('Troy and Gabriella sang their way through East High in which Disney Channel film?', 'Troy og Gabriella sang seg gjennom East High i hvilken Disney Channel-film?'), answer: text('High School Musical') },
+          { id: 'tb-200', value: 200, question: text('Paris Hilton and Nicole Richie swapped luxury for farm life in which 2003 reality show?', 'Paris Hilton og Nicole Richie byttet luksus mot gårdsliv i hvilket realityprogram fra 2003?'), answer: text('The Simple Life') },
+          { id: 'tb-300', value: 300, question: text('Nintendo’s 2004 handheld had two screens. What was it called?', 'Nintendos håndholdte konsoll fra 2004 hadde to skjermer. Hva het den?'), answer: text('The Nintendo DS', 'Nintendo DS') },
+          { id: 'tb-400', value: 400, question: text('Which razor-thin Motorola flip phone was the must-have of the mid-2000s?', 'Hvilken tynn klapptelefon fra Motorola måtte alle ha midt på 2000-tallet?'), answer: text('The Motorola Razr (V3)', 'Motorola Razr (V3)') },
+          { id: 'tb-500', value: 500, question: text('He won the first Norwegian Idol in 2003, then World Idol. Who is he?', 'Han vant første sesong av Idol Norge i 2003 og deretter World Idol. Hvem er han?'), answer: text('Kurt Nilsen') }
+        ]
+      },
+      {
+        id: 'famous-duos',
+        title: text('Famous Duos', 'Kjente par'),
+        description: text('Name the missing half.', 'Hvem er den andre halvdelen?'),
+        clues: [
+          { id: 'fd-100', value: 100, question: text('Sesame Street’s best friends: Bert and…?', 'Sesam stasjons bestevenner: Bert og…?'), answer: text('Ernie') },
+          { id: 'fd-200', value: 200, question: text('Gotham’s crime fighters: Batman and…?', 'Gothams forbryterjegere: Batman og…?'), answer: text('Robin') },
+          { id: 'fd-300', value: 300, question: text('The Sound of Silence was sung by Simon and…?', 'The Sound of Silence ble sunget av Simon og…?'), answer: text('Garfunkel') },
+          { id: 'fd-400', value: 400, question: text('Stan and Ollie were the comedy duo known by which two surnames?', 'Stan og Ollie var komikerduoen kjent under hvilke to etternavn?'), answer: text('Laurel and Hardy', 'Laurel og Hardy (Helan og Halvan)') },
+          { id: 'fd-500', value: 500, question: text('Ben & Jerry’s ice cream. Name both founders’ surnames.', 'Ben & Jerry’s-iskrem. Hva er etternavnene til begge grunnleggerne?'), answer: text('Ben Cohen and Jerry Greenfield', 'Ben Cohen og Jerry Greenfield') }
+        ]
+      },
+      {
+        id: 'wild-facts',
+        title: text('Wild Facts', 'Ville fakta'),
+        description: text('The animal kingdom is stranger than you think.', 'Dyreriket er merkeligere enn du tror.'),
+        clues: [
+          { id: 'wf-100', value: 100, question: text('What is the largest animal known ever to have lived?', 'Hva er det største dyret vi vet har levd?'), answer: text('The blue whale', 'Blåhvalen') },
+          { id: 'wf-200', value: 200, question: text('Which are the only mammals capable of true, flapping flight?', 'Hvilke pattedyr er de eneste som virkelig kan fly?'), answer: text('Bats', 'Flaggermus') },
+          { id: 'wf-300', value: 300, question: text('How many hearts does an octopus have?', 'Hvor mange hjerter har en blekksprut (åttearmet)?'), answer: text('Three', 'Tre') },
+          { id: 'wf-400', value: 400, question: text('Which Australian animal has fingerprints remarkably similar to a human’s?', 'Hvilket australsk dyr har fingeravtrykk som ligner påfallende mye på menneskers?'), answer: text('The koala', 'Koalaen') },
+          { id: 'wf-500', value: 500, question: text('Flamingos are not born pink. What makes them pink?', 'Flamingoer er ikke rosa når de klekkes. Hva gjør dem rosa?'), answer: text('Their diet: pigments (carotenoids) in the algae and shrimp they eat.', 'Maten: fargestoffer (karotenoider) i algene og rekene de spiser.') }
+        ]
+      },
+      {
+        id: 'around-the-table',
+        title: text('Around the Table', 'Rundt bordet'),
+        description: text('Food from everywhere. Questions for the hungry.', 'Mat fra hele verden. Spørsmål for de sultne.'),
+        clues: [
+          { id: 'at-100', value: 100, question: text('Guacamole is mainly made from which fruit?', 'Guacamole lages hovedsakelig av hvilken frukt?'), answer: text('Avocado') },
+          { id: 'at-200', value: 200, question: text('Paella comes from which country?', 'Paella kommer fra hvilket land?'), answer: text('Spain', 'Spania') },
+          { id: 'at-300', value: 300, question: text('Which Italian dessert’s name means “pick me up”?', 'Hvilken italiensk dessert betyr «løft meg opp»?'), answer: text('Tiramisu') },
+          { id: 'at-400', value: 400, question: text('What is the main ingredient of hummus?', 'Hva er hovedingrediensen i hummus?'), answer: text('Chickpeas', 'Kikerter') },
+          { id: 'at-500', value: 500, question: text('Picked by hand from a crocus flower, it is the world’s most expensive spice by weight. Which?', 'Plukkes for hånd fra en krokus og er verdens dyreste krydder per gram. Hvilket?'), answer: text('Saffron', 'Safran') }
+        ]
+      },
+      {
+        id: 'game-on',
+        title: text('Game On', 'Sport'),
+        description: text('Balls, skis and one very familiar table.', 'Baller, ski og ett svært kjent bord.'),
+        clues: [
+          { id: 'go-100', value: 100, question: text('How many players does each football (soccer) team have on the pitch?', 'Hvor mange spillere har hvert fotballag på banen?'), answer: text('Eleven', 'Elleve') },
+          { id: 'go-200', value: 200, question: text('In which sport would you do a slam dunk?', 'I hvilken idrett gjør man en slam dunk?'), answer: text('Basketball', 'Basketball') },
+          { id: 'go-300', value: 300, question: text('Which Grand Slam tennis tournament is played on grass in London?', 'Hvilken Grand Slam-turnering i tennis spilles på gress i London?'), answer: text('Wimbledon') },
+          { id: 'go-400', value: 400, question: text('Marit Bjørgen won a record number of Winter Olympic medals in which sport?', 'Marit Bjørgen vant rekordmange vinter-OL-medaljer i hvilken idrett?'), answer: text('Cross-country skiing', 'Langrenn') },
+          { id: 'go-500', value: 500, question: text('Sara’s old sport: to how many points is a standard game of table tennis played?', 'Saras gamle idrett: til hvor mange poeng spilles et vanlig sett i bordtennis?'), answer: text('Eleven (win by two)', 'Elleve (med to poengs margin)') }
+        ]
+      },
+      {
+        id: 'brand-new',
+        title: text('Brand New', 'Kjente merker'),
+        description: text('Logos, names and where they came from.', 'Logoer, navn og hvor de kommer fra.'),
+        clues: [
+          { id: 'br-100', value: 100, question: text('Which company’s logo is an apple with a bite taken out?', 'Hvilket selskap har et eple med et bitt i som logo?'), answer: text('Apple') },
+          { id: 'br-200', value: 200, question: text('Which sportswear brand’s logo is the “swoosh”?', 'Hvilket sportsmerke har «swooshen» som logo?'), answer: text('Nike') },
+          { id: 'br-300', value: 300, question: text('Which car brand’s logo is four interlocking rings?', 'Hvilket bilmerke har fire sammenflettede ringer som logo?'), answer: text('Audi') },
+          { id: 'br-400', value: 400, question: text('LEGO comes from the Danish words “leg godt”. What do they mean?', 'LEGO kommer fra de danske ordene «leg godt». Hva betyr de?'), answer: text('Play well', 'Lek godt') },
+          { id: 'br-500', value: 500, question: text('IKEA is an acronym. What does the I K stand for?', 'IKEA er en forkortelse. Hva står I og K for?'), answer: text('Ingvar Kamprad, the founder (E and A: his farm Elmtaryd and village Agunnaryd).', 'Ingvar Kamprad, grunnleggeren (E og A: gården Elmtaryd og bygda Agunnaryd).') }
+        ]
+      },
+      {
+        id: 'finish-the-lyric',
+        title: text('Finish the Lyric', 'Fullfør teksten'),
+        description: text('Sing it if you dare. The words count, not the voice.', 'Syng hvis du tør. Det er ordene som teller, ikke stemmen.'),
+        clues: [
+          { id: 'fl-100', value: 100, question: text('Queen: “We will, we will…”', 'Queen: «We will, we will…»'), answer: text('…rock you!') },
+          { id: 'fl-200', value: 200, question: text('Britney Spears: “Oh baby, baby… hit me baby…”', 'Britney Spears: «Oh baby, baby… hit me baby…»'), answer: text('…one more time') },
+          { id: 'fl-300', value: 300, question: text('Rick Astley: “Never gonna give you up, never gonna…”', 'Rick Astley: «Never gonna give you up, never gonna…»'), answer: text('…let you down') },
+          { id: 'fl-400', value: 400, question: text('Miley Cyrus: “I came in like a…”', 'Miley Cyrus: «I came in like a…»'), answer: text('…wrecking ball') },
+          { id: 'fl-500', value: 500, question: text('Journey: “Just a small-town girl, livin’ in a…”', 'Journey: «Just a small-town girl, livin’ in a…»'), answer: text('…lonely world') }
+        ]
+      },
+      {
+        id: 'true-or-false',
+        title: text('True or False?', 'Sant eller usant?'),
+        description: text('Things everyone “knows”. Some of them are even true.', 'Ting «alle vet». Noen av dem er til og med sanne.'),
+        clues: [
+          { id: 'tf-100', value: 100, question: text('True or false: you can see the Great Wall of China from the Moon with the naked eye.', 'Sant eller usant: Den kinesiske mur kan ses fra månen med det blotte øye.'), answer: text('False', 'Usant') },
+          { id: 'tf-200', value: 200, question: text('True or false: goldfish only have a three-second memory.', 'Sant eller usant: Gullfisker husker bare i tre sekunder.'), answer: text('False. They can remember for months.', 'Usant. De kan huske i flere måneder.') },
+          { id: 'tf-300', value: 300, question: text('True or false: botanically, bananas are berries.', 'Sant eller usant: Botanisk sett er bananer bær.'), answer: text('True', 'Sant') },
+          { id: 'tf-400', value: 400, question: text('True or false: Napoleon was unusually short for a Frenchman of his time.', 'Sant eller usant: Napoleon var uvanlig lav for en franskmann på sin tid.'), answer: text('False. He was about average height.', 'Usant. Han var omtrent gjennomsnittlig høy.') },
+          { id: 'tf-500', value: 500, question: text('True or false: Oxford University is older than the Aztec capital Tenochtitlan.', 'Sant eller usant: Oxford-universitetet er eldre enn aztekernes hovedstad Tenochtitlan.'), answer: text('True. Teaching at Oxford began by 1096; Tenochtitlan was founded around 1325.', 'Sant. Undervisning i Oxford fantes allerede i 1096; Tenochtitlan ble grunnlagt rundt 1325.') }
+        ]
+      },
       {
         id: 'famous-saras',
         title: text('Famous Saras', 'Kjente Saraer'),

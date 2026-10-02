@@ -35,7 +35,7 @@
     if (typeof raw !== 'string' || raw.length > MAX_BYTES) bad('Choose a JSON pack smaller than 2 MB.');
     let source;
     try { source = JSON.parse(raw); } catch { bad('This file is not valid JSON.'); }
-    if (!record(source) || !id(source.id) || !Array.isArray(source.categories) || source.categories.length < 6 || source.categories.length > 12) bad('A pack needs an ID and 6–12 categories.');
+    if (!record(source) || !id(source.id) || !Array.isArray(source.categories) || source.categories.length < 6 || source.categories.length > 40) bad('A pack needs an ID and 6–40 categories.');
     const seenCategories = new Set();
     const seenClues = new Set();
     const categories = source.categories.map(category => {

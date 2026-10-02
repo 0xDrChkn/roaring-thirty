@@ -139,6 +139,10 @@ test('closing a clue preserves existing points and duplicate-award protection', 
   assert.equal(state.currentClueId, null);
   assert.equal(state.completedClueIds.length, 0);
   state = game.openClue(state, 'film-100');
+  // A reopened clue starts with no team selected, so points cannot go to the previous team by accident.
+  assert.equal(state.selectedTeamId, null);
+  assert.throws(() => game.award(state, -1), code('no_team'));
+  state = game.selectTeam(state, state.teams[0].id);
   assert.throws(() => game.award(state, -1), code('duplicate_award'));
   assert.equal(state.teams[0].score, -100);
   state = game.undo(state);

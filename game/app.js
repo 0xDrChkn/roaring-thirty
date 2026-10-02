@@ -15,7 +15,7 @@
   const english = {};
   document.querySelectorAll('[data-copy]').forEach(node => { english[node.dataset.copy] = node.innerHTML; });
   const norwegian = {
-    privateTitle:'Klargjør en privat spørsmålspakke', privateHint:'Last ned spørsmålsbanken som JSON, rediger spørsmålene og svarene, og importer den her. Den blir i denne nettleseren; ingenting lastes opp til invitasjonen. Behold en kopi på laptopen.', privateFormat:'6–12 kategorier med fem spørsmål hver. Maks 2 MB, inkludert innebygde PNG-, JPG- eller WebP-bilder. De to Sara-reaksjonene beholdes.', exportPack:'Last ned spørsmålsbanken', importPack:'Importer privat JSON', defaultPack:'Bruk den offentlige spørsmålsbanken',
+    privateTitle:'Klargjør en privat spørsmålspakke', privateHint:'Last ned spørsmålsbanken som JSON, rediger spørsmålene og svarene, og importer den her. Den blir i denne nettleseren; ingenting lastes opp til invitasjonen. Behold en kopi på laptopen.', privateFormat:'6–40 kategorier med fem spørsmål hver. Maks 2 MB, inkludert innebygde PNG-, JPG- eller WebP-bilder. De to Sara-reaksjonene beholdes.', exportPack:'Last ned spørsmålsbanken', importPack:'Importer privat JSON', defaultPack:'Bruk den offentlige spørsmålsbanken',
     timerSetting:'Sekunder per spørsmål', timerHint:'Start klokken når dere er klare. Tiden endrer aldri poengsummen.', chooseBoard:'Velg brettet ↓',
     categoryEyebrow:'SPØRSMÅLSBANKEN', chooseSix:'Velg seks kategorier.', categoryHint:'Et fullt brett har 30 spørsmål. Uferdige personlige spørsmål er låst til de er klargjort.', recommended:'Bruk de seks anbefalte',
     adjustScores:'Juster poeng', adjustHint:'Rett en poengsum eller gi en bonus etter husreglene. Hver endring har en begrunnelse og kan angres.', adjustTeam:'Lag', adjustAmount:'Poeng som legges til eller trekkes fra', adjustReason:'Begrunnelse', applyCorrection:'Bruk endringen',
@@ -27,7 +27,7 @@
     begin:'La spillet begynne', localSave:'Spillet lagres i denne nettleseren, så festen tåler en oppdatering.',
     reactionEyebrow:'SARA HAR EN REAKSJON PÅ DET', reactionTitle:'Riktig? Feil? Hun sier fra.',
     reactionHint:'Trykk på et bilde for å prøve reaksjonene.', boardEyebrow:'TJUEÅRENE OM IGJEN · SPILLET',
-    boardTitle:'Sara-quizen<span class="gold">.</span>', undo:'↶ Angre', newGame:'Nytt spill',
+    undo:'↶ Angre', newGame:'Nytt spill',
     boardHint:'Velg et lag ovenfor, og deretter et spørsmål. Verten avgjør hvem som får poeng.',
     footer:'PENT ANTREKK. VENNSKAPELIG RIVALISERING.', backInvite:'Tilbake til invitasjonen ↗',
     answerLabel:'SVARET', startTimer:'Start klokken', reveal:'Vis svaret', answering:'HVEM SVARER?',
@@ -40,6 +40,9 @@
     understood:'Skjønner', newRound:'EN NY START', resetTitle:'Starte et nytt spill?',
     resetBody:'Dette nullstiller poengene og spilte spørsmål i denne nettleseren. Spørsmålspakken beholdes.',
     keepPlaying:'Fortsett spillet', resetConfirm:'Start nytt spill',
+    modeLegend:'Spillformat', modeSingle:'Ett spill', modeSingleHint:'2–6 lag på ett brett.', modeTournament:'Turnering', modeTournamentHint:'4–12 lag. Raske innledende runder, så møtes vinnerne i finalen.',
+    heatSetting:'Antall innledende runder', prizeSetting:'Premien (valgfritt)', endRound:'Avslutt runden', endRoundTitle:'Avslutte runden nå?', endRoundBody:'Laget med flest poeng akkurat nå vinner runden. Spørsmål som ikke er spilt, hoppes over.', endRoundConfirm:'Avslutt runden', backToBoard:'Tilbake til brettet',
+    rule5:'Turnering: hver runde har sitt eget brett. Når en runde er over, går vinneren videre. Rundevinnerne spiller finalen om premien.', boardTitle:'The Great Matilda<span class="gold">.</span>',
     conflictTitle:'Spillet er endret i en annen fane.', conflictBody:'Denne fanen er satt på pause for å beskytte de nyeste poengene. Last inn det lagrede spillet på nytt før du fortsetter.', reloadGame:'Last inn nyeste spill'
   };
   const ui = {
@@ -48,6 +51,8 @@
   };
   Object.assign(ui.en, {packLoaded:'Private pack loaded. Choose six categories below.', packFailed:'The pack could not be loaded. Check the JSON format, category IDs, five clue values per category and embedded images (maximum 2 MB). Your previous bank is unchanged.', selectedCategories:'categories selected', ready:'ready', unfinished:'to prepare', chooseSix:'Choose exactly six categories to start.', adjustmentError:'Enter a non-zero whole number and a short reason.', adjustments:'Recent corrections', accepts:'Also accept', context:'For the host'});
   Object.assign(ui.nb, {packLoaded:'Privat pakke lastet inn. Velg seks kategorier nedenfor.', packFailed:'Pakken kunne ikke lastes inn. Sjekk JSON-formatet, kategori-ID-ene, fem poengverdier per kategori og innebygde bilder (maks 2 MB). Den forrige banken er uendret.', selectedCategories:'kategorier valgt', ready:'klare', unfinished:'må klargjøres', chooseSix:'Velg nøyaktig seks kategorier for å starte.', adjustmentError:'Skriv inn et heltall som ikke er null, og en kort begrunnelse.', adjustments:'Siste endringer', accepts:'Godta også', context:'Til verten'});
+  Object.assign(ui.en, {heat:(n,total) => 'HEAT ' + n + ' OF ' + total, final:'THE FINAL', single:'THE GREAT MATILDA · THE GAME', heatWinner:n => 'HEAT ' + n + ' · THROUGH TO THE FINAL', champions:'THE CHAMPIONS', roundWinner:'THE WINNING TEAM', nextHeat:n => 'On to heat ' + n + ' →', toFinal:'On to the final →', playAgain:'Start a new game', prizeLabel:'The prize', tourTeams:'Make at least two teams per heat (4–12 teams in total).', planTitle:'The tournament plan', planHint:'Teams and boards are shuffled. Each heat has its own four categories; the final gets six fresh ones.', reshuffle:'Shuffle again', heatName:n => 'Heat ' + n, finalName:'Final', finalTeams:'Heat winners', startTour:'Start the tournament'});
+  Object.assign(ui.nb, {heat:(n,total) => 'RUNDE ' + n + ' AV ' + total, final:'FINALEN', single:'THE GREAT MATILDA · SPILLET', heatWinner:n => 'RUNDE ' + n + ' · VIDERE TIL FINALEN', champions:'MESTERNE', roundWinner:'VINNERLAGET', nextHeat:n => 'Videre til runde ' + n + ' →', toFinal:'Videre til finalen →', playAgain:'Start et nytt spill', prizeLabel:'Premien', tourTeams:'Lag minst to lag per runde (4–12 lag totalt).', planTitle:'Turneringsplanen', planHint:'Lag og brett er stokket. Hver runde har sine egne fire kategorier; finalen får seks nye.', reshuffle:'Stokk på nytt', heatName:n => 'Runde ' + n, finalName:'Finale', finalTeams:'Rundevinnerne', startTour:'Start turneringen'});
   const timerDurations = [15,30,45,60,90,120];
   const defaultCategories = () => (pack.defaultCategoryIds || pack.categories.slice(0,6).map(category => category.id)).slice();
   let selectedCategoryIds = defaultCategories();
@@ -55,6 +60,13 @@
   let language = 'en';
   let state = null;
   let names = ['The Bootleggers', 'Champagne Problems', 'The Old Sports'];
+  // Tournament: heats on their own smaller boards, then the heat winners play the final.
+  let mode = 'single';
+  let heatCount = 2;
+  let prize = '';
+  let tour = null;
+  let roundShown = false;
+  const maxTeams = () => mode === 'tournament' ? 12 : 6;
   let reactionsEnabled = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let reactionIndex = {correct:0,wrong:0};
   let effectIndex = {correct:0,wrong:0};
@@ -95,11 +107,57 @@
   }
   function save() {
     try {
-      const result = session.write(JSON.stringify({state,language,reactionsEnabled,selectedCategoryIds,timerDuration,privatePack,timer:{clueId:timer.clueId,remaining:timer.remaining}}));
+      const result = session.write(JSON.stringify({state,language,reactionsEnabled,selectedCategoryIds,timerDuration,privatePack,mode,heatCount,prize,tour,roundShown,timer:{clueId:timer.clueId,remaining:timer.remaining}}));
       if (result.status === 'conflict') { lockConflictedSession(); return; }
       storageFailed = result.status === 'unavailable';
     } catch { storageFailed = true; }
     renderNotice();
+  }
+  function validTour(value) {
+    const list = item => Array.isArray(item) && item.every(entry => typeof entry === 'string');
+    return !!value && Array.isArray(value.heats) && value.heats.length >= 2 && value.heats.length <= 4 && value.heats.every(heat => list(heat.teams) && list(heat.categoryIds))
+      && list(value.finalCategoryIds) && Number.isInteger(value.stage) && value.stage >= 0 && value.stage <= value.heats.length && Array.isArray(value.results);
+  }
+  const shuffle = list => { const copyList = list.slice(); for (let i = copyList.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [copyList[i], copyList[j]] = [copyList[j], copyList[i]]; } return copyList; };
+  function planTour() {
+    const teams = shuffle(names.map(name => name.trim()));
+    const heats = Array.from({length:heatCount}, () => ({teams:[], categoryIds:[]}));
+    teams.forEach((name,index) => heats[index % heatCount].teams.push(name));
+    const ready = pack.categories.filter(category => category.clues.every(clue => !clue.draft)).map(category => category.id);
+    const pool = shuffle(ready);
+    const perHeat = Math.max(1, Math.min(4, Math.floor((pool.length - 6) / heatCount) || Math.floor(pool.length / (heatCount + 1))));
+    let next = 0;
+    const take = count => Array.from({length:count}, () => pool[next++ % pool.length]);
+    heats.forEach(heat => { heat.categoryIds = take(perHeat); });
+    const finalCategoryIds = [...new Set(take(Math.min(6, pool.length)))];
+    return {heats, finalCategoryIds, stage:0, results:[], prize:prize.trim()};
+  }
+  const finalists = () => tour.results.flatMap(result => result.winners).slice(0,6);
+  function stageTeams() { return tour.stage < tour.heats.length ? tour.heats[tour.stage].teams : finalists(); }
+  function stageCategories() { return tour.stage < tour.heats.length ? tour.heats[tour.stage].categoryIds : tour.finalCategoryIds; }
+  function startStage() {
+    state = engine.create(stageTeams(), pack, stageCategories());
+    roundShown = false; notice = ''; restoreFailed = false;
+    timer = {clueId:null,remaining:timerDuration,running:false,deadline:0};
+  }
+  function standingsOf(current) {
+    const ranked = current.teams.slice().sort((a,b) => b.score - a.score);
+    const top = ranked[0].score;
+    return {winners: ranked.filter(team => team.score === top).map(team => team.name), scores: ranked.map(team => [team.name, team.score])};
+  }
+  function renderPlan() {
+    const plan = $('#tour-plan');
+    plan.hidden = mode !== 'tournament';
+    $('#category-options').hidden = mode === 'tournament';
+    $('#default-categories').hidden = mode === 'tournament';
+    $('#category-title').textContent = mode === 'tournament' ? copy().planTitle : (language === 'nb' ? norwegian.chooseSix : english.chooseSix.replace(/<[^>]+>/g,''));
+    if (mode !== 'tournament' || state) return; // Never re-plan a tournament that is being played.
+    if (!tour || tour.stage !== 0 || tour.results.length) tour = planTour();
+    const title = id => text(pack.categories.find(category => category.id === id)?.title);
+    const card = (label, teams, ids) => { const box = element('section','tour-heat'); box.append(element('p','eyebrow',label), element('h3','',teams), element('p','tour-cats',ids.map(title).join(' · '))); return box; };
+    const reshuffle = element('button','text-button',copy().reshuffle); reshuffle.type = 'button';
+    reshuffle.addEventListener('click', () => { readNames(); tour = planTour(); save(); renderPlan(); });
+    plan.replaceChildren(element('p','form-hint',copy().planHint), ...tour.heats.map((heat,index) => card(copy().heatName(index+1), heat.teams.join(' · '), heat.categoryIds)), card(copy().finalName, copy().finalTeams, tour.finalCategoryIds), reshuffle);
   }
   try {
     const saved = JSON.parse(initialSave.raw || 'null');
@@ -114,6 +172,11 @@
       timer.remaining = timerDuration;
       if (Array.isArray(saved.selectedCategoryIds) && saved.selectedCategoryIds.length <= 6 && new Set(saved.selectedCategoryIds).size === saved.selectedCategoryIds.length && saved.selectedCategoryIds.every(id => pack.categories.some(category => category.id === id))) selectedCategoryIds = saved.selectedCategoryIds.slice();
       if (typeof saved.reactionsEnabled === 'boolean') reactionsEnabled = saved.reactionsEnabled;
+      if (saved.mode === 'tournament') mode = 'tournament';
+      if ([2,3,4].includes(saved.heatCount)) heatCount = saved.heatCount;
+      if (typeof saved.prize === 'string') prize = saved.prize.slice(0,80);
+      if (validTour(saved.tour)) tour = saved.tour;
+      roundShown = saved.roundShown === true;
       if (saved.state) {
         state = engine.restore(saved.state, pack);
         restoreFailed = !state;
@@ -128,7 +191,7 @@
   }
   function renderLocale() {
     document.documentElement.lang = language;
-    document.title = language === 'nb' ? 'Sara-quizen · Bursdagsspillet' : 'The Sara quiz · The birthday game';
+    document.title = language === 'nb' ? 'The Great Matilda · Bursdagsspillet' : 'The Great Matilda · The birthday game';
     document.querySelectorAll('[data-copy]').forEach(node => {
       // Only these source-controlled interface strings contain HTML; guest names use textContent.
       node.innerHTML = language === 'nb' ? norwegian[node.dataset.copy] || english[node.dataset.copy] : english[node.dataset.copy];
@@ -154,7 +217,12 @@
     $('#timer-duration').value = String(timerDuration);
     renderCategories();
     $('#remove-team').disabled = names.length <= 2;
-    $('#add-team').disabled = names.length >= 6;
+    $('#add-team').disabled = names.length >= maxTeams();
+    document.querySelectorAll('input[name="mode"]').forEach(input => { input.checked = input.value === mode; });
+    $('#tournament-options').hidden = mode !== 'tournament';
+    $('#heat-count').value = String(heatCount);
+    $('#prize').value = prize;
+    renderPlan();
   }
   function renderCategories() {
     $('#pack-default').hidden = !privatePack;
@@ -178,7 +246,9 @@
     const ready = chosen.flatMap(category => category.clues).filter(clue => !clue.draft && text(clue.question) && text(clue.answer)).length;
     const total = chosen.reduce((count,category) => count + category.clues.length,0);
     $('#category-count').textContent = selectedCategoryIds.length + ' / 6 ' + copy().selectedCategories + ' · ' + ready + ' ' + copy().ready + (total > ready ? ' · ' + (total-ready) + ' ' + copy().unfinished : '');
-    $('#start-game').disabled = selectedCategoryIds.length !== 6;
+    $('#start-game').disabled = mode === 'single' && selectedCategoryIds.length !== 6;
+    $('#start-game').querySelector('[data-copy="begin"]').textContent = mode === 'tournament' ? copy().startTour : (language === 'nb' ? norwegian.begin : english.begin);
+    if (mode === 'tournament') $('#category-count').textContent = names.length + ' ' + (language === 'nb' ? 'lag' : 'teams') + ' · ' + heatCount + ' ' + (language === 'nb' ? 'runder + finale' : 'heats + final');
   }
   function renderAdjustments() {
     $('#adjust-team').replaceChildren(...state.teams.map(team => {
@@ -213,6 +283,7 @@
     }));
   }
   function renderBoard() {
+    $('#board').style.setProperty('--board-columns', state.categoryIds.length);
     $('#board').replaceChildren(...state.categoryIds.map((id,index) => {
       const category = pack.categories.find(item => item.id === id);
       const column = element('section','category-column');
@@ -237,12 +308,30 @@
     $('#undo').disabled = !engine.canUndo(state);
     $('#reactions-toggle').textContent = reactionsEnabled ? copy().on : copy().off;
     $('#reactions-toggle').setAttribute('aria-pressed',String(reactionsEnabled));
+    $('#stage-label').textContent = tour ? (tour.stage < tour.heats.length ? copy().heat(tour.stage+1,tour.heats.length) : copy().final) : copy().single;
+    $('#end-round').hidden = !tour || engine.isComplete(state);
+    if (engine.isComplete(state) && !roundShown) { roundShown = true; save(); setTimeout(showRound, reactionDialog.open ? 2700 : 400); }
     $('#standings').hidden = !engine.isComplete(state);
     if (engine.isComplete(state)) {
       const top = Math.max(...state.teams.map(team => team.score));
       const winners = state.teams.filter(team => team.score === top);
       $('#standings').replaceChildren(element('p','eyebrow',winners.length > 1 ? copy().tie : copy().winner),element('h2','',winners.map(team => team.name).join(' & ')),element('p','',top + ' ' + copy().points));
     }
+  }
+  function showRound() {
+    if (!state) return;
+    if (reactionDialog.open) reactionDialog.close();
+    const result = standingsOf(state);
+    const isFinal = !tour || tour.stage === tour.heats.length;
+    $('#round-eyebrow').textContent = !tour ? (result.winners.length > 1 ? copy().tie : copy().roundWinner) : isFinal ? copy().champions : copy().heatWinner(tour.stage+1);
+    $('#round-winner').textContent = result.winners.join(' & ');
+    const prizeText = tour?.prize || '';
+    $('#round-prize').hidden = !(isFinal && prizeText);
+    $('#round-prize').textContent = isFinal && prizeText ? '🏆 ' + copy().prizeLabel + ': ' + prizeText : '';
+    $('#round-scores').replaceChildren(...result.scores.map(([name,score]) => { const row = element('li'); row.append(element('span','',name), element('strong','',String(score))); return row; }));
+    $('#round-next').textContent = !tour || isFinal ? copy().playAgain : tour.stage + 1 < tour.heats.length ? copy().nextHeat(tour.stage+2) : copy().toFinal;
+    $('#round-dialog').classList.toggle('is-final', isFinal);
+    if (!$('#round-dialog').open) $('#round-dialog').showModal();
   }
   function renderTimer() {
     $('#timer-value').textContent = String(timer.remaining).padStart(2,'0');
@@ -351,10 +440,43 @@
   $('#reload-game').addEventListener('click', () => window.location.reload());
   // Small local cutouts are ready before the first scoring decision.
   Object.values(pack.reactions).flat().forEach(src => { const image = new Image(); image.src = src; });
+  document.querySelectorAll('input[name="mode"]').forEach(input => input.addEventListener('change', () => {
+    readNames(); mode = input.value === 'tournament' ? 'tournament' : 'single';
+    if (mode === 'single' && names.length > 6) names = names.slice(0,6);
+    if (mode === 'tournament') while (names.length < 4) names.push(copy().team + ' ' + (names.length+1));
+    tour = null; save(); renderSetup();
+  }));
+  $('#heat-count').addEventListener('change', () => { readNames(); heatCount = Number($('#heat-count').value); tour = null; save(); renderSetup(); });
+  $('#prize').addEventListener('input', () => { prize = $('#prize').value.slice(0,80); if (tour) tour.prize = prize.trim(); save(); });
+  $('#team-inputs').addEventListener('change', () => { if (mode === 'tournament') { readNames(); tour = null; renderPlan(); save(); } });
+  $('#end-round').addEventListener('click', () => $('#end-round-dialog').showModal());
+  $('#confirm-end-round').addEventListener('click', () => { $('#end-round-dialog').close(); if (state?.currentClueId) act('cancelClue'); roundShown = true; save(); showRound(); });
+  $('#round-back').addEventListener('click', () => $('#round-dialog').close());
+  $('#round-next').addEventListener('click', () => {
+    if (!checkSession()) return;
+    $('#round-dialog').close();
+    const isFinal = !tour || tour.stage === tour.heats.length;
+    if (isFinal) { $('#confirm-reset').click(); return; }
+    tour.results[tour.stage] = standingsOf(state);
+    tour.stage += 1;
+    try { startStage(); } catch { notice = copy().error; }
+    save(); render(); window.scrollTo({top:0});
+  });
   $('#team-form').addEventListener('submit',event => {
     event.preventDefault(); readNames();
+    if (mode === 'tournament') {
+      if (names.length < heatCount * 2 || names.length > 12) { notice = copy().tourTeams; renderNotice(); return; }
+      const trimmed = names.map(name => name.trim());
+      if (trimmed.some(name => !name || name.length > 40 || /[\u0000-\u001f\u007f]/.test(name)) || new Set(trimmed.map(name => name.toLocaleLowerCase('en'))).size !== trimmed.length) { notice = copy().names; renderNotice(); return; }
+      names = trimmed;
+      if (!tour || tour.stage !== 0) tour = planTour();
+      tour.prize = prize.trim();
+      try { startStage(); save(); render(); window.scrollTo({top:0}); } catch { notice = copy().names; renderNotice(); }
+      return;
+    }
+    tour = null;
     if (selectedCategoryIds.length !== 6) { notice=copy().chooseSix; renderNotice(); return; }
-    try { state = engine.create(names,pack,selectedCategoryIds); notice=''; restoreFailed=false; timer={clueId:null,remaining:timerDuration,running:false,deadline:0}; save(); render(); window.scrollTo({top:0}); }
+    try { state = engine.create(names,pack,selectedCategoryIds); roundShown=false; notice=''; restoreFailed=false; timer={clueId:null,remaining:timerDuration,running:false,deadline:0}; save(); render(); window.scrollTo({top:0}); }
     catch { notice=copy().names; renderNotice(); }
   });
   $('#pack-export').addEventListener('click', () => {
@@ -390,7 +512,7 @@
     if (!Number.isSafeInteger(amount) || amount === 0 || Math.abs(amount) > 1000000 || !reason || reason.length > 160 || /[\u0000-\u001f\u007f]/.test(reason)) { $('#adjust-error').textContent=copy().adjustmentError; return; }
     if (act('adjustScore',$('#adjust-team').value,amount,reason)) $('#adjust-dialog').close();
   });
-  $('#add-team').addEventListener('click',() => { readNames(); if(names.length<6) names.push(copy().team+' '+(names.length+1)); renderSetup(); $('#team-inputs').lastElementChild?.querySelector('input')?.focus(); });
+  $('#add-team').addEventListener('click',() => { readNames(); if(names.length<maxTeams()) names.push(copy().team+' '+(names.length+1)); renderSetup(); $('#team-inputs').lastElementChild?.querySelector('input')?.focus(); });
   $('#remove-team').addEventListener('click',() => { readNames(); if(names.length>2) names.pop(); renderSetup(); });
   $('#language').addEventListener('click',() => {
     if (!state) readNames();
@@ -406,7 +528,7 @@
   $('#clue-undo').addEventListener('click',() => act('undo'));
   $('#new-game').addEventListener('click',() => $('#reset-dialog').showModal());
   $('#confirm-reset').addEventListener('click',() => {
-    names = state.teams.map(team => team.name); state=null; pauseTimer(); timer={clueId:null,remaining:timerDuration,running:false,deadline:0}; restoreFailed=false; notice=''; save();
+    if (tour) names = tour.heats.flatMap(heat => heat.teams); else names = state.teams.map(team => team.name); state=null; tour=null; roundShown=false; pauseTimer(); timer={clueId:null,remaining:timerDuration,running:false,deadline:0}; restoreFailed=false; notice=''; save();
     $('#reset-dialog').close(); renderSetup(); render(); $('#setup').scrollIntoView({block:'start'});
   });
   $('#clue-cancel').addEventListener('click',() => act('cancelClue'));

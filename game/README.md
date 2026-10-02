@@ -3,7 +3,7 @@
 A host-controlled game for one laptop connected to a television. Open [the game](https://0xdrchkn.github.io/roaring-thirty/game/).
 
 1. Enter 2–6 team names and choose a timer duration: 15, 30, 45, 60, 90 or 120 seconds.
-2. Pick **six categories** from the ten-category bank. **Use recommended six** selects a complete 30-question board with no drafts.
+2. Choose **One game** (2–6 teams, pick six categories; **Use recommended six** gives a complete 30-question board) or **Tournament** (4–12 teams, 2–4 heats). A tournament shuffles teams into heats, gives each heat its own four-category board, and sends every heat winner (ties included) to a six-category final. **End this round** finishes a heat early on the current scores. The final's winner card shows the optional prize.
 3. Choose an answering team, open a tile and start the optional timer when everyone is ready. Timeout never changes scores.
 4. **Correct** awards the clue value; **Wrong** deducts it. A different team can try after a wrong answer. A correct answer reveals the answer automatically.
 5. **Finish clue** marks the tile as played. Closing an unfinished clue keeps its attempts and scores so you can return later.
@@ -15,7 +15,7 @@ English/Norwegian changes the interface and clues. The board fits a 1280×720 la
 
 ## Question bank
 
-**10 categories, 50 slots, 42 ready clues.** The recommended six are Famous Saras, What's That Country?, The Roaring Twenties, Bad Movie Plots, Name That Tune and Before or After? The alternatives are Hold My Drink, The Impostor, The Birthday Girl and The Sara Archives.
+**22 categories, 110 slots, 102 ready clues.** The recommended six are Cocktail Hour, Emoji Cinema, Finish the Lyric, True or False?, Typically Norwegian and Bad Movie Plots. The other general categories: Guess the Year, Throwback 2000s, Famous Duos, Wild Facts, Around the Table, Game On, Brand New, Famous Saras, What's That Country?, The Roaring Twenties, Name That Tune, Before or After?, Hold My Drink and The Impostor. The Birthday Girl and The Sara Archives are personal drafts and are left out of tournaments until complete.
 
 The Birthday Girl and Sara Archives each have one ready clue and four **To prepare** slots. The host still needs to supply four verified celebrity mashups and four personal questions. These drafts cannot open and do not block finishing a game. Personal stories or answers have not been invented.
 
@@ -26,7 +26,7 @@ Geography uses five bundled country outlines. Name That Tune uses text clues; no
 At setup, expand **Prepare a private question pack**:
 
 1. **Download question bank** saves a JSON copy with the full bank, bilingual questions and answers.
-2. Edit that copy locally. Keep 6–12 uniquely identified categories, five clues in each with values 100, 200, 300, 400 and 500. Keep six valid `defaultCategoryIds`.
+2. Edit that copy locally. Keep 6–40 uniquely identified categories, five clues in each with values 100, 200, 300, 400 and 500. Keep six valid `defaultCategoryIds`.
 3. Add a verified answer and remove `draft: true` when a personal clue is ready. Plain strings or `{ "en": "…", "nb": "…" }` are accepted; a single supplied language is used as fallback in both interfaces.
 4. Private images can be embedded as PNG, JPEG or WebP `data:` URLs in `image` or `answerImage`. Total JSON must be at most 2 MB. Existing bundled picture paths work; arbitrary external URLs, filesystem paths and SVG uploads are rejected.
 5. **Import private JSON** validates everything before replacing the current bank. Choose six categories and start. Invalid files leave your previous bank intact.

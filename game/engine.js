@@ -50,8 +50,8 @@
   }
 
   function readPack(pack, categoryIds) {
-    if (!isRecord(pack) || !validId(pack.id) || !Array.isArray(pack.categories) || !pack.categories.length || pack.categories.length > 12) {
-      fail('invalid_pack', 'The question pack must have an ID and 1–12 categories.');
+    if (!isRecord(pack) || !validId(pack.id) || !Array.isArray(pack.categories) || !pack.categories.length || pack.categories.length > 40) {
+      fail('invalid_pack', 'The question pack must have an ID and 1–40 categories.');
     }
     const availableIds = pack.categories.map(category => category?.id);
     if (availableIds.some(id => !validId(id)) || new Set(availableIds).size !== availableIds.length) fail('invalid_pack', 'Each category needs a unique ID.');
@@ -151,6 +151,7 @@
         if (state.completedClueIds.includes(clue.id)) fail('completed_clue', 'That clue has already been completed.');
         next.currentClueId = clue.id;
         next.revealed = false;
+        next.selectedTeamId = null;
         next.resolved = state.attempts.some(attempt => attempt.clueId === clue.id && attempt.sign === 1);
         break;
       }
