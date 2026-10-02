@@ -6,4 +6,4 @@ The sale of spirits was banned at the end of 1916. A new alcohol law formally re
 
 The invitation's English and Norwegian copy uses that fact as the setting for the requested party fiction: for tonight the hosts have “secured a liquor licence”, in playful defiance of the Prohibition authorities. No explanatory disclaimer is shown on the invitation.
 
-The party is at Nedre Løkka Cocktailbar. The hosts supply welcome drinks; after that guests order what they like at the bar. No food is mentioned on the invitation.
+The party is at Nedre Løkka Cocktailbar. The hosts supply one welcome drink per guest; after that guests order what they like at the bar. No food is mentioned on the invitation.
