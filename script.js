@@ -253,7 +253,10 @@
     rsvpNote.textContent = isConfigured() ? copy.rsvpNote : copy.unavailable;
     // The live status announces this same message after an unavailable submission.
     rsvpNote.hidden = submissionState.rsvpStatus?.error?.code === 'not_configured';
-    root.querySelector('[data-i18n="contributeNote"]').textContent = isConfigured() ? copy.contributionNote : copy.unavailable;
+    const contributeNote = root.querySelector('[data-i18n="contributeNote"]');
+    // Only shown when sending is unavailable; the form explains itself otherwise.
+    contributeNote.textContent = isConfigured() ? '' : copy.unavailable;
+    contributeNote.hidden = isConfigured();
     root.querySelector('[data-i18n="photosLabel"]').textContent = template(config.copy[state.language].photosLabel) + copy.optional;
     root.querySelector('#party-photos-hint').textContent = copy.photosHint + (lastContribution?.photos?.length ? ` ${copy.replacing}` : '');
     root.querySelector('[data-i18n="contributeButton"]').textContent = submissionState.contributionBusy ? copy.savingContribution : lastContribution ? copy.update : copy.submit;
