@@ -51,6 +51,39 @@ window.BIRTHDAY_CONFIG = {
   },
   "photos": [
     {
+      "src": "assets/memory-10-where-it-began.jpg",
+      "caption": {
+        "en": "Where it all began",
+        "nb": "Der alt begynte"
+      },
+      "alt": {
+        "en": "Baby {name} biting a green ball among the flowerpots on a garden porch",
+        "nb": "Lille {name} biter i en grønn ball blant blomsterpottene på verandaen"
+      }
+    },
+    {
+      "src": "assets/memory-11-game-face.jpg",
+      "caption": {
+        "en": "Game face, since forever",
+        "nb": "Konkurranseblikket har alltid vært der"
+      },
+      "alt": {
+        "en": "Teenage {name} at a table tennis table, bat in hand, ready to serve",
+        "nb": "{name} som tenåring ved bordtennisbordet, klar til serve"
+      }
+    },
+    {
+      "src": "assets/memory-12-teammates.jpg",
+      "caption": {
+        "en": "Teammates for life",
+        "nb": "Lagvenninner for livet"
+      },
+      "alt": {
+        "en": "{name} hugging a teammate on a bench in a table tennis hall",
+        "nb": "{name} gir en lagvenninne en klem på benken i bordtennishallen"
+      }
+    },
+    {
       "src": "assets/memory-02.jpg",
       "caption": {
         "en": "Taking the scenic route",
