@@ -84,14 +84,14 @@ window.BIRTHDAY_CONFIG = {
       }
     },
     {
-      "src": "assets/memory-02.jpg",
+      "src": "assets/memory-13-sun-kissed.jpg",
       "caption": {
-        "en": "Taking the scenic route",
-        "nb": "Den fine omveien"
+        "en": "Sun-kissed and unbothered",
+        "nb": "Solkysset og ubekymret"
       },
       "alt": {
-        "en": "{name} in a red floral dress on an open train carriage",
-        "nb": "{name} i rød blomsterkjole på et åpent tog"
+        "en": "{name} in a white dress among blue flowers on a sunny hillside",
+        "nb": "{name} i hvit kjole blant blå blomster i en solfylt li"
       }
     },
     {
