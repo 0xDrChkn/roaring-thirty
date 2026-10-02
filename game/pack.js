@@ -45,13 +45,47 @@
       {
         id: 'emoji-cinema',
         title: text('Emoji Cinema', 'Emoji-kino'),
-        description: text('A whole film in a few small pictures.', 'En hel film i noen få små bilder.'),
+        description: text('Name the film. Higher values hide a story, not just a title.', 'Finn filmen. De høyeste verdiene skjuler en historie, ikke bare en tittel.'),
         clues: [
-          { id: 'em-100', value: 100, question: text('🦁 👑 🌅  Name the film.', '🦁 👑 🌅  Hvilken film?'), answer: text('The Lion King', 'Løvenes konge') },
-          { id: 'em-200', value: 200, question: text('👸 ❄️ ⛄ 🏰  Name the film.', '👸 ❄️ ⛄ 🏰  Hvilken film?'), answer: text('Frozen', 'Frost') },
-          { id: 'em-300', value: 300, question: text('👻 🚫 📞  Name the film.', '👻 🚫 📞  Hvilken film?'), answer: text('Ghostbusters') },
-          { id: 'em-400', value: 400, question: text('🐀 👨‍🍳 🇫🇷  Name the film.', '🐀 👨‍🍳 🇫🇷  Hvilken film?'), answer: text('Ratatouille') },
-          { id: 'em-500', value: 500, question: text('🌽 🚀 🕳️ ⏳  Name the film.', '🌽 🚀 🕳️ ⏳  Hvilken film?'), answer: text('Interstellar') }
+          {
+            id: 'em-100', value: 100,
+            question: text('🦁 👑 🌅  Name the film.', '🦁 👑 🌅  Hvilken film?'),
+            answer: text('The Lion King', 'Løvenes konge'),
+            acceptedAnswers: ['The Lion King', 'Løvenes konge'],
+            explanation: text('A lion prince, a kingdom and the sunrise over the Pride Lands.', 'En løveprins, et kongerike og soloppgangen over Løveriket.'),
+            hostNote: text('Accept the title without a year; both the animated film and its remake fit.', 'Godta tittelen uten årstall; både tegnefilmen og nyinnspillingen passer.')
+          },
+          {
+            id: 'em-200', value: 200,
+            question: text('👽 🚲 🌕 📞 🏠  Name the film.', '👽 🚲 🌕 📞 🏠  Hvilken film?'),
+            answer: text('E.T. the Extra-Terrestrial', 'E.T. – Gjesten fra verdensrommet'),
+            acceptedAnswers: ['E.T.', 'ET', 'E.T. the Extra-Terrestrial', 'E.T. – Gjesten fra verdensrommet'],
+            explanation: text('A stranded alien, the flying bicycle against the moon and a call home.', 'Et strandet romvesen, sykkelen som flyr foran månen, og en telefon hjem.')
+          },
+          {
+            id: 'em-300', value: 300,
+            question: text('🚗 ⚡ 🕰️ 💑 📸  Name the film.', '🚗 ⚡ 🕰️ 💑 📸  Hvilken film?'),
+            answer: text('Back to the Future (1985)', 'Tilbake til fremtiden (1985)'),
+            acceptedAnswers: ['Back to the Future', 'Tilbake til fremtiden'],
+            explanation: text('A car travels through time; lightning powers the return trip. His parents must fall in love so he stays in the family photo.', 'En bil reiser i tid; lyn gir strøm til returen. Foreldrene hans må forelske seg så han blir værende i familiebildet.'),
+            hostNote: text('The romance and family photo anchor the first film. No year required; a specifically named sequel is not the intended answer.', 'Romansen og familiebildet peker på den første filmen. Årstall trengs ikke; en navngitt oppfølger er ikke det tilsiktede svaret.')
+          },
+          {
+            id: 'em-400', value: 400,
+            question: text('📺 🌨️ 🛏️ ⏰ 🔁  Name the film.', '📺 🌨️ 🛏️ ⏰ 🔁  Hvilken film?'),
+            answer: text('Groundhog Day', 'En ny dag truer'),
+            acceptedAnswers: ['Groundhog Day', 'En ny dag truer'],
+            explanation: text('A TV weatherman is stranded by a blizzard, then wakes up to the same day again and again.', 'En TV-meteorolog blir værfast i en snøstorm og våkner så til den samme dagen om og om igjen.'),
+            hostNote: text('The TV weather job and snowstorm distinguish this from other time-loop films.', 'Værmeldingen på TV og snøstormen skiller denne fra andre filmer med tidsløkker.')
+          },
+          {
+            id: 'em-500', value: 500,
+            question: text('👨 ⛵ 🌊 🧱 🚪 📺  Name the film.', '👨 ⛵ 🌊 🧱 🚪 📺  Hvilken film?'),
+            answer: text('The Truman Show'),
+            acceptedAnswers: ['The Truman Show', 'Truman Show'],
+            explanation: text('A man sails to the edge of his world, reaches a wall and exits through a door. His whole life has been a TV show.', 'En mann seiler til kanten av sin verden, når en vegg og går ut gjennom en dør. Hele livet hans har vært et TV-program.'),
+            hostNote: text('The brick represents a wall, not a literal brick wall. The boat, boundary, exit and TV are the combined clue.', 'Mursteinen betyr en vegg, ikke en bokstavelig murvegg. Båten, grensen, utgangen og TV-en er den samlede ledetråden.')
+          }
         ]
       },
       {
@@ -128,27 +162,33 @@
       },
       {
         id: 'brand-new',
-        title: text('Brand New', 'Kjente merker'),
-        description: text('Logos, names and where they came from.', 'Logoer, navn og hvor de kommer fra.'),
+        title: text('Started Somewhere Else', 'Startet et annet sted'),
+        description: text('Familiar names, surprising beginnings. Name the company or product from its origin story.', 'Kjente navn med overraskende røtter. Finn selskapet eller produktet ut fra historien om starten.'),
         clues: [
-          { id: 'br-100', value: 100, question: text('Which company’s logo is an apple with a bite taken out?', 'Hvilket selskap har et eple med et bitt i som logo?'), answer: text('Apple') },
-          { id: 'br-200', value: 200, question: text('Which sportswear brand’s logo is the “swoosh”?', 'Hvilket sportsmerke har «swooshen» som logo?'), answer: text('Nike') },
-          { id: 'br-300', value: 300, question: text('Which car brand’s logo is four interlocking rings?', 'Hvilket bilmerke har fire sammenflettede ringer som logo?'), answer: text('Audi') },
-          { id: 'br-400', value: 400, question: text('LEGO comes from the Danish words “leg godt”. What do they mean?', 'LEGO kommer fra de danske ordene «leg godt». Hva betyr de?'), answer: text('Play well', 'Lek godt') },
-          { id: 'br-500', value: 500, question: text('IKEA is an acronym. What does the I K stand for?', 'IKEA er en forkortelse. Hva står I og K for?'), answer: text('Ingvar Kamprad, the founder (E and A: his farm Elmtaryd and village Agunnaryd).', 'Ingvar Kamprad, grunnleggeren (E og A: gården Elmtaryd og bygda Agunnaryd).') }
+          { id: 'br-100', value: 100, question: text('Long before Mario, this Japanese company began selling hanafuda playing cards in Kyoto in 1889. Name the company.', 'Lenge før Mario begynte dette japanske selskapet å selge hanafuda-spillekort i Kyoto i 1889. Hva heter selskapet?'), answer: text('Nintendo.') },
+          { id: 'br-200', value: 200, question: text('Before founding his Italian sports-car company in 1963, its founder turned surplus military vehicles into tractors. Name the car brand.', 'Før han grunnla sitt italienske sportsbilselskap i 1963, bygde grunnleggeren om utrangerte militærkjøretøy til traktorer. Hva heter bilmerket?'), answer: text('Lamborghini. Accept Automobili Lamborghini / Lambo.', 'Lamborghini. Godta Automobili Lamborghini / Lambo.'), acceptedAnswers: ['Automobili Lamborghini', 'Lambo'] },
+          { id: 'br-300', value: 300, question: text('In 1900, this tyre company gave drivers a free guide with maps, repair advice and places to stay, hoping they would drive more and buy more tyres. Name the company.', 'I 1900 ga dette dekkselskapet bilister en gratis guide med kart, reparasjonsråd og overnattingssteder, i håp om at de ville kjøre mer og kjøpe flere dekk. Hva heter selskapet?'), answer: text('Michelin.') },
+          { id: 'br-400', value: 400, question: text('This Finnish technology company traces its beginnings to a wood-pulp mill founded by Fredrik Idestam in 1865. Name the company.', 'Dette finske teknologiselskapet har røtter i en tremassefabrikk som Fredrik Idestam grunnla i 1865. Hva heter selskapet?'), answer: text('Nokia.') },
+          { id: 'br-500', value: 500, question: text('A scientist developed an adhesive that could be peeled off and reused. A colleague later used it to keep his choir-book markers from falling out. Which office product grew from this idea?', 'En forsker utviklet et lim som kunne løsnes og brukes igjen. En kollega brukte det senere for å hindre at bokmerkene i salmeboken hans falt ut. Hvilket kontorprodukt vokste frem fra ideen?'), answer: text('Post-it notes. Accept sticky notes / repositionable adhesive notes.', 'Post-it-lapper. Godta klistrelapper / selvklebende notatlapper.'), acceptedAnswers: ['Post-it', 'Post-it notes', 'sticky notes', 'repositionable adhesive notes', text('Sticky notes', 'Klistrelapper'), text('Repositionable adhesive notes', 'Selvklebende notatlapper')] }
         ]
       },
       {
         id: 'finish-the-lyric',
         title: text('Finish the Lyric', 'Fullfør teksten'),
-        description: text('Sing it if you dare. The words count, not the voice.', 'Syng hvis du tør. Det er ordene som teller, ikke stemmen.'),
-        clues: [
-          { id: 'fl-100', value: 100, question: text('Queen: “We will, we will…”', 'Queen: «We will, we will…»'), answer: text('…rock you!') },
-          { id: 'fl-200', value: 200, question: text('Britney Spears: “Oh baby, baby… hit me baby…”', 'Britney Spears: «Oh baby, baby… hit me baby…»'), answer: text('…one more time') },
-          { id: 'fl-300', value: 300, question: text('Rick Astley: “Never gonna give you up, never gonna…”', 'Rick Astley: «Never gonna give you up, never gonna…»'), answer: text('…let you down') },
-          { id: 'fl-400', value: 400, question: text('Miley Cyrus: “I came in like a…”', 'Miley Cyrus: «I came in like a…»'), answer: text('…wrecking ball') },
-          { id: 'fl-500', value: 500, question: text('Journey: “Just a small-town girl, livin’ in a…”', 'Journey: «Just a small-town girl, livin’ in a…»'), answer: text('…lonely world') }
-        ]
+        description: text('Say or sing the next words in English. All requested words count; accent and singing do not. No audio needed.', 'Si eller syng de neste ordene på engelsk. Alle ordene må være med; aksent og sangstemme teller ikke. Ingen lyd nødvendig.'),
+        clues: (() => {
+          const cut = (words, count, artist = '') => text(
+            `${artist ? `${artist}: ` : ''}“${words}…” Complete the next ${count} sung words.`,
+            `${artist ? `${artist}: ` : ''}«${words}…» Fullfør med de neste ${count} ordene i sangen.`
+          );
+          return [
+            { id: 'fl-100', value: 100, question: cut('You can dance,', 3, 'ABBA'), answer: text('you can jive') },
+            { id: 'fl-200', value: 200, question: cut('My loneliness is', 2, 'Britney Spears'), answer: text('killing me'), acceptedAnswers: ["killin’ me", "killin me"] },
+            { id: 'fl-300', value: 300, question: cut('I want your love and I', 3), answer: text('want your revenge') },
+            { id: 'fl-400', value: 400, question: cut('And all the roads', 4), answer: text('we have to walk') },
+            { id: 'fl-500', value: 500, question: cut('You had my heart', 4), answer: text('inside of your hand') }
+          ];
+        })()
       },
       {
         id: 'science-tech',
@@ -188,14 +228,49 @@
       },
       {
         id: 'countries',
-        title: text('What’s That Country?', 'Hvilket land?'),
-        description: text('Gold silhouettes. No labels. One final capital to name.', 'Gylne silhuetter uten stedsnavn. Til slutt trenger vi også hovedstaden.'),
+        title: text('Where Are We?', 'Hvor er vi?'),
+        description: text('Five real location drops. Stay put, study the scene and name the country.', 'Fem ekte steder. Bli stående, studer bildet og finn landet.'),
         clues: [
-          { id: 'geo-100', value: 100, question: text('Which country is this?', 'Hvilket land er dette?'), answer: text('Italy', 'Italia'), image: 'assets/clue-geo-100.svg', imageAlt: text('A gold country outline, with north at the top.', 'En gyllen landkontur med nord øverst.') },
-          { id: 'geo-200', value: 200, question: text('Which country’s European territory is shown?', 'Hvilket lands europeiske område ser vi?'), answer: text('France', 'Frankrike'), image: 'assets/clue-geo-200.svg', imageAlt: text('A gold outline of a European country, including its nearby island.', 'En gyllen kontur av et europeisk land, med en øy i nærheten.') },
-          { id: 'geo-300', value: 300, question: text('Which country is this island chain?', 'Hvilket land er denne øyrekken?'), answer: text('Japan'), image: 'assets/clue-geo-300.svg', imageAlt: text('A chain of islands shown in gold, with north at the top.', 'En øyrekke i gull med nord øverst.') },
-          { id: 'geo-400', value: 400, question: text('Which country is this?', 'Hvilket land er dette?'), answer: text('Iceland', 'Island'), image: 'assets/clue-geo-400.svg', imageAlt: text('A single island country in gold, with north at the top.', 'En øystat i gull med nord øverst.') },
-          { id: 'geo-500', value: 500, question: text('Name the country in gold AND its capital. Both for the points.', 'Hva heter landet i gull OG hovedstaden? Begge må være riktige.'), answer: text('New Zealand and Wellington.', 'New Zealand og Wellington.'), image: 'assets/clue-geo-500.svg', imageAlt: text('A regional map with one country in gold and its larger neighbour in grey.', 'Et regionalt kart med ett land i gull og den større naboen i grått.') }
+          {
+            id: 'geo-100', value: 100,
+            question: text('You have landed here. Which country are we in?', 'Du har landet her. Hvilket land er vi i?'),
+            answer: text('Italy', 'Italia'), acceptedAnswers: ['Italy', 'Italia'],
+            image: 'assets/geo-location-100.jpg', imageAlt: text('A fixed view of a canal, footbridges and nearby buildings.', 'Et stillbilde av en kanal, gangbroer og bygninger.'),
+            explanation: text('Venice, Italy. The canal, footbridges and Italian signs are your clues.', 'Venezia, Italia. Kanalen, gangbroene og de italienske skiltene er ledetrådene.'),
+            hostNote: text('Country only; no city required. Photo: Jorge Royan / Wikimedia Commons, CC BY-SA 3.0. Resized and re-encoded. Full source and licence: Photo credits in the game footer.', 'Kun landet; bynavn trengs ikke. Foto: Jorge Royan / Wikimedia Commons, CC BY-SA 3.0. Skalert og lagret på nytt. Full kilde og lisens: Fotokreditering i spillets bunntekst.')
+          },
+          {
+            id: 'geo-200', value: 200,
+            question: text('Stay right here and study the street. Which country?', 'Bli stående og studer gaten. Hvilket land?'),
+            answer: text('Japan'), acceptedAnswers: ['Japan', 'Nippon', 'Nihon'],
+            image: 'assets/geo-location-200.jpg', imageAlt: text('A fixed street view with shops, signs, pedestrians and overhead cables.', 'Et stillbilde av en gate med butikker, skilt, fotgjengere og luftledninger.'),
+            explanation: text('Kyoto, Japan. Japanese writing, tiled roofs and dense overhead wiring help place the scene.', 'Kyoto, Japan. Japansk skrift, takstein og mange luftledninger hjelper deg å plassere bildet.'),
+            hostNote: text('Country only. Photo: Creativekai / Wikimedia Commons, CC BY-SA 4.0. Re-encoded. Full source and licence: Photo credits in the game footer.', 'Kun landet. Foto: Creativekai / Wikimedia Commons, CC BY-SA 4.0. Lagret på nytt. Full kilde og lisens: Fotokreditering i spillets bunntekst.')
+          },
+          {
+            id: 'geo-300', value: 300,
+            question: text('One spot in a busy market street. Which country are we in?', 'Ett sted i en travel markedsgate. Hvilket land er vi i?'),
+            answer: text('Morocco', 'Marokko'), acceptedAnswers: ['Morocco', 'Marokko', 'Maroc'],
+            image: 'assets/geo-location-300.jpg', imageAlt: text('A fixed view down a covered market lane with textiles and metalware.', 'Et stillbilde av en overbygd markedsgate med tekstiler og metallvarer.'),
+            explanation: text('The medina in Marrakech, Morocco. The souk, red walls, hanging lamps and robes are clues to this North African location.', 'Medinaen i Marrakech, Marokko. Souken, de røde veggene, lampene og kjortlene peker mot dette nordafrikanske stedet.'),
+            hostNote: text('Country only. Photo: Edviges / Wikimedia Commons, CC BY-SA 4.0. Resized and re-encoded. Full source and licence: Photo credits in the game footer.', 'Kun landet. Foto: Edviges / Wikimedia Commons, CC BY-SA 4.0. Skalert og lagret på nytt. Full kilde og lisens: Fotokreditering i spillets bunntekst.')
+          },
+          {
+            id: 'geo-400', value: 400,
+            question: text('A roadside drop. Look at the landscape and road details. Which country?', 'Du er plassert ved en vei. Se på landskapet og veidetaljene. Hvilket land?'),
+            answer: text('Iceland', 'Island'), acceptedAnswers: ['Iceland', 'Island', 'Ísland'],
+            image: 'assets/geo-location-400.jpg', imageAlt: text('A fixed view of an open road, a bridge, dark ground and treeless hills.', 'Et stillbilde av en åpen vei, en bro, mørk grunn og treløse åser.'),
+            explanation: text('The Ring Road in southern Iceland. Dark sand, treeless volcanic hills and yellow roadside posts help narrow the guess.', 'Ringveien sør på Island. Mørk sand, treløse vulkanske åser og gule kantstolper hjelper deg å snevre inn svaret.'),
+            hostNote: text('Country only. Photo: Nataliar77 / Wikimedia Commons, CC BY 4.0. Resized and re-encoded. Full source and licence: Photo credits in the game footer.', 'Kun landet. Foto: Nataliar77 / Wikimedia Commons, CC BY 4.0. Skalert og lagret på nytt. Full kilde og lisens: Fotokreditering i spillets bunntekst.')
+          },
+          {
+            id: 'geo-500', value: 500,
+            question: text('Somewhere in South America. Study this street: which country have we landed in?', 'Et sted i Sør-Amerika. Studer gaten: hvilket land har vi landet i?'),
+            answer: text('Chile'), acceptedAnswers: ['Chile', 'Republic of Chile', 'Republikken Chile'],
+            image: 'assets/geo-location-500.jpg', imageAlt: text('A fixed street view with colourful houses, parked cars and overhead wires.', 'Et stillbilde av en gate med fargerike hus, parkerte biler og luftledninger.'),
+            explanation: text('Valparaíso, Chile. Colourful corrugated facades, a sloping cobbled street and the Spanish street sign suggest this port city.', 'Valparaíso, Chile. Fargerike bølgeblikkfasader, en skrånende brosteinsgate og det spanske gateskiltet peker mot denne havnebyen.'),
+            hostNote: text('Country only. The continent is provided because the architecture alone is not unique to Chile. Photo: Gabrielinfante92 / Wikimedia Commons, CC BY-SA 4.0. Resized and re-encoded. Full source and licence: Photo credits in the game footer.', 'Kun landet. Verdensdelen er oppgitt fordi arkitekturen alene ikke er unik for Chile. Foto: Gabrielinfante92 / Wikimedia Commons, CC BY-SA 4.0. Skalert og lagret på nytt. Full kilde og lisens: Fotokreditering i spillets bunntekst.')
+          }
         ]
       },
       {

@@ -34,6 +34,8 @@ The [organiser dashboard](https://0xdrchkn.github.io/roaring-thirty/organiser/) 
 
 The [TV game](https://0xdrchkn.github.io/roaring-thirty/game/) supports 2–6 teams, any chosen categories from a bank of 22, 106 ready clues, the two selected Sara reactions, a configurable timer, plus/minus scoring, corrections, undo, private pack import/export and local saving. The recommended board has 30 ready clues. Four personal slots still need genuine material. The celebrity round has sixteen face blends and a five-portrait picker, and play follows team order with automatic timers and one-use Double Up, First Letter and Steal per round. Correct and Wrong both take the tile immediately and advance the turn; Undo restores the score, tile and turn. See [game usage](game/README.md), [the specification and reference comparison](docs/GAME-SPEC.md), and [category briefs](docs/GAME-CATEGORIES.md).
 
+The approved category update rebuilds **Brand New** as **Started Somewhere Else** and strengthens **Finish the Lyric** and **Emoji Cinema**. The country column is now **Where Are We?**, using five real stationary photo drops and country-only answers. All categories remain selectable; the default category IDs and tournament setup are unchanged.
+
 ## Use it for another person
 
 1. Duplicate this repository (the GitHub “Use this template” button), or clone it into a new repository.

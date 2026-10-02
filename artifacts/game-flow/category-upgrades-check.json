@@ -1,0 +1,27 @@
+{
+  "verifiedAt": "2026-10-02T19:49:51.811Z",
+  "categoryIds": [
+    "brand-new",
+    "finish-the-lyric",
+    "emoji-cinema",
+    "countries"
+  ],
+  "changedCategoryIds": [
+    "emoji-cinema",
+    "brand-new",
+    "finish-the-lyric",
+    "countries"
+  ],
+  "categoryCount": 22,
+  "clueCount": 20,
+  "checks": [
+    "only four approved categories changed",
+    "stable category and clue IDs/values",
+    "unchanged default category IDs",
+    "all questions and answers bilingual/playable",
+    "all bundled image paths present",
+    "JSON export/import",
+    "complete revealed-answer playthrough",
+    "saved restore after every judgement"
+  ]
+}

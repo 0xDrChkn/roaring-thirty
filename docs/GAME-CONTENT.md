@@ -130,3 +130,15 @@ Science + Tech sources, checked for the party plan:
 - st-500 light-year: [NASA](https://science.nasa.gov/exoplanets/what-is-a-light-year/).
 
 The [party plan](PARTY-GAME-PLAN.md) records bilingual clue drafts, answer variants, timing assumptions and research limits. Old category inventories earlier in this file describe the September pack.
+
+
+## Approved category upgrades — 2 October 2026
+
+Started Somewhere Else rebuilds Brand New while retaining `brand-new` and `br-100`–`br-500`. The five answers are Nintendo, Lamborghini, Michelin, Nokia and Post-it notes. The implemented bilingual questions paraphrase primary company histories; source links and accepted-answer boundaries are recorded in [STARTED-SOMEWHERE-ELSE.md](STARTED-SOMEWHERE-ELSE.md).
+
+Finish the Lyric and Emoji Cinema remain selectable with revised clues and host guidance. The 22-category count, default categories and tournament logic are unchanged. Earlier inventory/source notes describe previous clue versions; the new category records below take precedence for these three columns.
+
+- [FINISH-THE-LYRIC.md](FINISH-THE-LYRIC.md) records short contiguous cuts, required word counts, judging rules and verification sources. Both languages use the same English lyric and translated instructions; audio is not required.
+- [EMOJI-CINEMA.md](EMOJI-CINEMA.md) records original Unicode arrangements, accepted English/Norwegian titles, explanations and film sources. The upper clues use plot connections, and none repeats the current Bad Movie Plots answers.
+
+Where Are We? supersedes the old silhouette geography set. Five licensed real photographs are locally served at fixed viewpoints; the same five are used on each new game. Country-only answers replace the old New Zealand-and-capital requirement. [GEO-LOCATIONS.md](GEO-LOCATIONS.md) records exact assets, locations, photographers, original sources, licences, resize history and hashes; [the public credit page](../game/location-credits.html) and [`geo-location-credits.json`](../game/assets/geo-location-credits.json) accompany the images. The older SVG silhouettes remain archived assets, not active clues. No Street View service, walking controls or runtime global randomness is implied.

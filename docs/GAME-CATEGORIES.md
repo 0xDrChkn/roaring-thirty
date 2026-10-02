@@ -1,4 +1,4 @@
-> Current update (2 October 2026): the bank has 22 categories. The recommended six are Sara celebrity face blends, countries, bad film plots, music, Science + Tech and Typically Norwegian. Before/After and True/False have become open knowledge rounds. New celebrity clues use tight neutral face blends, without costumes or scenery. The preparation gallery lets the host select five portraits from the growing pool. See [the current party plan](PARTY-GAME-PLAN.md); the September inventory below is retained for historical context.
+> Current update (2 October 2026): the bank has 22 categories. The recommended six are Sara celebrity face blends, Where Are We? location photos, bad film plots, music, Science + Tech and Typically Norwegian. Before/After and True/False have become open knowledge rounds. New celebrity clues use tight neutral face blends, without costumes or scenery. The preparation gallery lets the host select five portraits from the growing pool. See [the current party plan](PARTY-GAME-PLAN.md); the September inventory below is retained for historical context.
 
 # The Sara Show — category bank
 
@@ -80,3 +80,16 @@ Keep these in a private host pack. Guest contributions should not be copied auto
 - Keep the timer generous for picture clues and the two-part geography question.
 - Try a complete board and reload mid-clue. Drafts remain unplayable and do not count towards completion.
 - Treat this public bank as rehearsal material: the source code includes its answers.
+
+
+## Approved category upgrades — 2 October 2026
+
+The current bank retains all 22 selectable categories. Brand New (`brand-new`) has become **Started Somewhere Else**, with five open-answer origin questions. **Finish the Lyric** (`finish-the-lyric`) and **Emoji Cinema** (`emoji-cinema`) have been upgraded rather than removed. Their existing clue IDs and 100–500 values are retained. These edits do not change the recommended six or the tournament boards. The September inventory and earlier audit describe the previous clue versions.
+
+- [Started Somewhere Else](STARTED-SOMEWHERE-ELSE.md): identify a familiar company/product from its original purpose; all five answers are source-checked.
+- [Finish the Lyric](FINISH-THE-LYRIC.md): 2–4 explicit next words, spoken or sung, with no artist/title hints at 300–500.
+- [Emoji Cinema](EMOJI-CINEMA.md): one easy title clue followed by increasingly connected plot sequences; host notes define acceptable title/version boundaries.
+
+Point values are editorial estimates. Rehearse recognition, the upper-value lyric cuts and emoji readability on the actual TV.
+
+- [Where Are We?](GEO-LOCATIONS.md) keeps `countries` / `geo-100`–`geo-500` and replaces silhouettes with five fixed real photo drops. Teams name only the country; neither city nor capital is required. Sources, attribution and licensing are linked from the game footer, with answer-bearing location details collapsed by default.

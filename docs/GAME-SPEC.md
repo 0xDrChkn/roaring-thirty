@@ -4,7 +4,9 @@ Updated 2 October 2026. The host plays from one laptop connected to a TV. Teams 
 
 ## Current game — 2 October 2026
 
-The public bank has 22 categories and 110 slots. Recommended categories: The Birthday Girl, What's That Country?, Bad Movie Plots, Name That Tune, Science + Tech and Typically Norwegian. True/False has been replaced by Science + Tech; Before/After is now Time Machine with open year questions. Select any 1–40 categories for testing; wide boards scroll horizontally. Draft image/personal clues stay locked.
+The public bank has 22 categories and 110 slots. Recommended categories: The Birthday Girl, Where Are We?, Bad Movie Plots, Name That Tune, Science + Tech and Typically Norwegian. True/False has been replaced by Science + Tech; Before/After is now Time Machine with open year questions. Select any 1–40 categories for testing; wide boards scroll horizontally. Draft image/personal clues stay locked.
+
+Where Are We? uses five licensed, locally served real location photographs at fixed viewpoints. Teams name only the country. The 500-point clue supplies a South America hint. These are curated drops repeated on new games, without navigation or random worldwide selection. The game footer links to photographer/licence credits, with answer-bearing location/source details collapsed.
 
 Teams play in entry order. Opening a clue selects the active team and starts its timer. Correct awards points; Wrong deducts points. Either judgement immediately takes the tile and advances the primary turn. A wrong answer does not leave the clue available for another attempt. A steal never changes the primary turn sequence. A completed tile is grey, checked and disabled; the last answer remains visible on the board.
 

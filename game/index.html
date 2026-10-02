@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#080808"><meta name="robots" content="noindex,nofollow">
-<title>The Great Matilda · The birthday game</title><link rel="icon" href="../favicon.svg"><link rel="stylesheet" href="game.css?v=20261002-compact">
+<title>The Great Matilda · The birthday game</title><link rel="icon" href="../favicon.svg"><link rel="stylesheet" href="game.css?v=20261002-upgrades">
+<!-- Optional web fonts must not block game scripts or offline play. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Jost:wght@400;500;600&amp;display=swap" media="print" onload="this.media='all'">
 </head>
 <body>
 <div class="game-shell">
@@ -21,7 +23,7 @@
     </section>
     <p id="notice" class="notice" role="status" aria-live="polite"></p>
   </main>
-  <footer class="site-footer"><span data-copy="footer">BLACK TIE. FRIENDLY RIVALRY.</span><a href="../" data-copy="backInvite">Back to the invitation ↗</a></footer>
+  <footer class="site-footer"><span data-copy="footer">BLACK TIE. FRIENDLY RIVALRY.</span><a href="location-credits.html" target="_blank" rel="noopener" data-copy="photoCredits">Photo credits ↗</a><a href="../" data-copy="backInvite">Back to the invitation ↗</a></footer>
 </div>
 <dialog id="clue-dialog" aria-labelledby="clue-category">
   <div class="clue-top"><p class="eyebrow" id="clue-category"></p><div class="clue-meta"><span id="clue-value"></span><button class="icon-button" id="clue-cancel" type="button" aria-label="Return to board">×</button></div></div>
@@ -38,5 +40,5 @@
 <dialog id="reset-dialog" class="small-dialog" aria-labelledby="reset-title"><p class="eyebrow" data-copy="newRound">A FRESH START</p><h2 id="reset-title" data-copy="resetTitle">Start a new game?</h2><p data-copy="resetBody">This clears this browser’s current scores and played clues. Your question pack stays the same.</p><div class="dialog-actions"><button class="secondary" data-close="reset-dialog" type="button" data-copy="keepPlaying">Keep playing</button><button class="primary" id="confirm-reset" type="button" data-copy="resetConfirm">Start new game</button></div></dialog>
 <dialog id="conflict-dialog" class="small-dialog" aria-labelledby="conflict-title"><h2 id="conflict-title" data-copy="conflictTitle">The game changed in another tab.</h2><p data-copy="conflictBody">This tab is paused to protect the latest scores. Reload the saved game before continuing.</p><button id="reload-game" class="primary" type="button" data-copy="reloadGame">Load latest game</button></dialog>
 <dialog id="adjust-dialog" class="small-dialog" aria-labelledby="adjust-title"><button class="icon-button dialog-close" data-close="adjust-dialog" type="button" aria-label="Close">×</button><p class="eyebrow" data-copy="hostNotes">FOR THE HOST</p><h2 id="adjust-title" data-copy="adjustScores">Adjust scores</h2><p data-copy="adjustHint">Correct a score or award a house-rule bonus. Every correction has a reason and can be undone.</p><form id="adjust-form"><label class="team-label"><span data-copy="adjustTeam">Team</span><select id="adjust-team" required></select></label><label class="team-label"><span data-copy="adjustAmount">Points to add or subtract</span><input id="adjust-amount" type="number" min="-1000000" max="1000000" step="1" value="100" required></label><label class="team-label"><span data-copy="adjustReason">Reason</span><input id="adjust-reason" maxlength="160" required autocomplete="off"></label><p id="adjust-error" class="notice" role="status"></p><button class="primary" type="submit" data-copy="applyCorrection">Apply correction</button></form><div id="adjust-history" class="adjust-history"></div></dialog>
-<script src="session-store.js?v=20261002-party"></script><script src="pack.js?v=20261002-party"></script><script src="celebrity-faces.js?v=20261002-party"></script><script src="engine.js?v=20261002-party"></script><script src="pack-tools.js?v=20261002-party"></script><script src="app.js?v=20261002-party"></script>
+<script src="session-store.js?v=20261002-upgrades"></script><script src="pack.js?v=20261002-upgrades"></script><script src="celebrity-faces.js?v=20261002-upgrades"></script><script src="engine.js?v=20261002-upgrades"></script><script src="pack-tools.js?v=20261002-upgrades"></script><script src="app.js?v=20261002-upgrades"></script>
 </body></html>

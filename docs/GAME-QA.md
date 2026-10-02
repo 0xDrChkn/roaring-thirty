@@ -66,3 +66,17 @@ A browser save is compared with the raw snapshot the tab last read/wrote. A newe
 - Team renaming during play, curated timed heats, explicit tournament tiebreaks, sounds, wildcards, intermissions and finale video remain unimplemented. Tournament heat/final transitions reset scores and tokens; existing advancement includes ties.
 - Physical TV, narrow mobile and final portrait-recognition rehearsals remain necessary. Wide category selections scroll horizontally.
 - The sixteen-portrait catalogue has passed the bundled-image and selection tests. Final portrait recognition still needs rehearsal with the host.
+
+## Approved category upgrades — 2 October 2026
+
+Started Somewhere Else, Finish the Lyric, Emoji Cinema and Where Are We? replace only the four approved category objects. All 22 categories remain selectable; the category/clue IDs, point values and recommended defaults remain unchanged. This pass does not change the tournament allocation.
+
+The full suite still passes **51/51**. All six game scripts pass `node --check`, and `git diff --check` passes. The additional [integration record](../artifacts/game-flow/category-upgrades-check.json) checks all 20 bilingual clues, stable IDs and values, unchanged defaults, image availability, JSON export/import and a complete playthrough with restoration after every judgement. All five local location-photo hashes match the provenance JSON; photographer, source, licence and resize details are recorded there.
+
+The parent browser pass used a fresh **http://127.0.0.1:8766/game/** origin, preserving the user's `127.0.0.1:8765` game. At 1280×720 it verified the four-column, 20-clue board, the 500-point origin/lyric/emoji questions with answers and host notes, all four Norwegian category labels, and the Norwegian 500-point location question with its continent hint, answer and photo credit. The final English 200-point location view shows the larger uncropped photo, question, timer, power-ups and judgement controls together without visible scrolling. The preview was left in English with all 20 tiles unplayed and that location clue paused at 30 seconds.
+
+Evidence: [four upgraded categories](../artifacts/game-flow/four-upgraded-categories.jpg) and [final location-photo layout](../artifacts/game-flow/location-photo-preview.jpg). Photo credits are linked from the footer; the credits page keeps answer-bearing locations and filenames inside collapsed details.
+
+One first load in a hidden in-app browser tab stalled before the final script request and showed empty setup controls. Local HTTP checks returned every script successfully with matching file bytes; a fresh visible tab initialized immediately and restored the preview. The hidden-tab stall's cause remains unconfirmed. Optional Google Fonts now load through a nonblocking stylesheet link instead of a CSS import, removing that remote dependency from the game's blocking load path; this change alone did not establish the cause or resolution of the hidden-tab stall.
+
+Difficulty and recognition still need a host/guest rehearsal on the physical TV. The location round contains five curated stationary photo views, with country-only answers; it does not provide random worldwide drops or Street View navigation.

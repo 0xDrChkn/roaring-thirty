@@ -33,7 +33,7 @@
     reactionHint:'Trykk på et bilde for å prøve reaksjonene.', boardEyebrow:'TJUEÅRENE OM IGJEN · SPILLET',
     undo:'↶ Angre', newGame:'Nytt spill', turnLabel:'ORDET ER DERES', turnOrderLabel:'LAGREKKEFØLGE', portraitTitle:'Velg Saras kjendisansikter', portraitHint:'Velg fem portretter til runden. Rekkefølgen setter 100–500 poeng. Navnene vises her for verten.', portraitApply:'Bruk disse fem ansiktene', allCategories:'Velg alle ferdige', clearCategories:'Fjern valgene',
     boardHint:'Laget som er markert velger et spørsmål. Riktig eller Feil tar ruten; turene følger lagrekkefølgen.',
-    footer:'PENT ANTREKK. VENNSKAPELIG RIVALISERING.', backInvite:'Tilbake til invitasjonen ↗',
+    footer:'PENT ANTREKK. VENNSKAPELIG RIVALISERING.', photoCredits:'Fotokreditering ↗', backInvite:'Tilbake til invitasjonen ↗',
     answerLabel:'SVARET', startTimer:'Start klokken', reveal:'Vis svaret', answering:'SVARER NÅ',
     wrong:'Feil', correct:'Riktig', finish:'Hopp over spørsmålet →', continue:'Fortsett →',
     hostNotes:'TIL VERTEN', rule1:'Koble laptopen til TV-en. Lag to til seks lag og skriv inn lagnavnene.',
@@ -440,6 +440,7 @@
     $('#clue-question').textContent = text(clue.question);
     const image = $('#clue-image');
     image.hidden = !clue.image; $('#clue-stage').classList.toggle('has-image',!!clue.image);
+    $('#clue-stage').classList.toggle('location-clue',clue.category.id === 'countries' && !!clue.image);
     if (clue.image) { if (image.getAttribute('src') !== clue.image) image.src = clue.image; image.alt = text(clue.imageAlt) || copy().image; } else image.removeAttribute('src');
     $('#answer').hidden = !state.revealed;
     $('#answer-text').textContent = state.revealed ? text(clue.answer) : '';
