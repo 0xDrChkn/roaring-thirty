@@ -205,14 +205,25 @@ window.BIRTHDAY_CONFIG = {
       }
     },
     {
-      "src": "assets/memory-01.jpg",
+      "src": "assets/memory-18-lakeside.jpg",
       "caption": {
-        "en": "Born for a party",
-        "nb": "Født for fest"
+        "en": "Living her best life",
+        "nb": "Lever sitt beste liv"
       },
       "alt": {
-        "en": "{name} dressed up holding an ice bucket",
-        "nb": "{name} pyntet til fest med en isbøtte"
+        "en": "{name} sitting on an oak branch above a sunlit lake",
+        "nb": "{name} sitter på en eikegren over en solfylt innsjø"
+      }
+    },
+    {
+      "src": "assets/memory-19-the-arrival.jpg",
+      "caption": {
+        "en": "The arrival",
+        "nb": "Ankomsten"
+      },
+      "alt": {
+        "en": "{name} and Sven embracing on a snowy balcony at night, city lights behind them",
+        "nb": "{name} og Sven i en klem på en snødekt balkong om kvelden, med byens lys bak seg"
       }
     }
   ],

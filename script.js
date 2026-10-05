@@ -154,6 +154,8 @@
       button.setAttribute('aria-label', (isNb ? 'Se bildet: ' : 'View photograph: ') + localized(photo.caption));
     });
     const selected = state.selectedPhoto !== null;
+    // A page holding one photo (the album's finale) shows it alone, centred and larger.
+    root.querySelector('.party-collage').classList.toggle('is-single', photos.slice(state.page * 3, state.page * 3 + 3).length === 1);
     root.querySelector('.party-collage').hidden = selected;
     root.querySelector('.party-photo-view').hidden = !selected;
     root.querySelector('[data-next-page]').hidden = selected || pageCount <= 1;

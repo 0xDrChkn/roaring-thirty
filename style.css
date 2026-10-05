@@ -138,6 +138,9 @@
 #gatsby-invitation .party-memory:nth-child(3) { transform: rotate(-2deg); }
 #gatsby-invitation .party-memory:hover { transform: rotate(0deg) translateY(-4px); }
 #gatsby-invitation .party-memory img { display: block; width: 100%; aspect-ratio: .76; object-fit: cover; }
+#gatsby-invitation .party-collage.is-single { grid-template-columns: minmax(0, 300px); justify-content: center; }
+#gatsby-invitation .party-collage.is-single .party-memory { grid-column: auto; width: 100%; margin-top: 0; transform: rotate(-1.5deg); }
+#gatsby-invitation .party-collage.is-single .party-memory span { font-size: 20px; }
 #gatsby-invitation .party-memory span { display: block; min-height: 2.5em; font: italic 16px/1.25 'Cormorant Garamond', Georgia, serif; margin-top: 10px; overflow-wrap: anywhere; }
 #gatsby-invitation .party-album-controls { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
 #gatsby-invitation .party-album-controls p { color: var(--party-muted); font-size: 12px; }
