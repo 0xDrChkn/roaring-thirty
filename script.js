@@ -290,9 +290,23 @@
   }
   root.querySelectorAll('[data-language]').forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.language)));
   window.addEventListener('birthday:request-language', event => setLanguage(event.detail?.language));
-  root.querySelector('[data-next-page]').addEventListener('click', () => {
-    state.page = (state.page + 1) % pageCount;
+  // Decode a page's photos before showing it, so captions and pictures switch together.
+  const preloadPage = page => Promise.all(photos.slice(page * 3, page * 3 + 3).map(photo => {
+    const img = new Image();
+    img.src = photo.src;
+    return img.decode().catch(() => {});
+  }));
+  if (pageCount > 1) preloadPage(1);
+  root.querySelector('[data-next-page]').addEventListener('click', async event => {
+    const button = event.currentTarget;
+    if (button.disabled) return;
+    const next = (state.page + 1) % pageCount;
+    button.disabled = true;
+    await preloadPage(next);
+    button.disabled = false;
+    state.page = next;
     render();
+    preloadPage((next + 1) % pageCount);
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       root.querySelector('.party-collage').animate([{opacity:0,transform:'translateY(18px)'},{opacity:1,transform:'translateY(0)'}], {duration:480,easing:'ease-out'});
     }

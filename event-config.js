@@ -62,6 +62,39 @@ window.BIRTHDAY_CONFIG = {
       }
     },
     {
+      "src": "assets/memory-15-first-steps.jpg",
+      "caption": {
+        "en": "Already going places",
+        "nb": "Allerede på vei et sted"
+      },
+      "alt": {
+        "en": "Little {name} in a flowery jacket and white boots, laughing on a forest path",
+        "nb": "Lille {name} i blomstrete jakke og hvite støvler, leende på en skogsti"
+      }
+    },
+    {
+      "src": "assets/memory-16-school-photo.jpg",
+      "caption": {
+        "en": "Picture day, serious business",
+        "nb": "Fotodag er alvorlige saker"
+      },
+      "alt": {
+        "en": "Young {name} in dungarees and a striped top, posing for a school photo",
+        "nb": "Unge {name} i snekkerbukse og stripete genser, fotografert på skolen"
+      }
+    },
+    {
+      "src": "assets/memory-17-flower-girl.jpg",
+      "caption": {
+        "en": "Bringing the flowers herself",
+        "nb": "Tar med blomstene selv"
+      },
+      "alt": {
+        "en": "Young {name} in the garden, laughing with her arms full of wildflowers",
+        "nb": "Unge {name} i hagen, leende med armene fulle av markblomster"
+      }
+    },
+    {
       "src": "assets/memory-11-game-face.jpg",
       "caption": {
         "en": "Game face, since forever",
@@ -246,7 +279,7 @@ window.BIRTHDAY_CONFIG = {
       "rsvpNo": "Got better stuff to do",
       "rsvpNote": "Your reply is sent privately to the organiser.",
       "welcome": "Your welcome drink is on us.",
-      "bar": "One each, then the bar is yours: order whatever you fancy.",
+      "bar": "One each, then the bar is yours: order whatever you fancy. We’ll keep the snacks coming all night.",
       "contributeKicker": "A little help from {name}’s favourite people",
       "contributeTitle": "We need your evidence.",
       "contributeIntro": "Your favourite {name} story. Your three best photos. Help us make a birthday collage and a game to remember.",
@@ -260,7 +293,7 @@ window.BIRTHDAY_CONFIG = {
       "albumKicker": "The evidence, so far",
       "albumTitle": "The road to {age}.",
       "albumHint": "Tap a photograph. There’s always a story.",
-      "drinksKicker": "Drinks",
+      "drinksKicker": "Drinks & snacks",
       "drinksTitle": "The bootlegger’s bar.",
       "drinksHistory": "Norway banned the sale of spirits from 1916 to 1927. For tonight’s operation, we have secured a liquor licence. In defiance of the Prohibition authorities, naturally."
     },
@@ -282,7 +315,7 @@ window.BIRTHDAY_CONFIG = {
       "locationBody": "Passord er ikke nødvendig. Det holder å kjenne bursdagsbarnet.",
       "map": "Finn adressen i Google Maps ↗",
       "welcome": "Velkomstdrinken spanderer vi.",
-      "bar": "Én per gjest, så er baren din: bestill det du har lyst på.",
+      "bar": "Én per gjest, så er baren din: bestill det du har lyst på. Vi sørger for snacks hele kvelden.",
       "albumKicker": "Bevismaterialet så langt",
       "albumTitle": "Veien til {age}.",
       "albumHint": "Trykk på et bilde. Det finnes alltid en historie.",
@@ -301,7 +334,7 @@ window.BIRTHDAY_CONFIG = {
       "photosHint": "Opptil 3 bilder · maks 20 MB per bilde. Velg bilder du synes det er greit å vise på festen.",
       "contributeButton": "Send historie og bilder",
       "contributeNote": "Historien og bildene sendes privat til arrangøren og kan brukes i bursdagscollagen eller quizen.",
-      "drinksKicker": "Drikke",
+      "drinksKicker": "Drikke og snacks",
       "drinksTitle": "Smuglerbaren.",
       "drinksHistory": "I Norge var salg av brennevin forbudt fra 1916 til 1927. For kveldens operasjon har vi sikret oss skjenkebevilling. Til forbudstidens myndigheters store fortvilelse, selvfølgelig."
     }
@@ -313,7 +346,7 @@ window.BIRTHDAY_CONFIG = {
       "whenTitle": "A night to remember.",
       "whenIntro": "The Great Matilda is calling. A little glamour, a little mischief, and our favourite people.",
       "dressAction": "What to wear",
-      "foodAction": "Drinks",
+      "foodAction": "Drinks & snacks",
       "toRsvp": "Now, about your grand entrance",
       "rsvpKicker": "The guest list",
       "rsvpTitle": "Who’s joining us?",
@@ -329,7 +362,7 @@ window.BIRTHDAY_CONFIG = {
       "whenTitle": "En kveld å huske.",
       "whenIntro": "The Great Matilda kaller. Litt glamour, litt sprell og favorittmenneskene våre.",
       "dressAction": "Hva skal jeg ha på?",
-      "foodAction": "Drikke",
+      "foodAction": "Drikke og snacks",
       "toRsvp": "Så var det din store entré",
       "rsvpKicker": "Gjestelisten",
       "rsvpTitle": "Hvem blir med?",
