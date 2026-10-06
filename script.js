@@ -128,7 +128,6 @@
     root.querySelector('[data-country]').textContent = localized(venue.country);
     root.querySelector('[data-map-link]').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${venue.name ? `${venue.name}, ` : ''}${venue.street},${venue.postalCode} ${venue.city}, ${venue.country.en}`)}`;
     root.querySelector('#dress-dialog').setAttribute('aria-label', story.dressAction);
-    root.querySelector('#food-dialog').setAttribute('aria-label', story.foodAction);
     root.querySelectorAll('[data-dialog-close]').forEach(button => button.setAttribute('aria-label', isNb ? 'Lukk' : 'Close'));
     root.querySelector('#party-evidence').hidden = !lastReply;
     root.querySelector('#party-email-field').hidden = !submissions?.supportsEmail;
