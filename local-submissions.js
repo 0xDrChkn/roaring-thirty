@@ -48,16 +48,31 @@
     if (!row) return row;
     return {...row,photos:(row.photos || []).map(photo => ({...photo,url:photo.url ? new URL(photo.url,base).href : null}))};
   }
+  function forgetGuest() {
+    // The organiser deleted this reply; the stored token can never work again.
+    try { localStorage.removeItem(`${storageKey}:guest`); } catch {}
+    guest = null;
+  }
   async function restoreGuest(eventId) {
     if (!guest?.token) return null;
-    return view(await request(`/api/guest?eventId=${encodeURIComponent(eventId)}`,{token:guest.token}));
+    try { return view(await request(`/api/guest?eventId=${encodeURIComponent(eventId)}`,{token:guest.token})); }
+    catch (error) { if (error.code === 'session_expired') {forgetGuest();return null;} throw error; }
   }
-  async function saveRsvp({eventId,name,email='',accepted}) {
+  async function sendRsvp(body) {
     if (!guest?.requestId) {
       const bytes = crypto.getRandomValues(new Uint8Array(32));
       keepGuest({...guest,requestId:[...bytes].map(byte=>byte.toString(16).padStart(2,'0')).join('')});
     }
-    const result = await request('/api/rsvp',{method:'POST',body:{eventId,name,email,accepted,requestId:guest.requestId,token:guest.token}});
+    return request('/api/rsvp',{method:'POST',body:{...body,requestId:guest.requestId,token:guest.token}});
+  }
+  async function saveRsvp({eventId,name,email='',accepted}) {
+    let result;
+    try { result = await sendRsvp({eventId,name,email,accepted}); }
+    catch (error) {
+      if (error.code !== 'session_expired' || !guest?.token) throw error;
+      forgetGuest();
+      result = await sendRsvp({eventId,name,email,accepted});
+    }
     if (!result?.token || !result.reply) throw problem('unavailable');
     keepGuest({...guest,token:result.token});
     return view(result.reply);
