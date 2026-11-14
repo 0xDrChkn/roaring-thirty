@@ -851,7 +851,7 @@
   function restartSlides() { clearInterval(slideTimer); slideTimer = setInterval(() => showSlide(slideIndex + 1, 1), 6000); }
   function openSlides() {
     pauseTimer();
-    slidePhotos = slideshowPhotos();
+    slidePhotos = shuffle(slideshowPhotos()); // a fresh random order every time
     $('#slides-track').replaceChildren();
     $('#slides-dialog').showModal();
     showSlide(0, 1); restartSlides();
