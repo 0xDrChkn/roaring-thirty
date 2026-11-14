@@ -54,8 +54,8 @@
         }
       ],
       'movie-plots': [
-        { id: 'mp-600', value: 600, question: text('A man with a box of chocolates keeps accidentally turning up at the big moments of 20th-century American history.', 'En mann med en sjokoladeeske dukker stadig tilfeldigvis opp i de store øyeblikkene i amerikansk historie.'), answer: text('Forrest Gump (1994).') },
-        { id: 'mp-700', value: 700, question: text('A rat with a refined palate runs a Paris kitchen by pulling a young cook’s hair.', 'En rotte med fin gane styrer et parisisk kjøkken ved å nappe en ung kokk i håret.'), answer: text('Ratatouille (2007).') }
+        { id: 'mp-600', value: 600, question: text('A professional cleaner gets attached to a 12-year-old girl and his favourite houseplant.', 'En profesjonell «rengjører» knytter seg til en 12 år gammel jente og favorittplanten sin.'), answer: text('Léon: The Professional (1994). Accept Léon.', 'Léon (1994).') },
+        { id: 'mp-700', value: 700, question: text('A lonely man writes other people’s love letters for a living, then falls in love with his new software.', 'En ensom mann skriver andres kjærlighetsbrev for å leve, og forelsker seg så i den nye programvaren sin.'), answer: text('Her (2013).') }
       ],
       'name-that-tune': [
         { id: 'nt-600', value: 600, question: text('Dolly Parton wrote it. Whitney Houston turned it into the giant ballad of The Bodyguard (1992). Name the song.', 'Dolly Parton skrev den. Whitney Houston gjorde den til den store balladen i The Bodyguard (1992). Hva heter låten?'), answer: text('I Will Always Love You.') },
@@ -323,11 +323,11 @@
           },
           {
             id: 'geo-500', value: 500,
-            question: text('Somewhere in South America. Study this street: which country have we landed in?', 'Et sted i Sør-Amerika. Studer gaten: hvilket land har vi landet i?'),
+            question: text('Study this street. Which country have we landed in?', 'Studer gaten. Hvilket land har vi landet i?'),
             answer: text('Chile'), acceptedAnswers: ['Chile', 'Republic of Chile', 'Republikken Chile'],
             image: 'assets/geo-location-500.jpg', imageAlt: text('A fixed street view with colourful houses, parked cars and overhead wires.', 'Et stillbilde av en gate med fargerike hus, parkerte biler og luftledninger.'),
             explanation: text('Valparaíso, Chile. Colourful corrugated facades, a sloping cobbled street and the Spanish street sign suggest this port city.', 'Valparaíso, Chile. Fargerike bølgeblikkfasader, en skrånende brosteinsgate og det spanske gateskiltet peker mot denne havnebyen.'),
-            hostNote: text('Country only. The continent is provided because the architecture alone is not unique to Chile. Photo: Gabrielinfante92 / Wikimedia Commons, CC BY-SA 4.0. Resized and re-encoded. Full source and licence: Photo credits in the game footer.', 'Kun landet. Verdensdelen er oppgitt fordi arkitekturen alene ikke er unik for Chile. Foto: Gabrielinfante92 / Wikimedia Commons, CC BY-SA 4.0. Skalert og lagret på nytt. Full kilde og lisens: Fotokreditering i spillets bunntekst.')
+            hostNote: text('Country only. The hardest photo on the board: no continent is given. Photo: Gabrielinfante92 / Wikimedia Commons, CC BY-SA 4.0. Resized and re-encoded. Full source and licence: Photo credits in the game footer.', 'Kun landet. Verdensdelen er oppgitt fordi arkitekturen alene ikke er unik for Chile. Foto: Gabrielinfante92 / Wikimedia Commons, CC BY-SA 4.0. Skalert og lagret på nytt. Full kilde og lisens: Fotokreditering i spillets bunntekst.')
           }
         ]
       },
@@ -360,11 +360,11 @@
         title: text('Bad Movie Plots', 'Dårlige filmreferat'),
         description: text('Good films. Deeply unhelpful descriptions.', 'Gode filmer. Håpløse beskrivelser.'),
         clues: [
-          { id: 'mp-100', value: 100, question: text('A couple’s new relationship hits an iceberg. Name the 1997 film.', 'Et helt nytt forhold treffer et isfjell. Hvilken film fra 1997?'), answer: text('Titanic.') },
-          { id: 'mp-200', value: 200, question: text('The family goes to France. Their forgotten child stays home and becomes a burglar’s worst Christmas present.', 'Familien drar til Frankrike. Barnet de glemte hjemme blir innbruddstyvenes verste julegave.'), answer: text('Home Alone (1990).', 'Alene hjemme / Home Alone (1990).') },
-          { id: 'mp-300', value: 300, question: text('In this 1993 film, a dinosaur theme park discovers that its attractions also enjoy the visitors.', 'I denne filmen fra 1993 oppdager en dinosaurpark at attraksjonene også setter pris på gjestene.'), answer: text('Jurassic Park.') },
-          { id: 'mp-400', value: 400, question: text('An anxious fish crosses the ocean with a very forgetful stranger because his son has ended up at the dentist.', 'En engstelig fisk krysser havet med en svært glemsk fremmed fordi sønnen har havnet hos tannlegen.'), answer: text('Finding Nemo.', 'Oppdrag Nemo / Finding Nemo.') },
-          { id: 'mp-500', value: 500, question: text('Corporate espionage reaches the point where even your nap needs a security department. A team must plant an idea, not steal one.', 'Industrispionasje går så langt at selv middagsluren trenger en sikkerhetsavdeling. Et team skal plante en idé, ikke stjele en.'), answer: text('Inception.') }
+          { id: 'mp-100', value: 100, question: text('A girl kills the first person she meets in a new land, then teams up with three strangers to kill again.', 'En jente dreper den første hun møter i et nytt land, og slår seg så sammen med tre fremmede for å drepe igjen.'), answer: text('The Wizard of Oz.', 'Trollmannen fra Oz.') },
+          { id: 'mp-200', value: 200, question: text('A traumatised billionaire spends his money on dressing up and beating up poor people at night.', 'En traumatisert milliardær bruker formuen på å kle seg ut og banke opp fattige folk om natten.'), answer: text('Batman. Accept any Batman film.', 'Batman. Godta hvilken som helst Batman-film.') },
+          { id: 'mp-300', value: 300, question: text('A grumpy widower commits a serious aviation offence to avoid moving into a retirement home.', 'En gretten enkemann begår et alvorlig luftfartslovbrudd for å slippe å flytte på gamlehjem.'), answer: text('Up (2009).', 'Se opp / Up (2009).') },
+          { id: 'mp-400', value: 400, question: text('Co-workers hide who they really are from their employer’s family every day. One of them is very jealous of the new hire.', 'Noen kolleger skjuler hvem de egentlig er for arbeidsgiverens familie hver dag. En av dem er svært sjalu på den nyansatte.'), answer: text('Toy Story.') },
+          { id: 'mp-500', value: 500, question: text('A family looks after an empty hotel for the winter. Dad gets a bit too into his writing.', 'En familie passer på et tomt hotell gjennom vinteren. Pappa blir litt for oppslukt av skrivingen sin.'), answer: text('The Shining.', 'Ondskapens hotell / The Shining.') }
         ]
       },
       {

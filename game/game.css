@@ -294,3 +294,67 @@ select{font:inherit;color:var(--ivory);background:var(--black);border:1px solid 
 #reaction-team{display:flex;align-items:center;justify-content:center;gap:12px}
 #reaction-dialog #reaction-team img.reaction-team-icon{width:56px;height:56px;max-width:56px;max-height:56px;min-height:0;margin:0;object-fit:contain;border-radius:50%;filter:none;animation:none;transform:none;position:static}
 @media(orientation:landscape) and (max-height:600px){#reaction-dialog #reaction-team img.reaction-team-icon{width:34px;height:34px;max-width:34px;max-height:34px}}
+
+/* Revealed answer: big, clear and compact. */
+.answer #answer-text{font:500 clamp(30px,3.4vw,48px)/1.15 'Cormorant Garamond',serif;color:#f4ead7}
+@media(orientation:landscape) and (max-height:600px){
+  #clue-dialog .answer{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;padding:8px 12px;border-color:var(--gold);background:linear-gradient(180deg,#cfad7014,#cfad7008)}
+  #clue-dialog .answer #answer-text{font-size:clamp(24px,4vw,34px);line-height:1.1;margin:0;color:var(--gold)}
+  #clue-dialog .answer-extra{font-size:11px;line-height:1.35;margin:2px 0 0;max-height:3.2em;overflow:hidden}
+}
+
+/* Finale: Sara raises her glass to the champions, then the standings and fun facts. */
+.finale-dialog{width:100vw;max-width:none;height:100svh;max-height:none;margin:0;border:0;padding:0;background:radial-gradient(ellipse at 30% 40%,#2a2113 0%,#0b0a08 60%,#050505 100%);color:var(--ink,#f4ead7);overflow:hidden}
+.finale-dialog[open]{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:center;gap:clamp(16px,3vw,48px);padding:clamp(14px,3vw,44px)}
+.finale-dialog::backdrop{background:#000}
+#finale-confetti{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3}
+.finale-photo{position:relative;height:100%;display:flex;align-items:center;justify-content:center;min-height:0}
+.finale-photo img{max-height:100%;max-width:100%;aspect-ratio:1;object-fit:cover;border:1px solid var(--gold);box-shadow:0 0 0 6px #0b0a08,0 0 0 7px #cfad7066,0 0 60px #cfad7055}
+.finale-body{display:flex;flex-direction:column;gap:clamp(8px,1.4vw,16px);min-height:0;max-height:100%;overflow:auto;position:relative;z-index:2}
+.finale-body .eyebrow{color:var(--gold);letter-spacing:.3em}
+#finale-winner{display:flex;flex-wrap:wrap;gap:6px 20px;font:500 clamp(30px,4.6vw,68px)/1.05 'Cormorant Garamond',serif;color:var(--gold);margin:0}
+.finale-champ{display:inline-flex;align-items:center;gap:.3em}
+.finale-champ-icon{width:1.2em;height:1.2em;object-fit:contain;border-radius:50%}
+#finale-prize{font-size:clamp(15px,1.6vw,20px);margin:0}
+.finale-scores{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.finale-scores li{display:grid;grid-template-columns:22px 28px 1fr auto;align-items:center;gap:10px;padding:5px 0;border-bottom:1px solid var(--line);font-size:clamp(14px,1.5vw,18px)}
+.finale-scores li:first-child{color:var(--gold)}
+.finale-rank{color:var(--muted)}
+.finale-row-icon{width:26px;height:26px;object-fit:contain;border-radius:50%}
+.finale-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.finale-fact{border:1px solid var(--line);background:#cfad700a;padding:8px 10px;display:grid;gap:2px}
+.finale-fact small{color:var(--muted);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.finale-fact strong{color:var(--gold);font:500 clamp(20px,2.2vw,30px)/1 'Cormorant Garamond',serif}
+.finale-fact-team{display:flex;align-items:center;gap:6px;font-size:13px}
+.finale-fact-icon{width:20px;height:20px;object-fit:contain;border-radius:50%}
+.finale-actions{display:flex;gap:10px;flex-wrap:wrap}
+/* Choreography: photo rises and toasts, winner glows in, then rows and facts follow. */
+.finale-dialog.play .finale-photo img{animation:finale-toast 1.6s cubic-bezier(.2,.8,.2,1) both}
+.finale-dialog.play .finale-body .eyebrow{animation:finale-in .6s .9s both}
+.finale-dialog.play #finale-winner{animation:finale-winner 1s 1.1s both}
+.finale-dialog.play #finale-prize{animation:finale-in .6s 1.6s both}
+.finale-dialog.play .finale-scores li{animation:finale-in .5s calc(1.9s + var(--i) * .12s) both}
+.finale-dialog.play .finale-fact{animation:finale-in .5s calc(2.5s + var(--i) * .18s) both}
+.finale-dialog.play .finale-actions{animation:finale-in .5s 3.3s both}
+@keyframes finale-toast{0%{opacity:0;transform:translateY(40px) scale(.85) rotate(-4deg)}60%{opacity:1;transform:translateY(-6px) scale(1.03) rotate(2deg)}80%{transform:translateY(0) scale(1) rotate(-1deg)}100%{transform:none}}
+@keyframes finale-winner{0%{opacity:0;transform:scale(.8);text-shadow:none}60%{opacity:1;transform:scale(1.06);text-shadow:0 0 30px #cfad70cc}100%{transform:none;text-shadow:0 0 14px #cfad7066}}
+@keyframes finale-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.finale-dialog.play *{animation:none!important}}
+@media(orientation:landscape) and (max-height:600px){
+  .finale-dialog[open]{grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr);gap:14px;padding:10px max(14px,env(safe-area-inset-right)) 10px max(14px,env(safe-area-inset-left))}
+  .finale-body{gap:6px}
+  #finale-winner{font-size:clamp(24px,4vw,34px)}
+  #finale-prize{font-size:13px}
+  .finale-scores li{padding:2px 0;font-size:12px;grid-template-columns:16px 20px 1fr auto;gap:6px}
+  .finale-row-icon{width:20px;height:20px}
+  .finale-facts{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+  .finale-fact{padding:5px 6px}
+  .finale-fact small{font-size:8px;letter-spacing:.06em}
+  .finale-fact strong{font-size:18px}
+  .finale-fact-team{font-size:10px}
+  .finale-fact-icon{width:14px;height:14px}
+  .finale-actions button{min-height:32px;padding:4px 12px;font-size:12px}
+}
+@media(orientation:portrait) and (max-width:700px){
+  .finale-dialog[open]{grid-template-columns:1fr;grid-template-rows:34svh 1fr;padding:14px}
+}

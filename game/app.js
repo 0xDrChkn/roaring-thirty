@@ -4,7 +4,7 @@
   const publicPack = window.BIRTHDAY_GAME_PACK;
   const faceTools = window.BirthdayCelebrityFaces;
   // The owner's party pick, in 100–500 order.
-  const defaultFaceIds = ['rihanna','jason-momoa','jennifer-aniston','gordon-ramsay','brad-pitt'].filter(id => faceTools.portraits.some(portrait => portrait.id === id));
+  const defaultFaceIds = ['ryan-gosling','dwayne-johnson','rihanna','jason-momoa','gordon-ramsay'].filter(id => faceTools.portraits.some(portrait => portrait.id === id));
   let selectedFaceIds = defaultFaceIds.length === 5 ? defaultFaceIds : faceTools.portraits.slice(0,5).map(portrait => portrait.id);
   let pendingFaceIds = selectedFaceIds.slice();
   let pack = selectedFaceIds.length === 5 ? faceTools.buildPack(publicPack,selectedFaceIds) : publicPack;
@@ -81,6 +81,7 @@
   let prize = '';
   let tour = null;
   let roundShown = false;
+  let answerTimes = {}; // 'stage|clueId|teamId' -> seconds taken, for the finale's fun facts.
   const PLAN_VERSION = 3; // Bump to replace saved, unstarted tournament plans with the default.
   const openPickers = new Set();
   const maxTeams = () => mode === 'tournament' ? 12 : 6;
@@ -104,7 +105,11 @@
       let rows = extra[category.id] || [];
       if (category.id === 'birthday-girl' && window.BirthdayCelebrityFaces) {
         const used = new Set(category.clues.map(clue => clue.image));
-        rows = window.BirthdayCelebrityFaces.portraits.filter(portrait => !portrait.reserve && !used.has(portrait.image)).slice(0,2).map((portrait,index) => ({
+        // The final's two hardest faces: Brad Pitt (600) and Jennifer Aniston (700), unless already on the board.
+        const all = window.BirthdayCelebrityFaces.portraits;
+        const preferred = ['brad-pitt','jennifer-aniston'].map(id => all.find(portrait => portrait.id === id)).filter(portrait => portrait && !used.has(portrait.image));
+        const spare = all.filter(portrait => !portrait.reserve && !used.has(portrait.image) && !preferred.includes(portrait));
+        rows = preferred.concat(spare).slice(0,2).map((portrait,index) => ({
           ...category.clues[0], id:'bg-' + (600 + index*100), value:600 + index*100, answer:{en:portrait.name,nb:portrait.name}, image:portrait.image
         }));
       }
@@ -142,7 +147,7 @@
   }
   function save() {
     try {
-      const result = session.write(JSON.stringify({state,selectedFaceIds,language,reactionsEnabled,selectedCategoryIds,timerDuration,privatePack,mode,heatCount,prize,tour,roundShown,names,timer:{clueId:timer.clueId,remaining:timer.remaining}}));
+      const result = session.write(JSON.stringify({state,selectedFaceIds,language,reactionsEnabled,selectedCategoryIds,timerDuration,privatePack,mode,heatCount,prize,tour,roundShown,names,answerTimes,timer:{clueId:timer.clueId,remaining:timer.remaining}}));
       if (result.status === 'conflict') { lockConflictedSession(); return; }
       storageFailed = result.status === 'unavailable';
     } catch { storageFailed = true; }
@@ -238,7 +243,7 @@
     const saved = JSON.parse(initialSave.raw || 'null');
     if (saved) {
       // A browser still holding the old built-in five gets the new default instead.
-      if (Array.isArray(saved.selectedFaceIds) && saved.selectedFaceIds.join() === 'dicaprio,gordon-ramsay,marilyn-monroe,rihanna,ryan-gosling') saved.selectedFaceIds = null;
+      if (Array.isArray(saved.selectedFaceIds) && ['dicaprio,gordon-ramsay,marilyn-monroe,rihanna,ryan-gosling','rihanna,jason-momoa,jennifer-aniston,gordon-ramsay,brad-pitt'].includes(saved.selectedFaceIds.join())) saved.selectedFaceIds = null;
       if (saved.selectedFaceIds) {
         try { pack = faceTools.buildPack(publicPack,saved.selectedFaceIds); selectedFaceIds = saved.selectedFaceIds.slice(); pendingFaceIds = selectedFaceIds.slice(); } catch { /* Keep the available default portraits. */ }
       }
@@ -262,6 +267,7 @@
       if (Array.isArray(saved.names) && saved.names[3] === 'Team 4' && !saved.names.includes('The Great Matilda')) saved.names[3] = 'The Great Matilda';
       if (Array.isArray(saved.names) && saved.names.length >= 2 && saved.names.length <= 12 && saved.names.every(name => typeof name === 'string' && name.length <= 40)) names = saved.names.slice();
       roundShown = saved.roundShown === true;
+      if (saved.answerTimes && typeof saved.answerTimes === 'object') answerTimes = saved.answerTimes;
       if (saved.state) {
         state = engine.restore(saved.state, boardPack());
         restoreFailed = !state;
@@ -456,11 +462,70 @@
       $('#standings').replaceChildren(element('p','eyebrow',winners.length > 1 ? copy().tie : copy().winner),element('h2','',winners.map(team => team.name).join(' & ')),element('p','',top + ' ' + copy().points));
     }
   }
+  // Every judged answer of the current board, with team names and answer times.
+  function stageAttempts() {
+    const stage = tour ? tour.stage : 0;
+    return state.attempts.map(attempt => ({team: state.teams.find(team => team.id === attempt.teamId)?.name || '', sign: attempt.sign, value: attempt.value, seconds: answerTimes[stage + '|' + attempt.clueId + '|' + attempt.teamId]}));
+  }
+  function funFacts() {
+    const all = (tour ? tour.results.slice(0, tour.stage).flatMap(result => result.attempts || []) : []).concat(stageAttempts());
+    const nb = language === 'nb';
+    const by = {};
+    all.forEach(item => { const t = by[item.team] ||= {right:0, wrong:0, won:0}; if (item.sign === 1) { t.right++; t.won += item.value; } else t.wrong++; });
+    const teams = Object.entries(by);
+    const top = key => teams.slice().sort((a,b) => b[1][key] - a[1][key])[0];
+    const facts = [];
+    const fastest = all.filter(item => item.sign === 1 && typeof item.seconds === 'number' && item.seconds >= 0.5).sort((a,b) => a.seconds - b.seconds)[0];
+    if (fastest) facts.push({label: nb ? 'Raskeste svar' : 'Fastest answer', team: fastest.team, value: fastest.seconds.toFixed(1).replace('.0','') + (nb ? ' sek' : ' s')});
+    const right = top('right'); if (right && right[1].right) facts.push({label: nb ? 'Flest riktige' : 'Most correct', team: right[0], value: String(right[1].right)});
+    const wrong = top('wrong'); if (wrong && wrong[1].wrong) facts.push({label: nb ? 'Modigste gjettere' : 'Bravest guessers', team: wrong[0], value: (nb ? '' : '') + wrong[1].wrong + (nb ? ' feil' : ' wrong')});
+    const big = all.filter(item => item.sign === 1).sort((a,b) => b.value - a.value)[0];
+    if (big) facts.push({label: nb ? 'Største gevinst' : 'Biggest win', team: big.team, value: '+' + big.value});
+    facts.push({label: nb ? 'Spørsmål spilt' : 'Questions played', team: '', value: String(new Set(all.map(item => item)).size)});
+    return facts.slice(0,4);
+  }
+  function showFinale(result) {
+    const nb = language === 'nb';
+    const dialog = $('#finale-dialog');
+    const prizeText = tour?.prize || '';
+    $('#finale-eyebrow').textContent = result.winners.length > 1 ? (nb ? 'DELT SEIER' : 'A SHARED VICTORY') : copy().champions;
+    $('#finale-winner').replaceChildren(...result.winners.map(name => { const box = element('span','finale-champ'); box.append(teamIcon(name,'finale-champ-icon'), element('span','',name)); return box; }));
+    $('#finale-prize').hidden = !prizeText;
+    $('#finale-prize').textContent = prizeText ? '🏆 ' + prizeText : '';
+    $('#finale-scores').replaceChildren(...result.scores.map(([name,score],index) => { const row = element('li'); row.style.setProperty('--i', index); row.append(element('span','finale-rank',String(index+1)), teamIcon(name,'finale-row-icon'), element('span','finale-name',name), element('strong','',String(score))); return row; }));
+    $('#finale-facts').replaceChildren(...funFacts().map((fact,index) => { const card = element('div','finale-fact'); card.style.setProperty('--i', index); card.append(element('small','',fact.label), element('strong','',fact.value)); if (fact.team) { const who = element('span','finale-fact-team'); who.append(teamIcon(fact.team,'finale-fact-icon'), document.createTextNode(fact.team)); card.append(who); } return card; }));
+    dialog.classList.remove('play'); void dialog.offsetWidth; dialog.classList.add('play');
+    if (!dialog.open) dialog.showModal();
+    startConfetti();
+  }
+  // Light gold confetti on a canvas behind the finale (no libraries).
+  let confettiFrame = null;
+  function startConfetti() {
+    const canvas = $('#finale-confetti'); const ctx = canvas.getContext('2d');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !ctx) return;
+    const fit = () => { canvas.width = canvas.clientWidth * devicePixelRatio; canvas.height = canvas.clientHeight * devicePixelRatio; };
+    fit();
+    const colours = ['#d8b46a','#f4e3b5','#b08d4c','#fff6dc','#c94f4f'];
+    const pieces = Array.from({length:140}, () => ({x:Math.random(), y:-Math.random()*1.2, s:3+Math.random()*6, v:.0012+Math.random()*.0028, d:(Math.random()-.5)*.002, r:Math.random()*6, w:(Math.random()-.5)*.2, c:colours[Math.floor(Math.random()*colours.length)]}));
+    const started = performance.now();
+    cancelAnimationFrame(confettiFrame);
+    const step = now => {
+      if (!$('#finale-dialog').open) return;
+      if (canvas.width !== canvas.clientWidth * devicePixelRatio) fit();
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      const fade = Math.max(0, 1 - Math.max(0, now - started - 6000) / 2500);
+      pieces.forEach(p => { p.y += p.v; p.x += p.d; p.r += p.w; if (p.y > 1.05 && now - started < 6000) { p.y = -.05; p.x = Math.random(); }
+        ctx.save(); ctx.globalAlpha = fade; ctx.translate(p.x*canvas.width, p.y*canvas.height); ctx.rotate(p.r); ctx.fillStyle = p.c; ctx.fillRect(-p.s*devicePixelRatio/2,-p.s*devicePixelRatio/4,p.s*devicePixelRatio,p.s*devicePixelRatio/2); ctx.restore(); });
+      if (fade > 0) confettiFrame = requestAnimationFrame(step);
+    };
+    confettiFrame = requestAnimationFrame(step);
+  }
   function showRound() {
     if (!state) return;
     if (reactionDialog.open) reactionDialog.close();
     const result = standingsOf(state);
     const isFinal = !tour || tour.stage === tour.heats.length;
+    if (isFinal) { showFinale(result); return; }
     $('#round-eyebrow').textContent = !tour ? (result.winners.length > 1 ? copy().tie : copy().roundWinner) : isFinal ? copy().champions : copy().heatWinner(tour.stage+1);
     $('#round-winner').replaceChildren(...result.winners.flatMap((name,index) => [...(index ? [document.createTextNode(' & ')] : []), teamIcon(name,'winner-icon'), document.createTextNode(name)]));
     const prizeText = tour?.prize || '';
@@ -596,6 +661,8 @@
     const clue = clues.get(state.currentClueId);
     const team = state.teams.find(team => team.id === state.selectedTeamId);
     const value = clue.value * (state.doubleTeamId === team.id ? 2 : 1);
+    const seconds = timer.running ? timerDuration - Math.max(0,(timer.deadline - Date.now()) / 1000) : timerDuration - timer.remaining;
+    answerTimes[(tour ? tour.stage : 0) + '|' + clue.id + '|' + team.id] = Math.max(0, Math.round(seconds * 10) / 10);
     pauseTimer(); resumeAfterReaction = false;
     if (act('answerClue',sign)) {
       if (reactionsEnabled) showReaction(sign === 1 ? 'correct' : 'wrong',value,team.name);
@@ -644,12 +711,14 @@
   $('#end-round').addEventListener('click', () => $('#end-round-dialog').showModal());
   $('#confirm-end-round').addEventListener('click', () => { $('#end-round-dialog').close(); if (state?.currentClueId) act('cancelClue'); roundShown = true; save(); showRound(); });
   $('#round-back').addEventListener('click', () => $('#round-dialog').close());
+  $('#finale-back').addEventListener('click', () => $('#finale-dialog').close());
+  $('#finale-new').addEventListener('click', () => { $('#finale-dialog').close(); $('#confirm-reset').click(); });
   $('#round-next').addEventListener('click', () => {
     if (!checkSession()) return;
     $('#round-dialog').close();
     const isFinal = !tour || tour.stage === tour.heats.length;
     if (isFinal) { $('#confirm-reset').click(); return; }
-    tour.results[tour.stage] = standingsOf(state);
+    tour.results[tour.stage] = {...standingsOf(state), attempts: stageAttempts()};
     tour.stage += 1;
     try { startStage(); } catch { notice = copy().error; }
     save(); render(); window.scrollTo({top:0});
@@ -776,7 +845,7 @@
   $('#clue-undo').addEventListener('click',() => act('undo'));
   $('#new-game').addEventListener('click',() => $('#reset-dialog').showModal());
   $('#confirm-reset').addEventListener('click',() => {
-    if (tour) names = tour.heats.flatMap(heat => heat.teams); else names = state.teams.map(team => team.name); state=null; tour=null; roundShown=false; pauseTimer(); timer={clueId:null,remaining:timerDuration,running:false,deadline:0}; restoreFailed=false; notice=''; save();
+    if (tour) names = tour.heats.flatMap(heat => heat.teams); else names = state.teams.map(team => team.name); state=null; tour=null; roundShown=false; answerTimes={}; pauseTimer(); timer={clueId:null,remaining:timerDuration,running:false,deadline:0}; restoreFailed=false; notice=''; save();
     $('#reset-dialog').close(); renderSetup(); render(); $('#setup').scrollIntoView({block:'start'});
   });
   $('#clue-cancel').addEventListener('click',() => act('cancelClue'));
