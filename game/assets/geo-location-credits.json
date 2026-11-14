@@ -88,5 +88,41 @@
     "changes": "Resized to maximum 1920 × 1280 pixels, JPEG re-encoded and metadata removed; no crop or content editing.",
     "sha256": "f26b4eec94b08b2c13bfd5c715851b74da36b52b1babfffd0a5b51aa89cdae0d",
     "retrieved": "2026-10-02"
+  },
+  {
+    "value": 600,
+    "asset": "game/assets/geo-location-600.jpg",
+    "country": "Portugal",
+    "location": "Alfama, Lisbon",
+    "author": "Sonse",
+    "title": "Tram Line 28 in Alfama (50662582522).jpg",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Tram_Line_28_in_Alfama_(50662582522).jpg",
+    "originalImageUrl": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Tram_Line_28_in_Alfama_%2850662582522%29.jpg",
+    "licence": "CC BY 2.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by/2.0",
+    "locationEvidence": "Lisbon, Portugal. Alfama is the oldest neighborhood of Lisbon",
+    "evidenceCategories": "Street corner São Vicente × Escolas Gerais (Lisbon)",
+    "visibleClues": "Tram tracks on a steep cobbled street, tiled and pastel facades; tournament final only.",
+    "changes": "Resized to maximum 1920 × 1280 pixels, JPEG re-encoded and metadata removed; no crop or content editing.",
+    "sha256": "9be12f24a8494372ddd24fc27d60be3689e4776be9e95d2a536e100a63e112bb",
+    "retrieved": "2026-11-14"
+  },
+  {
+    "value": 700,
+    "asset": "game/assets/geo-location-700.jpg",
+    "country": "Vietnam",
+    "location": "Hoi An Old Town",
+    "author": "Christophe95",
+    "title": "Lanterns in Hoi An 1.jpg",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Lanterns_in_Hoi_An_1.jpg",
+    "originalImageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Lanterns_in_Hoi_An_1.jpg",
+    "licence": "CC BY-SA 4.0",
+    "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "locationEvidence": "Lanterns in the streets of Hoi An.",
+    "evidenceCategories": "Hoi An Old Town; Streets in Hoi An; Lanterns in Hoi An",
+    "visibleClues": "Silk lanterns over a busy night street; tournament final only.",
+    "changes": "Resized to maximum 1920 × 1280 pixels, JPEG re-encoded and metadata removed; no crop or content editing.",
+    "sha256": "891d4cd87a22d82727b098d171268976c89a633a4435bec99544c2f399ef917e",
+    "retrieved": "2026-11-14"
   }
 ]

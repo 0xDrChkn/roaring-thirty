@@ -3,7 +3,8 @@
   const engine = window.BirthdayGameEngine;
   const publicPack = window.BIRTHDAY_GAME_PACK;
   const faceTools = window.BirthdayCelebrityFaces;
-  const defaultFaceIds = ['dicaprio','gordon-ramsay','marilyn-monroe','rihanna','ryan-gosling'].filter(id => faceTools.portraits.some(portrait => portrait.id === id));
+  // The owner's party pick, in 100–500 order.
+  const defaultFaceIds = ['rihanna','jason-momoa','jennifer-aniston','gordon-ramsay','brad-pitt'].filter(id => faceTools.portraits.some(portrait => portrait.id === id));
   let selectedFaceIds = defaultFaceIds.length === 5 ? defaultFaceIds : faceTools.portraits.slice(0,5).map(portrait => portrait.id);
   let pendingFaceIds = selectedFaceIds.slice();
   let pack = selectedFaceIds.length === 5 ? faceTools.buildPack(publicPack,selectedFaceIds) : publicPack;
@@ -50,13 +51,13 @@
     conflictTitle:'Spillet er endret i en annen fane.', conflictBody:'Denne fanen er satt på pause for å beskytte de nyeste poengene. Last inn det lagrede spillet på nytt før du fortsetter.', reloadGame:'Last inn nyeste spill'
   };
   const ui = {
-    en:{team:'Team',draft:'To prepare',played:'Played',done:'clues played',paused:'Resume timer',pause:'Pause',start:'Start timer',time:'Time’s up',on:'Sara reactions: on',off:'Sara reactions: off',pick:'Choose the answering team.',tried:'This team has already tried. Choose another team or undo.',resolved:'Points awarded. Finish the clue when ready.',wrong:'Wrong answer: points deducted and clue removed from the board.',savedError:'This browser cannot save your game. Keep this page open to retain your scores.',restoreError:'The saved game could not be restored with this question pack. Start a new game below.',names:'Give each team a different name (1–40 characters).',error:'That action could not be completed. Please try again.',fullscreen:'Full screen is unavailable here. You can use your browser’s full-screen control.',preview:'Reaction preview',correct:'CORRECT ANSWER',incorrect:'WRONG ANSWER',winner:'THE WINNING TEAM',tie:'HONOURS SHARED',points:'points',back:'Return to board',close:'Close',seconds:'Seconds remaining',resetTimer:'Reset timer',reaction:'Sara reaction',image:'Picture clue',selected:'Selected',timerEnded:'Time is up. The host decides whether to accept an answer.'},
-    nb:{team:'Lag',draft:'Må klargjøres',played:'Spilt',done:'spørsmål spilt',paused:'Fortsett klokken',pause:'Pause',start:'Start klokken',time:'Tiden er ute',on:'Sara-reaksjoner: på',off:'Sara-reaksjoner: av',pick:'Velg laget som svarer.',tried:'Dette laget har allerede prøvd. Velg et annet lag eller angre.',resolved:'Poengene er gitt. Avslutt spørsmålet når dere er klare.',wrong:'Feil svar: poengene trekkes fra og spørsmålet fjernes fra brettet.',savedError:'Nettleseren kan ikke lagre spillet. Hold siden åpen for å beholde poengene.',restoreError:'Det lagrede spillet kunne ikke hentes med denne spørsmålspakken. Start et nytt spill nedenfor.',names:'Gi hvert lag et eget navn (1–40 tegn).',error:'Handlingen kunne ikke fullføres. Prøv igjen.',fullscreen:'Fullskjerm er ikke tilgjengelig her. Bruk nettleserens fullskjermfunksjon.',preview:'Prøv en reaksjon',correct:'RIKTIG SVAR',incorrect:'FEIL SVAR',winner:'VINNERLAGET',tie:'DELT SEIER',points:'poeng',back:'Tilbake til brettet',close:'Lukk',seconds:'Sekunder igjen',resetTimer:'Nullstill klokken',reaction:'Sara reagerer',image:'Bildespørsmål',selected:'Valgt',timerEnded:'Tiden er ute. Verten avgjør om svaret godtas.'}
+    en:{team:'Team',draft:'To prepare',played:'Played',done:'clues played',paused:'Resume timer',pause:'Pause',start:'Start timer',time:'Time’s up',on:'Sara reactions: on',off:'Sara reactions: off',pick:'Choose the answering team.',tried:'This team has already tried. Choose another team or undo.',resolved:'Points awarded. Finish the clue when ready.',wrong:'Wrong answer: points deducted and clue removed from the board.',savedError:'This browser cannot save your game. Keep this page open to retain your scores.',restoreError:'The saved game could not be restored with this question pack. Start a new game below.',names:'Give each team a different name (1–40 characters).',error:'That action could not be completed. Please try again.',fullscreen:'iPhone can’t go full screen in Safari. Tap Share → Add to Home Screen, then open Sara’s Game from the home screen: it opens full screen.',preview:'Reaction preview',correct:'CORRECT ANSWER',incorrect:'WRONG ANSWER',winner:'THE WINNING TEAM',tie:'HONOURS SHARED',points:'points',back:'Return to board',close:'Close',seconds:'Seconds remaining',resetTimer:'Reset timer',reaction:'Sara reaction',image:'Picture clue',selected:'Selected',timerEnded:'Time is up. The host decides whether to accept an answer.'},
+    nb:{team:'Lag',draft:'Må klargjøres',played:'Spilt',done:'spørsmål spilt',paused:'Fortsett klokken',pause:'Pause',start:'Start klokken',time:'Tiden er ute',on:'Sara-reaksjoner: på',off:'Sara-reaksjoner: av',pick:'Velg laget som svarer.',tried:'Dette laget har allerede prøvd. Velg et annet lag eller angre.',resolved:'Poengene er gitt. Avslutt spørsmålet når dere er klare.',wrong:'Feil svar: poengene trekkes fra og spørsmålet fjernes fra brettet.',savedError:'Nettleseren kan ikke lagre spillet. Hold siden åpen for å beholde poengene.',restoreError:'Det lagrede spillet kunne ikke hentes med denne spørsmålspakken. Start et nytt spill nedenfor.',names:'Gi hvert lag et eget navn (1–40 tegn).',error:'Handlingen kunne ikke fullføres. Prøv igjen.',fullscreen:'iPhone kan ikke vise fullskjerm i Safari. Trykk Del → Legg til på Hjem-skjerm, og åpne Sara’s Game derfra: da åpnes spillet i fullskjerm.',preview:'Prøv en reaksjon',correct:'RIKTIG SVAR',incorrect:'FEIL SVAR',winner:'VINNERLAGET',tie:'DELT SEIER',points:'poeng',back:'Tilbake til brettet',close:'Lukk',seconds:'Sekunder igjen',resetTimer:'Nullstill klokken',reaction:'Sara reagerer',image:'Bildespørsmål',selected:'Valgt',timerEnded:'Tiden er ute. Verten avgjør om svaret godtas.'}
   };
   Object.assign(ui.en, {packLoaded:'Private pack loaded. Choose categories below.', packFailed:'The pack could not be loaded. Check the JSON format, category IDs, five clue values per category and embedded images (maximum 2 MB). Your previous bank is unchanged.', selectedCategories:'categories selected', ready:'ready', unfinished:'to prepare', chooseSix:'Choose at least one category to start.', adjustmentError:'Enter a non-zero whole number and a short reason.', adjustments:'Recent corrections', accepts:'Also accept', context:'For the host'});
   Object.assign(ui.nb, {packLoaded:'Privat pakke lastet inn. Velg kategorier nedenfor.', packFailed:'Pakken kunne ikke lastes inn. Sjekk JSON-formatet, kategori-ID-ene, fem poengverdier per kategori og innebygde bilder (maks 2 MB). Den forrige banken er uendret.', selectedCategories:'kategorier valgt', ready:'klare', unfinished:'må klargjøres', chooseSix:'Velg minst én kategori for å starte.', adjustmentError:'Skriv inn et heltall som ikke er null, og en kort begrunnelse.', adjustments:'Siste endringer', accepts:'Godta også', context:'Til verten'});
-  Object.assign(ui.en, {heat:(n,total) => 'HEAT ' + n + ' OF ' + total, final:'THE FINAL', single:'THE GREAT MATILDA · THE GAME', heatWinner:n => 'HEAT ' + n + ' · THROUGH TO THE FINAL', champions:'THE CHAMPIONS', roundWinner:'THE WINNING TEAM', nextHeat:n => 'On to heat ' + n + ' →', toFinal:'On to the final →', playAgain:'Start a new game', prizeLabel:'The prize', tourTeams:'Make at least two teams per heat (4–12 teams in total).', planTitle:'The tournament plan', planHint:'Teams and boards are shuffled. Each heat has its own four categories; the final gets six fresh ones.', reshuffle:'Shuffle again', heatName:n => 'Heat ' + n, finalName:'Final', finalTeams:'Heat winners', startTour:'Start the tournament'});
-  Object.assign(ui.nb, {heat:(n,total) => 'RUNDE ' + n + ' AV ' + total, final:'FINALEN', single:'THE GREAT MATILDA · SPILLET', heatWinner:n => 'RUNDE ' + n + ' · VIDERE TIL FINALEN', champions:'MESTERNE', roundWinner:'VINNERLAGET', nextHeat:n => 'Videre til runde ' + n + ' →', toFinal:'Videre til finalen →', playAgain:'Start et nytt spill', prizeLabel:'Premien', tourTeams:'Lag minst to lag per runde (4–12 lag totalt).', planTitle:'Turneringsplanen', planHint:'Lag og brett er stokket. Hver runde har sine egne fire kategorier; finalen får seks nye.', reshuffle:'Stokk på nytt', heatName:n => 'Runde ' + n, finalName:'Finale', finalTeams:'Rundevinnerne', startTour:'Start turneringen'});
+  Object.assign(ui.en, {heat:(n,total) => 'HEAT ' + n + ' OF ' + total, final:'THE FINAL', single:'THE GREAT MATILDA · THE GAME', heatWinner:n => 'HEAT ' + n + ' · THROUGH TO THE FINAL', champions:'THE CHAMPIONS', roundWinner:'THE WINNING TEAM', nextHeat:n => 'On to heat ' + n + ' →', toFinal:'On to the final →', playAgain:'Start a new game', prizeLabel:'The prize', tourTeams:'Make at least two teams per heat (4–12 teams in total).', planTitle:'The tournament plan', planHint:'Teams are shuffled. The final gets the recommended six; the heats share the rest. Open “Choose categories” on any card to change them (1–6 each). A category may be used in more than one heat.', pickCategories:'Choose categories', reshuffle:'Shuffle teams', heatName:n => 'Heat ' + n, finalName:'Final', finalTeams:'Heat winners', startTour:'Start the tournament'});
+  Object.assign(ui.nb, {heat:(n,total) => 'RUNDE ' + n + ' AV ' + total, final:'FINALEN', single:'THE GREAT MATILDA · SPILLET', heatWinner:n => 'RUNDE ' + n + ' · VIDERE TIL FINALEN', champions:'MESTERNE', roundWinner:'VINNERLAGET', nextHeat:n => 'Videre til runde ' + n + ' →', toFinal:'Videre til finalen →', playAgain:'Start et nytt spill', prizeLabel:'Premien', tourTeams:'Lag minst to lag per runde (4–12 lag totalt).', planTitle:'Turneringsplanen', planHint:'Lagene er stokket. Finalen får de anbefalte seks; rundene deler resten. Åpne «Velg kategorier» på et kort for å endre dem (1–6 hver). En kategori kan brukes i flere runder.', pickCategories:'Velg kategorier', reshuffle:'Stokk lagene', heatName:n => 'Runde ' + n, finalName:'Finale', finalTeams:'Rundevinnerne', startTour:'Start turneringen'});
   Object.assign(ui.en, {turn:'YOUR TURN', answeringNow:'Answering', double:'Double Up', letter:'First Letter', steal:'Steal', spent:'used', available:'available', firstLetter:'First letter', nextTurn:'Next turn', powerHint:'One of each per team per round. Double Up doubles the gain or loss. Steal passes to the next eligible team before judging or revealing the answer.'});
   Object.assign(ui.nb, {turn:'DERES TUR', answeringNow:'Svarer', double:'Doble poeng', letter:'Første bokstav', steal:'Stjel', spent:'brukt', available:'tilgjengelig', firstLetter:'Første bokstav', nextTurn:'Neste tur', powerHint:'Én av hver per lag per runde. Doble poeng dobler gevinst eller tap. Stjel gir spørsmålet til neste tilgjengelige lag før svaret vurderes eller vises.'});
   const timerDurations = [15,30,45,60,90,120];
@@ -72,6 +73,8 @@
   let prize = '';
   let tour = null;
   let roundShown = false;
+  const PLAN_VERSION = 2; // Bump to replace saved, unstarted tournament plans with the default.
+  const openPickers = new Set();
   const maxTeams = () => mode === 'tournament' ? 12 : 6;
   let reactionsEnabled = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let reactionIndex = {correct:0,wrong:0};
@@ -86,9 +89,25 @@
   let restoreFailed = false;
   let notice = '';
   const clues = new Map();
+  // The tournament final adds the pack's finalRows (600/700). The Birthday Girl gets two spare portraits.
+  function withFinalRows(base) {
+    const extra = base.finalRows || {};
+    return {...base, categories: base.categories.map(category => {
+      let rows = extra[category.id] || [];
+      if (category.id === 'birthday-girl' && window.BirthdayCelebrityFaces) {
+        const used = new Set(category.clues.map(clue => clue.image));
+        rows = window.BirthdayCelebrityFaces.portraits.filter(portrait => !portrait.reserve && !used.has(portrait.image)).slice(0,2).map((portrait,index) => ({
+          ...category.clues[0], id:'bg-' + (600 + index*100), value:600 + index*100, answer:{en:portrait.name,nb:portrait.name}, image:portrait.image
+        }));
+      }
+      return rows.length && category.clues.length === 5 ? {...category, clues:[...category.clues, ...rows]} : category;
+    })};
+  }
+  const inFinal = () => !!tour && tour.stage === tour.heats.length;
+  const boardPack = () => inFinal() ? withFinalRows(pack) : pack;
   function indexClues() {
     clues.clear();
-    pack.categories.forEach(category => category.clues.forEach(clue => clues.set(clue.id, { ...clue, category })));
+    withFinalRows(pack).categories.forEach(category => category.clues.forEach(clue => clues.set(clue.id, { ...clue, category })));
   }
   const text = value => typeof value === 'string' ? value : value?.[language] || value?.en || '';
   const copy = () => ui[language];
@@ -115,7 +134,7 @@
   }
   function save() {
     try {
-      const result = session.write(JSON.stringify({state,selectedFaceIds,language,reactionsEnabled,selectedCategoryIds,timerDuration,privatePack,mode,heatCount,prize,tour,roundShown,timer:{clueId:timer.clueId,remaining:timer.remaining}}));
+      const result = session.write(JSON.stringify({state,selectedFaceIds,language,reactionsEnabled,selectedCategoryIds,timerDuration,privatePack,mode,heatCount,prize,tour,roundShown,names,timer:{clueId:timer.clueId,remaining:timer.remaining}}));
       if (result.status === 'conflict') { lockConflictedSession(); return; }
       storageFailed = result.status === 'unavailable';
     } catch { storageFailed = true; }
@@ -127,24 +146,38 @@
       && list(value.finalCategoryIds) && Number.isInteger(value.stage) && value.stage >= 0 && value.stage <= value.heats.length && Array.isArray(value.results);
   }
   const shuffle = list => { const copyList = list.slice(); for (let i = copyList.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [copyList[i], copyList[j]] = [copyList[j], copyList[i]]; } return copyList; };
-  function planTour() {
+  const readyCategoryIds = () => pack.categories.filter(category => category.clues.every(clue => !clue.draft)).map(category => category.id);
+  // keep: an earlier plan whose category choices should survive a team change.
+  function planTour(keep) {
     const teams = shuffle(names.map(name => name.trim()));
     const heats = Array.from({length:heatCount}, () => ({teams:[], categoryIds:[]}));
     teams.forEach((name,index) => heats[index % heatCount].teams.push(name));
-    const ready = pack.categories.filter(category => category.clues.every(clue => !clue.draft)).map(category => category.id);
-    const pool = shuffle(ready);
-    const perHeat = Math.max(1, Math.min(4, Math.floor((pool.length - 6) / heatCount) || Math.floor(pool.length / (heatCount + 1))));
+    const ready = readyCategoryIds();
+    if (keep && keep.heats.length === heatCount) {
+      // Same arrays, so open category pickers keep editing the live plan.
+      const valid = ids => { ids.splice(0, ids.length, ...ids.filter(id => ready.includes(id))); return ids; };
+      heats.forEach((heat,index) => { heat.categoryIds = valid(keep.heats[index].categoryIds); });
+      const finalCategoryIds = valid(keep.finalCategoryIds);
+      if (heats.every(heat => heat.categoryIds.length) && finalCategoryIds.length) return {heats, finalCategoryIds, stage:0, results:[], prize:prize.trim(), plan:PLAN_VERSION};
+    }
+    // The final gets the recommended six (the best categories); the heats share out the rest.
+    const best = (pack.defaultCategoryIds || []).filter(id => ready.includes(id));
+    const finalCategoryIds = (best.length ? best : shuffle(ready)).slice(0,6);
+    let pool = shuffle(ready.filter(id => !finalCategoryIds.includes(id)));
+    if (pool.length < heatCount) pool = shuffle(ready);
+    const perHeat = Math.max(1, Math.min(4, Math.floor(pool.length / heatCount)));
     let next = 0;
-    const take = count => Array.from({length:count}, () => pool[next++ % pool.length]);
-    heats.forEach(heat => { heat.categoryIds = take(perHeat); });
-    const finalCategoryIds = [...new Set(take(Math.min(6, pool.length)))];
-    return {heats, finalCategoryIds, stage:0, results:[], prize:prize.trim()};
+    heats.forEach(heat => { heat.categoryIds = [...new Set(Array.from({length:perHeat}, () => pool[next++ % pool.length]))]; });
+    // The party's chosen split for two heats (Famous Saras in both); other heat counts use the shared-out plan.
+    const preset = (pack.tournamentHeats || {})[heatCount];
+    if (preset && preset.every(ids => ids.length && ids.every(id => ready.includes(id)))) heats.forEach((heat,index) => { heat.categoryIds = preset[index].slice(); });
+    return {heats, finalCategoryIds, stage:0, results:[], prize:prize.trim(), plan:PLAN_VERSION};
   }
   const finalists = () => tour.results.flatMap(result => result.winners).slice(0,6);
   function stageTeams() { return tour.stage < tour.heats.length ? tour.heats[tour.stage].teams : finalists(); }
   function stageCategories() { return tour.stage < tour.heats.length ? tour.heats[tour.stage].categoryIds : tour.finalCategoryIds; }
   function startStage() {
-    state = engine.create(stageTeams(), pack, stageCategories());
+    state = engine.create(stageTeams(), boardPack(), stageCategories());
     roundShown = false; notice = ''; restoreFailed = false;
     timer = {clueId:null,remaining:timerDuration,running:false,deadline:0};
   }
@@ -162,14 +195,42 @@
     if (mode !== 'tournament' || state) return; // Never re-plan a tournament that is being played.
     if (!tour || tour.stage !== 0 || tour.results.length) tour = planTour();
     const title = id => text(pack.categories.find(category => category.id === id)?.title);
-    const card = (label, teams, ids) => { const box = element('section','tour-heat'); box.append(element('p','eyebrow',label), element('h3','',teams), element('p','tour-cats',ids.map(title).join(' · '))); return box; };
+    const card = (label, teams, ids, key) => {
+      const box = element('section','tour-heat');
+      const cats = element('p','tour-cats',ids.map(title).join(' · '));
+      const picker = element('details','tour-picker');
+      picker.open = openPickers.has(key);
+      picker.addEventListener('toggle', () => { if (picker.open) openPickers.add(key); else openPickers.delete(key); });
+      const status = element('p','tour-pick-count');
+      const showCount = () => { status.textContent = ids.length + ' / 6'; };
+      picker.append(element('summary','',copy().pickCategories));
+      const chips = element('div','tour-chips');
+      readyCategoryIds().forEach(id => {
+        const chip = element('button','tour-chip',title(id)); chip.type = 'button';
+        chip.setAttribute('aria-pressed', String(ids.includes(id)));
+        chip.addEventListener('click', () => {
+          const at = ids.indexOf(id);
+          if (at >= 0) { if (ids.length === 1) return; ids.splice(at,1); }
+          else { if (ids.length >= 6) return; ids.push(id); }
+          chip.setAttribute('aria-pressed', String(at < 0));
+          cats.textContent = ids.map(title).join(' · '); showCount(); save();
+        });
+        chips.append(chip);
+      });
+      showCount();
+      picker.append(chips, status);
+      box.append(element('p','eyebrow',label), element('h3','',teams), cats, picker);
+      return box;
+    };
     const reshuffle = element('button','text-button',copy().reshuffle); reshuffle.type = 'button';
-    reshuffle.addEventListener('click', () => { readNames(); tour = planTour(); save(); renderPlan(); });
-    plan.replaceChildren(element('p','form-hint',copy().planHint), ...tour.heats.map((heat,index) => card(copy().heatName(index+1), heat.teams.join(' · '), heat.categoryIds)), card(copy().finalName, copy().finalTeams, tour.finalCategoryIds), reshuffle);
+    reshuffle.addEventListener('click', () => { readNames(); tour = planTour(tour); save(); renderPlan(); });
+    plan.replaceChildren(element('p','form-hint',copy().planHint), ...tour.heats.map((heat,index) => card(copy().heatName(index+1), heat.teams.join(' · '), heat.categoryIds, 'h'+index)), card(copy().finalName, copy().finalTeams, tour.finalCategoryIds, 'final'), reshuffle);
   }
   try {
     const saved = JSON.parse(initialSave.raw || 'null');
     if (saved) {
+      // A browser still holding the old built-in five gets the new default instead.
+      if (Array.isArray(saved.selectedFaceIds) && saved.selectedFaceIds.join() === 'dicaprio,gordon-ramsay,marilyn-monroe,rihanna,ryan-gosling') saved.selectedFaceIds = null;
       if (saved.selectedFaceIds) {
         try { pack = faceTools.buildPack(publicPack,saved.selectedFaceIds); selectedFaceIds = saved.selectedFaceIds.slice(); pendingFaceIds = selectedFaceIds.slice(); } catch { /* Keep the available default portraits. */ }
       }
@@ -187,9 +248,13 @@
       if ([2,3,4].includes(saved.heatCount)) heatCount = saved.heatCount;
       if (typeof saved.prize === 'string') prize = saved.prize.slice(0,80);
       if (validTour(saved.tour)) tour = saved.tour;
+      // A not-yet-started plan from before the party split is replaced by the agreed default.
+      if (tour && tour.stage === 0 && !tour.results.length && !saved.state && tour.plan !== PLAN_VERSION) tour = null;
+      // Team names typed during setup survive a refresh.
+      if (Array.isArray(saved.names) && saved.names.length >= 2 && saved.names.length <= 12 && saved.names.every(name => typeof name === 'string' && name.length <= 40)) names = saved.names.slice();
       roundShown = saved.roundShown === true;
       if (saved.state) {
-        state = engine.restore(saved.state, pack);
+        state = engine.restore(saved.state, boardPack());
         restoreFailed = !state;
         if (state) { names = state.teams.map(team => team.name); selectedCategoryIds = state.categoryIds.slice(); }
       }
@@ -340,8 +405,12 @@
     $('#last-answer').hidden = !latest;
     $('#last-answer').textContent = latest ? text(latest.category.title) + ' · ' + text(latest.answer) : '';
     $('#board').style.setProperty('--board-columns', state.categoryIds.length);
+    const shown = boardPack();
+    const rowCount = Math.max(...state.categoryIds.map(id => shown.categories.find(item => item.id === id).clues.length));
+    $('#board').style.setProperty('--rows', rowCount);
+    $('#board').classList.toggle('tall-board', rowCount > 5); // The final's 7 rows use compact tiles to fit a TV screen.
     $('#board').replaceChildren(...state.categoryIds.map((id,index) => {
-      const category = pack.categories.find(item => item.id === id);
+      const category = shown.categories.find(item => item.id === id);
       const column = element('section','category-column');
       const heading = element('div','category-heading');
       heading.append(element('span','',String(index+1).padStart(2,'0')),element('h2','',text(category.title)));
@@ -543,7 +612,23 @@
   }));
   $('#heat-count').addEventListener('change', () => { readNames(); heatCount = Number($('#heat-count').value); tour = null; save(); renderSetup(); });
   $('#prize').addEventListener('input', () => { prize = $('#prize').value.slice(0,80); if (tour) tour.prize = prize.trim(); save(); });
-  $('#team-inputs').addEventListener('change', () => { if (mode === 'tournament') { readNames(); tour = null; renderPlan(); save(); } });
+  // Renaming a team keeps its heat and the chosen categories; only a different team count re-plans the heats.
+  function syncTeams() {
+    if (state) return;
+    const old = names.slice(); readNames();
+    if (mode !== 'tournament') { save(); return; }
+    const planned = tour && tour.stage === 0 && !tour.results.length;
+    const headings = [...document.querySelectorAll('#tour-plan .tour-heat h3')];
+    if (planned && old.length === names.length && tour.heats.flatMap(heat => heat.teams).length === names.length && headings.length === tour.heats.length + 1) {
+      const rename = new Map(old.map((name,index) => [name.trim(), names[index].trim()]));
+      tour.heats.forEach((heat,index) => { heat.teams = heat.teams.map(team => rename.has(team) ? rename.get(team) : team); headings[index].textContent = heat.teams.join(' · '); });
+    } else { tour = planned ? planTour(tour) : null; renderPlan(); }
+    save();
+  }
+  // A new or removed team must be in the plan, keeping the chosen categories.
+  function replanTeams() { if (mode === 'tournament' && !state && tour && tour.stage === 0 && !tour.results.length) { tour = planTour(tour); save(); } }
+  $('#team-inputs').addEventListener('input', syncTeams);
+  $('#team-inputs').addEventListener('change', syncTeams);
   $('#end-round').addEventListener('click', () => $('#end-round-dialog').showModal());
   $('#confirm-end-round').addEventListener('click', () => { $('#end-round-dialog').close(); if (state?.currentClueId) act('cancelClue'); roundShown = true; save(); showRound(); });
   $('#round-back').addEventListener('click', () => $('#round-dialog').close());
@@ -609,8 +694,8 @@
     if (!Number.isSafeInteger(amount) || amount === 0 || Math.abs(amount) > 1000000 || !reason || reason.length > 160 || /[\u0000-\u001f\u007f]/.test(reason)) { $('#adjust-error').textContent=copy().adjustmentError; return; }
     if (act('adjustScore',$('#adjust-team').value,amount,reason)) $('#adjust-dialog').close();
   });
-  $('#add-team').addEventListener('click',() => { readNames(); if(names.length<maxTeams()) names.push(copy().team+' '+(names.length+1)); renderSetup(); $('#team-inputs').lastElementChild?.querySelector('input')?.focus(); });
-  $('#remove-team').addEventListener('click',() => { readNames(); if(names.length>2) names.pop(); renderSetup(); });
+  $('#add-team').addEventListener('click',() => { readNames(); if(names.length<maxTeams()) names.push(copy().team+' '+(names.length+1)); replanTeams(); renderSetup(); $('#team-inputs').lastElementChild?.querySelector('input')?.focus(); });
+  $('#remove-team').addEventListener('click',() => { readNames(); if(names.length>2) names.pop(); replanTeams(); renderSetup(); });
   $('#language').addEventListener('click',() => {
     if (!state) readNames();
     language = language === 'en' ? 'nb' : 'en'; renderLocale(); renderSetup(); renderGallery(); save(); render();
@@ -637,9 +722,21 @@
   $('#reactions-toggle').addEventListener('click',() => { reactionsEnabled=!reactionsEnabled; save(); renderBoard(); });
   $('#reaction-close').addEventListener('click',() => reactionDialog.close());
   reactionDialog.addEventListener('close',() => { clearTimeout(reactionTimeout); if (resumeAfterReaction) { resumeAfterReaction=false; startTimer(); } });
-  $('#power-double').addEventListener('click',() => act('usePower','double'));
-  $('#power-letter').addEventListener('click',() => act('usePower','letter'));
-  $('#power-steal').addEventListener('click',() => { const team = stealTeam(); if (team && act('usePower','steal',team.id)) restartTimer(); });
+  // Using a power pops up its own Sara sticker for a moment (only when reactions are on).
+  const powerFaces = {double:'assets/reaction-03.webp', letter:'assets/reaction-07.webp', steal:'assets/reaction-08.webp'};
+  Object.values(powerFaces).forEach(src => { new Image().src = src; });
+  let powerPopTimeout = null;
+  function powerPop(power, label) {
+    if (!reactionsEnabled) return;
+    $('#clue-dialog').querySelector('.power-pop')?.remove(); clearTimeout(powerPopTimeout);
+    const pop = element('div','power-pop'); const face = element('img'); face.src = powerFaces[power]; face.alt = '';
+    pop.append(face, element('strong','',label));
+    $('#clue-dialog').append(pop);
+    powerPopTimeout = setTimeout(() => pop.remove(), 1800);
+  }
+  $('#power-double').addEventListener('click',() => { const label = $('#power-double').textContent; if (act('usePower','double')) powerPop('double', label); });
+  $('#power-letter').addEventListener('click',() => { const label = $('#power-letter').textContent; if (act('usePower','letter')) powerPop('letter', label); });
+  $('#power-steal').addEventListener('click',() => { const team = stealTeam(); const label = $('#power-steal').textContent; if (team && act('usePower','steal',team.id)) { restartTimer(); powerPop('steal', label); } });
   $('#timer-toggle').addEventListener('click',() => {
     if(timer.running){pauseTimer();save();return;}
     startTimer();

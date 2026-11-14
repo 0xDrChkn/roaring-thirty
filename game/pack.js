@@ -17,6 +17,51 @@
     title: text('The Sara Show', 'Sara-showet'),
     subtitle: text('A roaring birthday quiz', 'En bursdagsquiz med stil'),
     defaultCategoryIds: ['birthday-girl', 'countries', 'movie-plots', 'name-that-tune', 'science-tech', 'norway-knows'],
+    // Default heat boards for a two-heat tournament; the final uses defaultCategoryIds.
+    tournamentHeats: {
+      2: [
+        ['famous-saras', 'finish-the-lyric', 'throwback-2000s', 'guess-the-year', 'famous-duos', 'cocktail-hour'],
+        ['famous-saras', 'emoji-cinema', 'twenties', 'timeline', 'wild-facts', 'party-science']
+      ]
+    },
+    // Two extra rows for the tournament final only (heats and single games keep five rows).
+    // The Birthday Girl's 600/700 come from spare celebrity portraits at runtime.
+    finalRows: {
+      'norway-knows': [
+        { id: 'no-600', value: 600, question: text('In 1947, this Norwegian sailed a balsa-wood raft called Kon-Tiki across the Pacific. Who was he?', 'I 1947 seilte denne nordmannen over Stillehavet på balseflåten Kon-Tiki. Hvem var han?'), answer: text('Thor Heyerdahl') },
+        { id: 'no-700', value: 700, question: text('Which Norwegian Arctic archipelago is home to the Global Seed Vault?', 'Hvilken norsk øygruppe i Arktis huser det globale frøhvelvet?'), answer: text('Svalbard'), acceptedAnswers: ['Spitsbergen'] }
+      ],
+      'science-tech': [
+        { id: 'st-600', value: 600, question: text('Which gas makes up about 78% of the air we breathe?', 'Hvilken gass utgjør omtrent 78 % av luften vi puster inn?'), answer: text('Nitrogen', 'Nitrogen (kvelstoff)'), acceptedAnswers: ['N2', 'N₂', 'Kvelstoff'] },
+        { id: 'st-700', value: 700, question: text('How many bones are in the typical adult human body?', 'Hvor mange bein har et typisk voksent menneske?'), answer: text('206') }
+      ],
+      'countries': [
+        {
+          id: 'geo-600', value: 600,
+          question: text('Follow the tram tracks. Which country are we in?', 'Følg trikkeskinnene. Hvilket land er vi i?'),
+          answer: text('Portugal'), acceptedAnswers: ['Portugal'],
+          image: 'assets/geo-location-600.jpg', imageAlt: text('A fixed view of tram tracks curving up a narrow cobbled street between pastel buildings.', 'Et stillbilde av trikkeskinner som svinger opp en smal brosteinsgate mellom pastellfargede hus.'),
+          explanation: text('Alfama, Lisbon, Portugal. Tram line 28 climbs these narrow cobbled streets past tiled facades.', 'Alfama, Lisboa, Portugal. Trikkelinje 28 klatrer opp disse smale brosteinsgatene forbi flislagte fasader.'),
+          hostNote: text('Country only. Photo: Sonse / Wikimedia Commons, CC BY 2.0. Resized and re-encoded. Full source and licence: Photo credits in the game footer.', 'Kun landet. Foto: Sonse / Wikimedia Commons, CC BY 2.0. Skalert og lagret på nytt. Full kilde og lisens: Fotokreditering i spillets bunntekst.')
+        },
+        {
+          id: 'geo-700', value: 700,
+          question: text('A night walk under the lanterns. Which country?', 'En kveldstur under lyktene. Hvilket land?'),
+          answer: text('Vietnam'), acceptedAnswers: ['Vietnam', 'Viet Nam'],
+          image: 'assets/geo-location-700.jpg', imageAlt: text('A fixed night view of a busy street strung with coloured silk lanterns.', 'Et stillbilde om kvelden av en travel gate med fargede silkelykter.'),
+          explanation: text('Hoi An Old Town, Vietnam. The town is famous for its silk lanterns lit every evening.', 'Gamlebyen i Hoi An, Vietnam. Byen er kjent for silkelyktene som tennes hver kveld.'),
+          hostNote: text('Country only. Photo: Christophe95 / Wikimedia Commons, CC BY-SA 4.0. Resized and re-encoded. Full source and licence: Photo credits in the game footer.', 'Kun landet. Foto: Christophe95 / Wikimedia Commons, CC BY-SA 4.0. Skalert og lagret på nytt. Full kilde og lisens: Fotokreditering i spillets bunntekst.')
+        }
+      ],
+      'movie-plots': [
+        { id: 'mp-600', value: 600, question: text('A man with a box of chocolates keeps accidentally turning up at the big moments of 20th-century American history.', 'En mann med en sjokoladeeske dukker stadig tilfeldigvis opp i de store øyeblikkene i amerikansk historie.'), answer: text('Forrest Gump (1994).') },
+        { id: 'mp-700', value: 700, question: text('A rat with a refined palate runs a Paris kitchen by pulling a young cook’s hair.', 'En rotte med fin gane styrer et parisisk kjøkken ved å nappe en ung kokk i håret.'), answer: text('Ratatouille (2007).') }
+      ],
+      'name-that-tune': [
+        { id: 'nt-600', value: 600, question: text('Dolly Parton wrote it. Whitney Houston turned it into the giant ballad of The Bodyguard (1992). Name the song.', 'Dolly Parton skrev den. Whitney Houston gjorde den til den store balladen i The Bodyguard (1992). Hva heter låten?'), answer: text('I Will Always Love You.') },
+        { id: 'nt-700', value: 700, question: text('Norway’s first Eurovision win, 1985: Bobbysocks told everyone to let it swing. Name the song.', 'Norges første Melodi Grand Prix-seier i Eurovision, 1985: Bobbysocks. Hva heter låten?'), answer: text('La det swinge.', 'La det swinge.'), acceptedAnswers: ['Let It Swing'] }
+      ]
+    },
     categories: [
       {
         id: 'cocktail-hour',

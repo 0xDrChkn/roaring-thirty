@@ -1,0 +1,11 @@
+{
+  "name": "The Great Matilda · Sara's birthday game",
+  "short_name": "Sara's Game",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#080808",
+  "theme_color": "#080808",
+  "icons": [{ "src": "assets/app-icon.png", "sizes": "512x512", "type": "image/png" }]
+}

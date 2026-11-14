@@ -40,9 +40,13 @@ dialog{width:min(1200px,calc(100% - 48px));max-width:none;max-height:calc(100svh
   .playing .team-powers span{padding:2px 5px}
   .playing .board-scroll{flex:1;min-height:306px}
   .playing .quiz-board{height:100%;gap:8px}
-  .playing .category-column{height:100%;grid-template-rows:54px repeat(5,minmax(44px,1fr));gap:6px}
+  .playing .category-column{height:100%;grid-template-rows:54px repeat(var(--rows,5),minmax(44px,1fr));gap:6px}
   .playing .category-heading h2{font-size:clamp(13px,1.2vw,18px)}
   .playing .clue-tile{font-size:clamp(32px,3.2vw,52px)}
+  .playing .tall-board .category-column{grid-template-rows:30px repeat(var(--rows,7),minmax(0,1fr));gap:3px}
+  .playing .tall-board .category-heading{padding:2px 6px}
+  .playing .tall-board .clue-tile{font-size:clamp(20px,2vw,40px);min-height:0;overflow:hidden}
+  .playing .tall-board .clue-tile.used{font-size:18px}
   .playing .clue-tile.draft{font-size:26px}
   .playing .clue-tile.used{font-size:24px}
   .playing .last-answer{padding:6px 12px;margin-top:6px;flex-shrink:0}
@@ -121,4 +125,101 @@ select{font:inherit;color:var(--ivory);background:var(--black);border:1px solid 
   #clue-dialog:has(.location-clue) .answering-team{font-size:24px}
   #clue-dialog:has(.location-clue) .clue-bottom{padding-top:4px}
   #clue-dialog:has(.location-clue) .clue-bottom button{min-height:32px}
+}
+.tour-picker{margin-top:12px}
+.tour-picker summary{cursor:pointer;color:var(--gold);font-size:13px}
+.tour-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tour-chip{border:1px solid var(--line);background:transparent;color:var(--muted);padding:5px 9px;font:inherit;font-size:12px;cursor:pointer}
+.tour-chip[aria-pressed="true"]{border-color:var(--gold);color:#f4ead7;background:rgba(201,164,92,.16)}
+.tour-pick-count{color:var(--muted);font-size:12px;margin-top:8px}
+.power-pop{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;pointer-events:none;z-index:20;animation:power-pop 1.8s ease forwards}
+.power-pop img{height:min(46vh,380px);max-width:70vw;object-fit:contain;filter:drop-shadow(0 0 22px rgba(201,164,92,.7)) drop-shadow(0 0 4px rgba(170,40,40,.6))}
+.power-pop strong{font:500 clamp(28px,3.4vw,52px)/1.1 'Cormorant Garamond',serif;color:var(--gold);text-shadow:0 2px 14px #000}
+@keyframes power-pop{0%{opacity:0;transform:scale(.5) rotate(-8deg)}14%{opacity:1;transform:scale(1.08) rotate(3deg)}24%{transform:scale(1) rotate(0)}78%{opacity:1}100%{opacity:0;transform:scale(1.05)}}
+@media(prefers-reduced-motion:reduce){.power-pop{animation:none}}
+
+/* Phone held sideways (mirrored to a TV with AirPlay): everything on one screen, no scrolling. */
+@media(orientation:landscape) and (max-height:520px){
+  .playing .game-shell{height:100svh;display:flex;flex-direction:column;padding:0 max(14px,env(safe-area-inset-right)) 0 max(14px,env(safe-area-inset-left))}
+  .playing .masthead,.playing .turn-banner,.playing .last-answer,.playing .board-footer,.playing .site-footer{display:none}
+  .playing main{flex:1;min-height:0;display:flex;flex-direction:column}
+  .playing #play{flex:1;min-height:0;display:flex;flex-direction:column;padding-bottom:6px}
+  .playing .board-heading{padding:6px 0 5px;gap:10px;flex-shrink:0;align-items:center}
+  .playing .board-heading h1{font-size:20px;margin:0}
+  .playing .board-heading .eyebrow{font-size:9px;margin:0}
+  .playing .board-tools{gap:12px;font-size:11px}
+  .playing .scoreboard{gap:6px;margin-bottom:6px;flex-shrink:0}
+  .playing .team-score{min-height:0;padding:4px 10px;gap:6px}
+  .playing .team-score strong{font-size:22px}
+  .playing .team-name{font-size:12px}
+  .playing .turn-label{font-size:8px}
+  .playing .team-powers{display:none}
+  .playing .board-scroll{flex:1;min-height:0;overflow:hidden}
+  .playing .quiz-board{min-width:0;height:100%;gap:5px}
+  .playing .category-column,.playing .tall-board .category-column{height:100%;grid-template-rows:26px repeat(var(--rows,5),minmax(0,1fr));gap:3px}
+  .playing .category-heading{padding:1px 3px;min-width:0}
+  .playing .category-heading span{display:none}
+  .playing .category-heading h2{font-size:10px;line-height:1.1;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+  .playing .clue-tile,.playing .tall-board .clue-tile{font-size:20px;min-height:0;overflow:hidden}
+  .playing .clue-tile.used,.playing .tall-board .clue-tile.used{font-size:13px}
+  .playing .clue-tile small{display:none}
+
+  /* Question window: question on the left, host controls on the right. */
+  #clue-dialog,#clue-dialog:has(.location-clue){width:100vw;max-width:none;height:100svh;max-height:none;margin:0;padding:8px max(16px,env(safe-area-inset-right)) 8px max(16px,env(safe-area-inset-left));border:0;
+    display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);grid-template-rows:auto auto auto auto minmax(0,1fr) auto;column-gap:20px;row-gap:6px;overflow:hidden}
+  #clue-dialog:not([open]){display:none}
+  #clue-dialog .clue-top{grid-column:1/-1;padding:0 0 4px}
+  #clue-dialog .clue-meta .icon-button{min-height:30px}
+  #clue-dialog .clue-stage,.clue-stage.location-clue{grid-column:1;grid-row:2/6;min-height:0;padding:0;gap:12px;flex-direction:row;overflow:hidden}
+  #clue-dialog:has(#answer:not([hidden])) .clue-stage{grid-row:2/4}
+  #clue-dialog:has(.location-clue) .power-controls{display:block;padding:0}
+  #clue-dialog .answer > .eyebrow{display:none}
+  #clue-dialog .clue-stage h2{font-size:clamp(20px,3.4vw,32px);line-height:1.2}
+  #clue-dialog .clue-stage.location-clue h2{font-size:clamp(15px,2.2vw,20px);line-height:1.2}
+  #clue-dialog .clue-top .eyebrow{font-size:11px}
+  #clue-dialog .clue-stage img,.clue-stage.location-clue img{width:auto;max-width:55%;height:auto;max-height:100%;object-fit:contain}
+  #clue-dialog .clue-stage.location-clue{flex-direction:column}
+  #clue-dialog .clue-stage.location-clue img{max-width:100%;max-height:calc(100% - 50px)}
+  #clue-dialog .answer{grid-column:1;grid-row:4/7;align-self:stretch;margin:0;padding:6px 10px;overflow:auto;min-height:0}
+  #clue-dialog .answer #answer-text{font-size:18px}
+  #clue-dialog .answer img{max-height:90px}
+  #clue-dialog .clue-controls{display:contents}
+  /* Question and answer take whatever height is left; the host controls keep their natural size. */
+  #clue-dialog .clue-stage,#clue-dialog .answer{contain:size}
+  #clue-dialog .adjudication{min-height:auto!important}
+  #clue-dialog .timer{grid-column:2;grid-row:2;align-self:center}
+  /* Reveal sits right under the question so it comes before Wrong or Correct. */
+  #clue-dialog #reveal{grid-column:1;grid-row:6;justify-self:center;align-self:end;min-width:min(260px,90%);min-height:44px;font-size:15px;background:var(--gold);color:#111;border-color:var(--gold)}
+  #clue-dialog #reveal:disabled{display:none}
+  #clue-dialog .timer output{font-size:28px}
+  #clue-dialog .secondary,#clue-dialog .primary{min-height:36px;padding:6px 12px;font-size:13px}
+  #clue-dialog .power-controls{grid-column:2;grid-row:3;padding:0;display:block}
+  #clue-dialog .power-buttons{display:flex;flex-wrap:nowrap;gap:5px}
+  #clue-dialog .power-buttons button{flex:1 1 0;min-width:0;min-height:30px;padding:4px 6px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #clue-dialog #power-hint{display:none}
+  #clue-dialog #power-steal{flex-grow:1.8}
+  #clue-dialog .letter-hint{margin:4px 0 0;font-size:13px}
+  #clue-dialog .adjudication{grid-column:2;grid-row:4;display:flex;flex-direction:column;justify-content:flex-start;margin-top:4px;gap:6px;padding:0;border:0;min-height:0}
+  #clue-dialog .adjudication .eyebrow{font-size:8px;margin:0}
+  #clue-dialog .clue-teams{margin:2px 0 0;max-height:64px;overflow:auto}
+  #clue-dialog .clue-team{min-height:28px;padding:3px 8px;font-size:12px}
+  #clue-dialog .award-buttons{display:flex;gap:6px;margin:0}
+  #clue-dialog .award-buttons button{flex:1;min-height:42px}
+  #clue-dialog .clue-bottom{grid-column:2;grid-row:6;align-self:end;margin:0;padding:0;font-size:11px}
+  #clue-dialog #clue-status{font-size:11px}
+  .power-pop img{height:62svh}
+  .power-pop strong{font-size:26px}
+  /* Pop-up dialogs (reactions, heat winner, end round) fit the short screen. */
+  #round-dialog,#end-round-dialog,#reset-dialog,#adjust-dialog,#help-dialog{max-height:94svh;overflow:auto}
+  #reaction-dialog img{max-height:62svh}
+  #clue-dialog .answer-extra{font-size:12px}
+  #round-dialog{padding:10px 24px;width:min(720px,96vw)}
+  #round-dialog #round-winner{font-size:30px;margin:2px 0 6px}
+  #round-dialog #round-scores li,#round-dialog #round-scores>*{padding-block:4px;font-size:14px}
+  #round-dialog #round-prize{margin:4px 0;font-size:14px}
+  #round-dialog button{min-height:36px;padding:6px 14px}
+  /* Setup on a sideways phone: skip the intro, go straight to teams and the plan. */
+  body:not(.playing) .setup{grid-template-columns:1fr;padding-top:10px;gap:16px}
+  body:not(.playing) .setup-intro{display:none}
+  body:not(.playing) .masthead{min-height:48px}
 }
