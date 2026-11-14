@@ -18,6 +18,7 @@
     subtitle: text('A roaring birthday quiz', 'En bursdagsquiz med stil'),
     defaultCategoryIds: ['birthday-girl', 'countries', 'movie-plots', 'name-that-tune', 'science-tech', 'norway-knows'],
     // Default heat boards for a two-heat tournament; the final uses defaultCategoryIds.
+    tournamentFinal: ['birthday-girl-final', 'countries', 'movie-plots', 'name-that-tune', 'science-tech', 'norway-knows'],
     tournamentHeats: {
       2: [
         ['finish-the-lyric', 'cocktail-hour', 'throwback-2000s', 'the-impostor', 'brand-new', 'wild-facts-2', 'true-false-1', 'birthday-girl-h1'],
@@ -27,6 +28,10 @@
     // Two extra rows for the tournament final only (heats and single games keep five rows).
     // The Birthday Girl's 600/700 come from spare celebrity portraits at runtime.
     finalRows: {
+      'birthday-girl-final': [
+        { id: 'bgf-600', value: 600, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Brad Pitt'), image: 'assets/face-brad-pitt.png', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
+        { id: 'bgf-700', value: 700, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Richard Nixon'), acceptedAnswers: ['Nixon'], image: 'assets/president-500.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') }
+      ],
       'norway-knows': [
         { id: 'no-600', value: 600, question: text('In 1947, this Norwegian sailed a balsa-wood raft called Kon-Tiki across the Pacific. Who was he?', 'I 1947 seilte denne nordmannen over Stillehavet på balseflåten Kon-Tiki. Hvem var han?'), answer: text('Thor Heyerdahl') },
         { id: 'no-700', value: 700, question: text('Which Norwegian Arctic archipelago is home to the Global Seed Vault?', 'Hvilken norsk øygruppe i Arktis huser det globale frøhvelvet?'), answer: text('Svalbard'), acceptedAnswers: ['Spitsbergen'] }
@@ -290,26 +295,26 @@
         // The Birthday Girl for heat 1, from the spare face blends.
         id: 'birthday-girl-h1',
         title: text('The Birthday Girl', 'Bursdagsbarnet'),
-        description: text('Two faces, one portrait. Who is mixed with Sara?', 'To ansikter, ett portrett. Hvem er blandet med Sara?'),
+        description: text('Actors, presidents and history-makers. Who is mixed with Sara?', 'Skuespillere, presidenter og historiske skikkelser. Hvem er blandet med Sara?'),
         clues: [
-          { id: 'bg1-100', value: 100, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Leonardo DiCaprio'), image: 'assets/clue-bg-100.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
-          { id: 'bg1-200', value: 200, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Marilyn Monroe'), image: 'assets/face-marilyn-monroe.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
-          { id: 'bg1-300', value: 300, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Beyoncé'), image: 'assets/face-beyonce.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
-          { id: 'bg1-400', value: 400, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Tom Cruise'), image: 'assets/face-tom-cruise.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
-          { id: 'bg1-500', value: 500, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Adele'), image: 'assets/face-adele.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') }
+          { id: 'bg1-100', value: 100, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Donald Trump'), acceptedAnswers: ['Trump'], image: 'assets/president-100.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
+          { id: 'bg1-200', value: 200, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Albert Einstein'), acceptedAnswers: ['Einstein'], image: 'assets/hist-100.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
+          { id: 'bg1-300', value: 300, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Beyoncé'), image: 'assets/face-beyonce.png', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
+          { id: 'bg1-400', value: 400, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Napoleon Bonaparte'), acceptedAnswers: ['Napoleon'], image: 'assets/hist-400.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
+          { id: 'bg1-500', value: 500, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('John F. Kennedy'), acceptedAnswers: ['JFK', 'Kennedy'], image: 'assets/president-400.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') }
         ]
       },
       {
         // The Birthday Girl for heat 2. The 500 waits for a new face (Harry Styles) and stays locked until then.
         id: 'birthday-girl-h2',
         title: text('The Birthday Girl', 'Bursdagsbarnet'),
-        description: text('Two faces, one portrait. Who is mixed with Sara?', 'To ansikter, ett portrett. Hvem er blandet med Sara?'),
+        description: text('Actors, presidents and history-makers. Who is mixed with Sara?', 'Skuespillere, presidenter og historiske skikkelser. Hvem er blandet med Sara?'),
         clues: [
-          { id: 'bg2-100', value: 100, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Chris Hemsworth'), image: 'assets/face-chris-hemsworth.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
-          { id: 'bg2-200', value: 200, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Margot Robbie'), image: 'assets/face-margot-robbie.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
-          { id: 'bg2-300', value: 300, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Angelina Jolie'), image: 'assets/face-angelina-jolie.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
-          { id: 'bg2-400', value: 400, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Emma Watson'), image: 'assets/face-emma-watson.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
-          draft('bg2-500', 500, 'New face coming: add the Sara × Harry Styles blend.', 'Nytt ansikt kommer: legg inn Sara × Harry Styles.')
+          { id: 'bg2-100', value: 100, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Leonardo DiCaprio'), acceptedAnswers: ['DiCaprio'], image: 'assets/clue-bg-100.png', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
+          { id: 'bg2-200', value: 200, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Frida Kahlo'), acceptedAnswers: ['Frida'], image: 'assets/hist-200.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
+          { id: 'bg2-300', value: 300, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Barack Obama'), acceptedAnswers: ['Obama'], image: 'assets/president-300.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
+          { id: 'bg2-400', value: 400, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Marie Curie'), acceptedAnswers: ['Curie'], image: 'assets/hist-500.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
+          { id: 'bg2-500', value: 500, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Emmanuel Macron'), acceptedAnswers: ['Macron'], image: 'assets/president2-300.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') }
         ]
       },
       {
@@ -349,6 +354,19 @@
           { id: 'tf2-300', value: 300, question: text('True or false: A day on Venus is longer than a year on Venus.', 'Sant eller usant: Et døgn på Venus er lengre enn et år på Venus.'), answer: text('TRUE', 'SANT'), explanation: text('Venus takes 243 Earth days to turn once, and 225 to circle the Sun.', 'Venus bruker 243 jorddøgn på å snurre én gang, og 225 på å gå rundt sola.') },
           { id: 'tf2-400', value: 400, question: text('True or false: Napoleon was unusually short for a man of his time.', 'Sant eller usant: Napoleon var uvanlig lav for en mann på sin tid.'), answer: text('FALSE', 'USANT'), explanation: text('He was about 1.69 m, average or taller for his day.', 'Han var rundt 1,69 m, gjennomsnittlig eller høyere for sin tid.') },
           { id: 'tf2-500', value: 500, question: text('True or false: Cleopatra lived closer in time to the Moon landing than to the building of the Great Pyramid.', 'Sant eller usant: Kleopatra levde nærmere månelandingen i tid enn byggingen av den store pyramiden.'), answer: text('TRUE', 'SANT'), explanation: text('The Great Pyramid is from about 2560 BC; Cleopatra died in 30 BC.', 'Den store pyramiden er fra rundt 2560 f.Kr.; Kleopatra døde i 30 f.Kr.') }
+        ]
+      },
+      {
+        // The final's face board: actors, presidents and history mixed, easy to hard.
+        id: 'birthday-girl-final',
+        title: text('The Birthday Girl', 'Bursdagsbarnet'),
+        description: text('Actors, presidents and history-makers. Who is mixed with Sara?', 'Skuespillere, presidenter og historiske skikkelser. Hvem er blandet med Sara?'),
+        clues: [
+          { id: 'bgf-100', value: 100, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Dwayne Johnson'), acceptedAnswers: ['The Rock'], image: 'assets/face-dwayne-johnson.png', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
+          { id: 'bgf-200', value: 200, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Nelson Mandela'), acceptedAnswers: ['Mandela'], image: 'assets/president2-100.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
+          { id: 'bgf-300', value: 300, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Cleopatra'), image: 'assets/hist-300.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
+          { id: 'bgf-400', value: 400, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Rihanna'), image: 'assets/clue-bg-400.png', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
+          { id: 'bgf-500', value: 500, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Volodymyr Zelenskyy'), acceptedAnswers: ['Zelensky', 'Zelenskyj'], image: 'assets/president2-200.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') }
         ]
       },
       {
