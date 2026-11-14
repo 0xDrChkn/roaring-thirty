@@ -297,8 +297,8 @@
         title: text('The Birthday Girl', 'Bursdagsbarnet'),
         description: text('Actors, presidents and history-makers. Who is mixed with Sara?', 'Skuespillere, presidenter og historiske skikkelser. Hvem er blandet med Sara?'),
         clues: [
-          { id: 'bg1-100', value: 100, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Donald Trump'), acceptedAnswers: ['Trump'], image: 'assets/president-100.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
-          { id: 'bg1-200', value: 200, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Albert Einstein'), acceptedAnswers: ['Einstein'], image: 'assets/hist-100.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
+          { id: 'bg1-100', value: 100, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Albert Einstein'), acceptedAnswers: ['Einstein'], image: 'assets/hist-100.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
+          { id: 'bg1-200', value: 200, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Abraham Lincoln'), acceptedAnswers: ['Lincoln'], image: 'assets/president-200.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
           { id: 'bg1-300', value: 300, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Beyoncé'), image: 'assets/face-beyonce.png', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
           { id: 'bg1-400', value: 400, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Napoleon Bonaparte'), acceptedAnswers: ['Napoleon'], image: 'assets/hist-400.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
           { id: 'bg1-500', value: 500, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('John F. Kennedy'), acceptedAnswers: ['JFK', 'Kennedy'], image: 'assets/president-400.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') }
@@ -310,24 +310,11 @@
         title: text('The Birthday Girl', 'Bursdagsbarnet'),
         description: text('Actors, presidents and history-makers. Who is mixed with Sara?', 'Skuespillere, presidenter og historiske skikkelser. Hvem er blandet med Sara?'),
         clues: [
-          { id: 'bg2-100', value: 100, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Leonardo DiCaprio'), acceptedAnswers: ['DiCaprio'], image: 'assets/clue-bg-100.png', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
+          { id: 'bg2-100', value: 100, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Marilyn Monroe'), acceptedAnswers: ['Marilyn', 'Monroe'], image: 'assets/face-marilyn-monroe.png', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
           { id: 'bg2-200', value: 200, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Frida Kahlo'), acceptedAnswers: ['Frida'], image: 'assets/hist-200.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
           { id: 'bg2-300', value: 300, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Barack Obama'), acceptedAnswers: ['Obama'], image: 'assets/president-300.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
           { id: 'bg2-400', value: 400, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Marie Curie'), acceptedAnswers: ['Curie'], image: 'assets/hist-500.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
           { id: 'bg2-500', value: 500, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Emmanuel Macron'), acceptedAnswers: ['Macron'], image: 'assets/president2-300.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') }
-        ]
-      },
-      {
-        // Sara blended with US presidents (generated portraits; filenames hide the answers).
-        id: 'madam-president',
-        title: text('Madam President', 'Fru president'),
-        description: text('Sara in the Oval Office. Which president is she blended with?', 'Sara i Det ovale kontor. Hvilken president er hun blandet med?'),
-        clues: [
-          { id: 'pr-100', value: 100, question: text('Which US president is blended with Sara?', 'Hvilken amerikansk president er blandet med Sara?'), answer: text('Donald Trump'), acceptedAnswers: ['Trump'], image: 'assets/president-100.jpg', imageAlt: text('A fictional blended portrait. Name the president.', 'Et fiktivt blandet portrett. Finn presidenten.') },
-          { id: 'pr-200', value: 200, question: text('Which US president is blended with Sara?', 'Hvilken amerikansk president er blandet med Sara?'), answer: text('Abraham Lincoln'), acceptedAnswers: ['Lincoln'], image: 'assets/president-200.jpg', imageAlt: text('A fictional blended portrait. Name the president.', 'Et fiktivt blandet portrett. Finn presidenten.') },
-          { id: 'pr-300', value: 300, question: text('Which US president is blended with Sara?', 'Hvilken amerikansk president er blandet med Sara?'), answer: text('Barack Obama'), acceptedAnswers: ['Obama'], image: 'assets/president-300.jpg', imageAlt: text('A fictional blended portrait. Name the president.', 'Et fiktivt blandet portrett. Finn presidenten.') },
-          { id: 'pr-400', value: 400, question: text('Which US president is blended with Sara?', 'Hvilken amerikansk president er blandet med Sara?'), answer: text('John F. Kennedy'), acceptedAnswers: ['JFK', 'Kennedy'], image: 'assets/president-400.jpg', imageAlt: text('A fictional blended portrait. Name the president.', 'Et fiktivt blandet portrett. Finn presidenten.') },
-          { id: 'pr-500', value: 500, question: text('Which US president is blended with Sara?', 'Hvilken amerikansk president er blandet med Sara?'), answer: text('Richard Nixon'), acceptedAnswers: ['Nixon'], image: 'assets/president-500.jpg', imageAlt: text('A fictional blended portrait. Name the president.', 'Et fiktivt blandet portrett. Finn presidenten.') }
         ]
       },
       {
