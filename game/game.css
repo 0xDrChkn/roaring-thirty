@@ -223,3 +223,35 @@ select{font:inherit;color:var(--ivory);background:var(--black);border:1px solid 
   body:not(.playing) .setup-intro{display:none}
   body:not(.playing) .masthead{min-height:48px}
 }
+
+/* Rules slideshow for the guests. */
+.rules-dialog{width:min(1000px,calc(100vw - 32px));max-height:calc(100svh - 32px);padding:34px 44px 24px;display:none;flex-direction:column;gap:18px;text-align:center}
+.rules-dialog[open]{display:flex}
+.rules-dialog .dialog-close{position:absolute;top:8px;right:14px}
+.rules-slide{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;overflow:auto}
+.rules-slide h2{font-size:clamp(30px,4.4vw,58px);line-height:1.08}
+.rules-list{text-align:left;display:grid;gap:10px;font-size:clamp(17px,1.9vw,24px);line-height:1.35;max-width:760px;padding-left:1.2em}
+.rules-list li::marker{color:var(--gold)}
+.rules-powers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;width:100%}
+.rules-power{border:1px solid var(--line);padding:14px 12px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.rules-power img{height:clamp(70px,16vh,150px);object-fit:contain;filter:drop-shadow(0 0 10px rgba(201,164,92,.45))}
+.rules-power strong{color:var(--gold);font-size:clamp(16px,1.8vw,22px)}
+.rules-power p{font-size:clamp(13px,1.4vw,17px);line-height:1.35}
+.rules-note{color:var(--gold);font-size:clamp(14px,1.6vw,19px)}
+.rules-ready{display:flex;flex-direction:column;align-items:center;gap:12px}
+.rules-ready img{height:clamp(120px,32vh,300px);object-fit:contain;filter:drop-shadow(0 0 16px rgba(201,164,92,.55))}
+.rules-ready p{font-size:clamp(17px,2vw,24px)}
+.rules-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-shrink:0}
+.rules-dots{color:var(--gold);letter-spacing:.3em}
+.category-start .rules-open{margin-right:auto}
+@media(orientation:landscape) and (max-height:520px){
+  .rules-dialog{width:100vw;max-width:none;height:100svh;max-height:none;margin:0;border:0;padding:10px max(18px,env(safe-area-inset-right)) 8px max(18px,env(safe-area-inset-left));gap:6px}
+  .rules-slide{gap:8px}
+  .rules-slide h2{font-size:clamp(22px,3.6vw,34px)}
+  .rules-list{font-size:clamp(14px,2vw,18px);gap:5px}
+  .rules-power{padding:8px}
+  .rules-power img{height:clamp(50px,20svh,90px)}
+  .rules-power p{font-size:12px}
+  .rules-ready img{height:40svh}
+  .rules-nav button{min-height:36px;padding:6px 16px}
+}

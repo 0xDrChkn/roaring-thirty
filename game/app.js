@@ -56,8 +56,8 @@
   };
   Object.assign(ui.en, {packLoaded:'Private pack loaded. Choose categories below.', packFailed:'The pack could not be loaded. Check the JSON format, category IDs, five clue values per category and embedded images (maximum 2 MB). Your previous bank is unchanged.', selectedCategories:'categories selected', ready:'ready', unfinished:'to prepare', chooseSix:'Choose at least one category to start.', adjustmentError:'Enter a non-zero whole number and a short reason.', adjustments:'Recent corrections', accepts:'Also accept', context:'For the host'});
   Object.assign(ui.nb, {packLoaded:'Privat pakke lastet inn. Velg kategorier nedenfor.', packFailed:'Pakken kunne ikke lastes inn. Sjekk JSON-formatet, kategori-ID-ene, fem poengverdier per kategori og innebygde bilder (maks 2 MB). Den forrige banken er uendret.', selectedCategories:'kategorier valgt', ready:'klare', unfinished:'må klargjøres', chooseSix:'Velg minst én kategori for å starte.', adjustmentError:'Skriv inn et heltall som ikke er null, og en kort begrunnelse.', adjustments:'Siste endringer', accepts:'Godta også', context:'Til verten'});
-  Object.assign(ui.en, {heat:(n,total) => 'HEAT ' + n + ' OF ' + total, final:'THE FINAL', single:'THE GREAT MATILDA · THE GAME', heatWinner:n => 'HEAT ' + n + ' · THROUGH TO THE FINAL', champions:'THE CHAMPIONS', roundWinner:'THE WINNING TEAM', nextHeat:n => 'On to heat ' + n + ' →', toFinal:'On to the final →', playAgain:'Start a new game', prizeLabel:'The prize', tourTeams:'Make at least two teams per heat (4–12 teams in total).', planTitle:'The tournament plan', planHint:'Teams are shuffled. The final gets the recommended six; the heats share the rest. Open “Choose categories” on any card to change them (1–6 each). A category may be used in more than one heat.', pickCategories:'Choose categories', reshuffle:'Shuffle teams', heatName:n => 'Heat ' + n, finalName:'Final', finalTeams:'Heat winners', startTour:'Start the tournament'});
-  Object.assign(ui.nb, {heat:(n,total) => 'RUNDE ' + n + ' AV ' + total, final:'FINALEN', single:'THE GREAT MATILDA · SPILLET', heatWinner:n => 'RUNDE ' + n + ' · VIDERE TIL FINALEN', champions:'MESTERNE', roundWinner:'VINNERLAGET', nextHeat:n => 'Videre til runde ' + n + ' →', toFinal:'Videre til finalen →', playAgain:'Start et nytt spill', prizeLabel:'Premien', tourTeams:'Lag minst to lag per runde (4–12 lag totalt).', planTitle:'Turneringsplanen', planHint:'Lagene er stokket. Finalen får de anbefalte seks; rundene deler resten. Åpne «Velg kategorier» på et kort for å endre dem (1–6 hver). En kategori kan brukes i flere runder.', pickCategories:'Velg kategorier', reshuffle:'Stokk lagene', heatName:n => 'Runde ' + n, finalName:'Finale', finalTeams:'Rundevinnerne', startTour:'Start turneringen'});
+  Object.assign(ui.en, {heat:(n,total) => 'HEAT ' + n + ' OF ' + total, final:'THE FINAL', single:'THE GREAT MATILDA · THE GAME', heatWinner:n => 'HEAT ' + n + ' · THROUGH TO THE FINAL', champions:'THE CHAMPIONS', roundWinner:'THE WINNING TEAM', nextHeat:n => 'On to heat ' + n + ' →', toFinal:'On to the final →', playAgain:'Start a new game', prizeLabel:'The prize', tourTeams:'Make at least two teams per heat (4–12 teams in total).', planTitle:'The tournament plan', rulesButton:'Rules', rulesShow:'Show the rules on the TV', planHint:'Teams are shuffled. The final gets the recommended six; the heats share the rest. Open “Choose categories” on any card to change them (1–6 each). A category may be used in more than one heat.', pickCategories:'Choose categories', reshuffle:'Shuffle teams', heatName:n => 'Heat ' + n, finalName:'Final', finalTeams:'Heat winners', startTour:'Start the tournament'});
+  Object.assign(ui.nb, {heat:(n,total) => 'RUNDE ' + n + ' AV ' + total, final:'FINALEN', single:'THE GREAT MATILDA · SPILLET', heatWinner:n => 'RUNDE ' + n + ' · VIDERE TIL FINALEN', champions:'MESTERNE', roundWinner:'VINNERLAGET', nextHeat:n => 'Videre til runde ' + n + ' →', toFinal:'Videre til finalen →', playAgain:'Start et nytt spill', prizeLabel:'Premien', tourTeams:'Lag minst to lag per runde (4–12 lag totalt).', planTitle:'Turneringsplanen', rulesButton:'Regler', rulesShow:'Vis reglene på TV-en', planHint:'Lagene er stokket. Finalen får de anbefalte seks; rundene deler resten. Åpne «Velg kategorier» på et kort for å endre dem (1–6 hver). En kategori kan brukes i flere runder.', pickCategories:'Velg kategorier', reshuffle:'Stokk lagene', heatName:n => 'Runde ' + n, finalName:'Finale', finalTeams:'Rundevinnerne', startTour:'Start turneringen'});
   Object.assign(ui.en, {turn:'YOUR TURN', answeringNow:'Answering', double:'Double Up', letter:'First Letter', steal:'Steal', spent:'used', available:'available', firstLetter:'First letter', nextTurn:'Next turn', powerHint:'One of each per team per round. Double Up doubles the gain or loss. Steal passes to the next eligible team before judging or revealing the answer.'});
   Object.assign(ui.nb, {turn:'DERES TUR', answeringNow:'Svarer', double:'Doble poeng', letter:'Første bokstav', steal:'Stjel', spent:'brukt', available:'tilgjengelig', firstLetter:'Første bokstav', nextTurn:'Neste tur', powerHint:'Én av hver per lag per runde. Doble poeng dobler gevinst eller tap. Stjel gir spørsmålet til neste tilgjengelige lag før svaret vurderes eller vises.'});
   const timerDurations = [15,30,45,60,90,120];
@@ -701,6 +701,59 @@
     language = language === 'en' ? 'nb' : 'en'; renderLocale(); renderSetup(); renderGallery(); save(); render();
   });
   $('#help-open').addEventListener('click',() => { pauseTimer(); $('#help-dialog').showModal(); });
+  // Guest-facing rules: four big slides to show on the TV before the first heat.
+  let rulesIndex = 0;
+  function rulesSlides() {
+    const nb = language === 'nb';
+    const seconds = timerDuration;
+    const card = (img, title, body) => { const box = element('div','rules-power'); const face = element('img'); face.src = img; face.alt = ''; box.append(face, element('strong','',title), element('p','',body)); return box; };
+    const list = items => { const ol = element('ol','rules-list'); items.forEach(item => ol.append(element('li','',item))); return ol; };
+    return [
+      {eyebrow: nb ? 'SLIK SPILLER DERE' : 'HOW IT WORKS', title: nb ? 'Velg. Svar. Vinn.' : 'Pick. Answer. Win.', body: list(nb ? [
+        'Lagene bytter på å velge en kategori og en sum.',
+        'Dere har ' + seconds + ' sekunder på å svare.',
+        'Riktig svar: dere vinner poengene. Feil svar: dere mister dem.',
+        'Høyere sum, vanskeligere spørsmål.'
+      ] : [
+        'Teams take turns picking a category and an amount.',
+        'You have ' + seconds + ' seconds to answer.',
+        'Right answer: you win the points. Wrong answer: you lose them.',
+        'Bigger number, harder question.'
+      ])},
+      {eyebrow: nb ? 'TRE HEMMELIGE VÅPEN' : 'THREE SECRET WEAPONS', title: nb ? 'Hvert lag: én gang hver per runde' : 'Each team: once each per round', body: (() => { const row = element('div','rules-powers'); row.append(
+        card('assets/reaction-03.webp', '×2 ' + (nb ? 'Doble poeng' : 'Double Up'), nb ? 'Dobbelt så mange poeng. Eller dobbelt tap.' : 'Double the points. Or double the loss.'),
+        card('assets/reaction-07.webp', 'A… ' + (nb ? 'Første bokstav' : 'First Letter'), nb ? 'Verten avslører første bokstav i svaret.' : 'The host reveals the first letter of the answer.'),
+        card('assets/reaction-08.webp', nb ? 'Stjel' : 'Steal', nb ? 'Tror dere de andre bommer? Ta spørsmålet og svar selv.' : 'Think they’ll miss? Take their question and answer it yourselves.')
+      ); return row; })(), note: nb ? 'Si ifra før svaret vises. Brukt er brukt.' : 'Call it before the answer is revealed. Once it’s used, it’s gone.'},
+      {eyebrow: nb ? 'TURNERINGEN' : 'THE TOURNAMENT', title: nb ? 'Innledende runder, så finalen' : 'Heats, then the final', body: list(nb ? [
+        'Lagene er delt i ' + heatCount + ' innledende runder. Hver runde har sitt eget brett.',
+        'Vinneren av hver runde går videre til finalen.',
+        'Finalen er større: sju rader, opptil 700 poeng per spørsmål.',
+        'Supervåpnene fylles opp igjen i hver runde.'
+      ] : [
+        'The teams are split into ' + heatCount + ' heats. Every heat has its own board.',
+        'The winner of each heat goes through to the final.',
+        'The final is bigger: seven rows, up to 700 points a question.',
+        'Your secret weapons refill every round.'
+      ])},
+      {eyebrow: nb ? 'KLARE?' : 'READY?', title: nb ? 'Sara følger med.' : 'Sara is watching.', body: (() => { const box = element('div','rules-ready'); const face = element('img'); face.src = 'assets/reaction-02.webp'; face.alt = ''; box.append(face, element('p','', prize.trim() ? (nb ? 'Premien: ' : 'The prize: ') + prize.trim() : (nb ? 'Ære, berømmelse og bursdagsjenta sin respekt.' : 'Glory, fame and the birthday girl’s respect.'))); return box; })()}
+    ];
+  }
+  function renderRules() {
+    const slides = rulesSlides();
+    rulesIndex = Math.max(0, Math.min(slides.length - 1, rulesIndex));
+    const slide = slides[rulesIndex];
+    const parts = [element('p','eyebrow',slide.eyebrow), element('h2','',slide.title), slide.body];
+    if (slide.note) parts.push(element('p','rules-note',slide.note));
+    $('#rules-slide').replaceChildren(...parts);
+    $('#rules-dots').textContent = slides.map((_,index) => index === rulesIndex ? '●' : '○').join(' ');
+    $('#rules-prev').disabled = rulesIndex === 0;
+    $('#rules-next').textContent = rulesIndex === slides.length - 1 ? (language === 'nb' ? 'La lekene begynne' : 'Let the games begin') : (language === 'nb' ? 'Neste →' : 'Next →');
+  }
+  document.querySelectorAll('.rules-open').forEach(button => button.addEventListener('click',() => { pauseTimer(); readNames(); rulesIndex = 0; renderRules(); $('#rules-dialog').showModal(); }));
+  $('#rules-prev').addEventListener('click',() => { rulesIndex -= 1; renderRules(); });
+  $('#rules-next').addEventListener('click',() => { if (rulesIndex >= rulesSlides().length - 1) { $('#rules-dialog').close(); return; } rulesIndex += 1; renderRules(); });
+  $('#rules-dialog').addEventListener('keydown', event => { if (event.key === 'ArrowRight') $('#rules-next').click(); if (event.key === 'ArrowLeft' && rulesIndex > 0) $('#rules-prev').click(); });
   document.querySelectorAll('[data-close]').forEach(button => button.addEventListener('click',() => document.getElementById(button.dataset.close).close()));
   $('#fullscreen').addEventListener('click',async () => {
     try { if(document.fullscreenElement) await document.exitFullscreen(); else if(document.documentElement.requestFullscreen) await document.documentElement.requestFullscreen(); else throw new Error(); }
