@@ -419,3 +419,87 @@ select{font:inherit;color:var(--ivory);background:var(--black);border:1px solid 
   #clue-dialog .clue-bottom button{min-height:24px;padding:0 4px}
   #clue-dialog .answer #answer-text{font-size:22px}
 }
+
+/* Simple start screen: the preset tournament in one calm card; Customise reveals everything else. */
+.simple-hero{display:none}
+.setup.simple{display:block;max-width:680px;margin:0 auto;padding-top:clamp(20px,5vw,60px)}
+.setup.simple .simple-hero{display:block;text-align:center;margin-bottom:22px}
+.setup.simple .simple-hero h1{font-size:clamp(40px,6vw,72px);line-height:1;margin:10px 0 12px}
+.setup.simple .simple-sub{color:var(--muted);max-width:520px;margin:0 auto;font-size:clamp(14px,1.6vw,17px)}
+.setup.simple .setup-intro,
+.setup.simple .team-form .section-top,
+.setup.simple .team-form h2,
+.setup.simple .mode-choice,
+.setup.simple .team-count,
+.setup.simple label[for=heat-count],
+.setup.simple label[for=timer-duration],
+.setup.simple .form-hint,
+.setup.simple a[href="#category-choice"],
+.setup.simple .category-prep>.section-top,
+.setup.simple .category-prep-heading,
+.setup.simple #category-options,
+.setup.simple #tour-plan,
+.setup.simple #celebrity-picker,
+.setup.simple .private-pack,
+.setup.simple #category-count,
+.setup.simple .reaction-preview{display:none!important}
+.setup.simple .team-form{padding:16px 24px 10px}
+.setup.simple #team-inputs{margin-top:0}
+.setup.simple .team-form::before{display:none}
+.setup.simple #team-inputs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.setup.simple #team-inputs .team-label{display:flex;align-items:center;gap:10px;font-size:0;margin:0}
+.setup.simple #team-inputs .team-label input{flex:1;min-width:0;width:auto}
+.setup.simple label[for=prize]{display:block;width:100%;margin:0}
+.setup.simple label[for=prize] input{width:100%;box-sizing:border-box}
+.setup.simple .team-form::after{display:none}
+.setup.simple .team-label input{font-size:16px;margin:0}
+.setup.simple .tournament-options{display:block;margin-top:12px}
+.setup.simple .category-prep{border:0;padding:0;margin-top:14px}
+.setup.simple .category-start{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:12px}
+.setup-team-icon{width:44px;height:44px;object-fit:contain;border-radius:50%}
+.setup:not(.simple) .setup-team-icon{display:none}
+.customise-toggle{order:3;flex-basis:100%;text-align:center;color:var(--muted)}
+@media(max-width:700px){.setup.simple #team-inputs{grid-template-columns:1fr}}
+@media(orientation:landscape) and (max-height:600px){
+  .setup.simple{padding-top:6px}
+  .setup.simple .simple-hero{margin-bottom:8px}
+  .setup.simple .simple-hero h1{font-size:28px;margin:4px 0 4px}
+  .setup.simple .simple-hero br{display:none}
+  .setup.simple .simple-hero em::before{content:" "}
+  .setup.simple .simple-sub{display:none}
+  body:not(.playing) .masthead{min-height:40px;padding:4px 0}
+  body:not(.playing) .masthead .deco-mark{width:26px;height:30px;font-size:20px}
+  body:not(.playing) .site-footer{display:none}
+  .setup.simple #team-inputs{margin-top:0}
+  .setup.simple .team-form{padding:10px 14px 4px}
+  .setup.simple #team-inputs{gap:6px}
+  .setup.simple #team-inputs .team-label{gap:8px}
+  .setup-team-icon{width:30px;height:30px}
+  .setup.simple .team-label input{min-height:36px;padding:6px 10px;font-size:14px}
+  .setup.simple .tournament-options{margin-top:6px}
+  .setup.simple .tournament-options input{min-height:36px;padding:6px 10px}
+  .setup.simple .category-prep{margin-top:6px}
+  .setup.simple .category-start button{min-height:40px;padding:6px 16px}
+}
+/* Laptop and TV heights (601-860px): the question window fits without scrolling. */
+@media(min-width:701px) and (min-height:601px) and (max-height:860px){
+  #clue-dialog{max-height:calc(100dvh - 20px);padding-top:14px;padding-bottom:10px}
+  #clue-dialog .clue-top{padding-bottom:6px}
+  #clue-dialog .clue-stage{min-height:0;padding:10px 0;gap:22px}
+  #clue-dialog .clue-stage h2{font-size:clamp(26px,3vw,42px)}
+  #clue-dialog .clue-stage img{height:min(30vh,280px)}
+  #clue-dialog:has(#answer:not([hidden])) .clue-stage{padding:4px 0}
+  #clue-dialog:has(#answer:not([hidden])) .clue-stage img{height:min(17vh,150px)}
+  #clue-dialog:has(#answer:not([hidden])) .clue-stage h2{font-size:clamp(20px,2.2vw,30px)}
+  #clue-dialog .answer{padding:8px 14px}
+  #clue-dialog .answer #answer-text{font-size:clamp(26px,3vw,38px);margin:0}
+  #clue-dialog .answer > .eyebrow{display:none}
+  #clue-dialog .answer img{max-height:110px}
+  #clue-dialog .answer-extra{margin-top:4px;font-size:12px;line-height:1.4}
+  #clue-dialog .clue-controls{margin:6px 0}
+  #clue-dialog #power-hint{display:none}
+  #clue-dialog .power-controls{padding:4px 0}
+  #clue-dialog .adjudication{padding-top:6px}
+  #clue-dialog .clue-bottom{margin-top:4px}
+  #clue-dialog .secondary,#clue-dialog .primary{min-height:42px;padding:8px 16px}
+}

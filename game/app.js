@@ -20,6 +20,7 @@
   const english = {};
   document.querySelectorAll('[data-copy]').forEach(node => { english[node.dataset.copy] = node.innerHTML; });
   const norwegian = {
+    simpleEyebrow:'SARA FYLLER 30 · SPILLKVELD', simpleTitle:'The Great Matilda<br><em>Turneringen.</em>', simpleSub:'Fire lag, to innledende runder og én stor finale. Alt er klart: sjekk lagnavnene, legg inn premien og start.',
     privateTitle:'Klargjør en privat spørsmålspakke', privateHint:'Last ned spørsmålsbanken som JSON, rediger spørsmålene og svarene, og importer den her. Den blir i denne nettleseren; ingenting lastes opp til invitasjonen. Behold en kopi på laptopen.', privateFormat:'6–40 kategorier med fem spørsmål hver. Maks 2 MB, inkludert innebygde PNG-, JPG- eller WebP-bilder. De to Sara-reaksjonene beholdes.', exportPack:'Last ned spørsmålsbanken', importPack:'Importer privat JSON', defaultPack:'Bruk den offentlige spørsmålsbanken',
     timerSetting:'Sekunder per spørsmål', timerHint:'Klokken starter når spørsmålet åpnes. Tiden endrer aldri poengsummen.', chooseBoard:'Velg brettet ↓',
     categoryEyebrow:'SPØRSMÅLSBANKEN', chooseSix:'Velg kategorier.', categoryHint:'Velg så mange du vil for å teste. Seks kategorier passer til festen. Uferdige spørsmål er låst.', recommended:'Bruk de seks anbefalte',
@@ -56,8 +57,8 @@
   };
   Object.assign(ui.en, {packLoaded:'Private pack loaded. Choose categories below.', packFailed:'The pack could not be loaded. Check the JSON format, category IDs, five clue values per category and embedded images (maximum 2 MB). Your previous bank is unchanged.', selectedCategories:'categories selected', ready:'ready', unfinished:'to prepare', chooseSix:'Choose at least one category to start.', adjustmentError:'Enter a non-zero whole number and a short reason.', adjustments:'Recent corrections', accepts:'Also accept', context:'For the host'});
   Object.assign(ui.nb, {packLoaded:'Privat pakke lastet inn. Velg kategorier nedenfor.', packFailed:'Pakken kunne ikke lastes inn. Sjekk JSON-formatet, kategori-ID-ene, fem poengverdier per kategori og innebygde bilder (maks 2 MB). Den forrige banken er uendret.', selectedCategories:'kategorier valgt', ready:'klare', unfinished:'må klargjøres', chooseSix:'Velg minst én kategori for å starte.', adjustmentError:'Skriv inn et heltall som ikke er null, og en kort begrunnelse.', adjustments:'Siste endringer', accepts:'Godta også', context:'Til verten'});
-  Object.assign(ui.en, {heat:(n,total) => 'HEAT ' + n + ' OF ' + total, final:'THE FINAL', single:'THE GREAT MATILDA · THE GAME', heatWinner:n => 'HEAT ' + n + ' · THROUGH TO THE FINAL', champions:'THE CHAMPIONS', roundWinner:'THE WINNING TEAM', nextHeat:n => 'On to heat ' + n + ' →', toFinal:'On to the final →', playAgain:'Start a new game', prizeLabel:'The prize', tourTeams:'Make at least two teams per heat (4–12 teams in total).', planTitle:'The tournament plan', rulesButton:'Rules', rulesShow:'Show the rules on the TV', planHint:'Teams are shuffled. The final gets the recommended six; the heats share the rest. Open “Choose categories” on any card to change them (1–6 each). A category may be used in more than one heat.', pickCategories:'Choose categories', reshuffle:'Shuffle teams', heatName:n => 'Heat ' + n, finalName:'Final', finalTeams:'Heat winners', startTour:'Start the tournament'});
-  Object.assign(ui.nb, {heat:(n,total) => 'RUNDE ' + n + ' AV ' + total, final:'FINALEN', single:'THE GREAT MATILDA · SPILLET', heatWinner:n => 'RUNDE ' + n + ' · VIDERE TIL FINALEN', champions:'MESTERNE', roundWinner:'VINNERLAGET', nextHeat:n => 'Videre til runde ' + n + ' →', toFinal:'Videre til finalen →', playAgain:'Start et nytt spill', prizeLabel:'Premien', tourTeams:'Lag minst to lag per runde (4–12 lag totalt).', planTitle:'Turneringsplanen', rulesButton:'Regler', rulesShow:'Vis reglene på TV-en', planHint:'Lagene er stokket. Finalen får de anbefalte seks; rundene deler resten. Åpne «Velg kategorier» på et kort for å endre dem (1–6 hver). En kategori kan brukes i flere runder.', pickCategories:'Velg kategorier', reshuffle:'Stokk lagene', heatName:n => 'Runde ' + n, finalName:'Finale', finalTeams:'Rundevinnerne', startTour:'Start turneringen'});
+  Object.assign(ui.en, {heat:(n,total) => 'HEAT ' + n + ' OF ' + total, final:'THE FINAL', single:'THE GREAT MATILDA · THE GAME', heatWinner:n => 'HEAT ' + n + ' · THROUGH TO THE FINAL', champions:'THE CHAMPIONS', roundWinner:'THE WINNING TEAM', nextHeat:n => 'On to heat ' + n + ' →', toFinal:'On to the final →', playAgain:'Start a new game', prizeLabel:'The prize', tourTeams:'Make at least two teams per heat (4–12 teams in total).', planTitle:'The tournament plan', rulesButton:'Rules', rulesShow:'Show the rules on the TV', simpleEyebrow:'SARA TURNS 30 · GAME NIGHT', simpleTitle:'The Great Matilda<br><em>Tournament.</em>', simpleSub:'Four teams, two heats and one grand final. Everything is set up: check the team names, add the prize and start.', customise:'Customise the game', planHint:'Teams are shuffled. The final gets the recommended six; the heats share the rest. Open “Choose categories” on any card to change them (1–6 each). A category may be used in more than one heat.', pickCategories:'Choose categories', reshuffle:'Shuffle teams', heatName:n => 'Heat ' + n, finalName:'Final', finalTeams:'Heat winners', startTour:'Start the tournament'});
+  Object.assign(ui.nb, {heat:(n,total) => 'RUNDE ' + n + ' AV ' + total, final:'FINALEN', single:'THE GREAT MATILDA · SPILLET', heatWinner:n => 'RUNDE ' + n + ' · VIDERE TIL FINALEN', champions:'MESTERNE', roundWinner:'VINNERLAGET', nextHeat:n => 'Videre til runde ' + n + ' →', toFinal:'Videre til finalen →', playAgain:'Start et nytt spill', prizeLabel:'Premien', tourTeams:'Lag minst to lag per runde (4–12 lag totalt).', planTitle:'Turneringsplanen', rulesButton:'Regler', rulesShow:'Vis reglene på TV-en', simpleEyebrow:'SARA FYLLER 30 · SPILLKVELD', simpleTitle:'The Great Matilda<br><em>Turneringen.</em>', simpleSub:'Fire lag, to innledende runder og én stor finale. Alt er klart: sjekk lagnavnene, legg inn premien og start.', customise:'Tilpass spillet', planHint:'Lagene er stokket. Finalen får de anbefalte seks; rundene deler resten. Åpne «Velg kategorier» på et kort for å endre dem (1–6 hver). En kategori kan brukes i flere runder.', pickCategories:'Velg kategorier', reshuffle:'Stokk lagene', heatName:n => 'Runde ' + n, finalName:'Finale', finalTeams:'Rundevinnerne', startTour:'Start turneringen'});
   Object.assign(ui.en, {turn:'YOUR TURN', answeringNow:'Answering', double:'Double Up', letter:'First Letter', steal:'Steal', spent:'used', available:'available', firstLetter:'First letter', nextTurn:'Next turn', powerHint:'One of each per team per round. Double Up doubles the gain or loss. Steal passes to the next eligible team before judging or revealing the answer.'});
   Object.assign(ui.nb, {turn:'DERES TUR', answeringNow:'Svarer', double:'Doble poeng', letter:'Første bokstav', steal:'Stjel', spent:'brukt', available:'tilgjengelig', firstLetter:'Første bokstav', nextTurn:'Neste tur', powerHint:'Én av hver per lag per runde. Doble poeng dobler gevinst eller tap. Stjel gir spørsmålet til neste tilgjengelige lag før svaret vurderes eller vises.'});
   const timerDurations = [15,30,45,60,90,120];
@@ -81,6 +82,7 @@
   let prize = '';
   let tour = null;
   let roundShown = false;
+  let advanced = false; // false = the simple, preset start screen.
   let answerTimes = {}; // 'stage|clueId|teamId' -> seconds taken, for the finale's fun facts.
   const PLAN_VERSION = 6; // Bump to replace saved, unstarted tournament plans with the default.
   const openPickers = new Set();
@@ -147,7 +149,7 @@
   }
   function save() {
     try {
-      const result = session.write(JSON.stringify({state,selectedFaceIds,language,reactionsEnabled,selectedCategoryIds,timerDuration,privatePack,mode,heatCount,prize,tour,roundShown,names,answerTimes,timer:{clueId:timer.clueId,remaining:timer.remaining}}));
+      const result = session.write(JSON.stringify({state,selectedFaceIds,language,reactionsEnabled,selectedCategoryIds,timerDuration,privatePack,mode,heatCount,prize,tour,roundShown,names,answerTimes,advanced,timer:{clueId:timer.clueId,remaining:timer.remaining}}));
       if (result.status === 'conflict') { lockConflictedSession(); return; }
       storageFailed = result.status === 'unavailable';
     } catch { storageFailed = true; }
@@ -269,6 +271,7 @@
       if (Array.isArray(saved.names) && saved.names[3] === 'Team 4' && !saved.names.includes('The Great Matilda')) saved.names[3] = 'The Great Matilda';
       if (Array.isArray(saved.names) && saved.names.length >= 2 && saved.names.length <= 12 && saved.names.every(name => typeof name === 'string' && name.length <= 40)) names = saved.names.slice();
       roundShown = saved.roundShown === true;
+      advanced = saved.advanced === true;
       if (saved.answerTimes && typeof saved.answerTimes === 'object') answerTimes = saved.answerTimes;
       if (saved.state) {
         state = engine.restore(saved.state, boardPack());
@@ -306,6 +309,7 @@
       const label = element('label','team-label',copy().team + ' ' + (index+1));
       const input = element('input');
       input.name = 'team-' + (index+1); input.value = name; input.required = true; input.maxLength = 40; input.autocomplete = 'off';
+      label.prepend(teamIcon(name,'setup-team-icon'));
       label.append(input);
       return label;
     }));
@@ -317,6 +321,8 @@
     $('#tournament-options').hidden = mode !== 'tournament';
     $('#heat-count').value = String(heatCount);
     $('#prize').value = prize;
+    $('#setup').classList.toggle('simple', !advanced);
+    $('#customise').textContent = advanced ? (language === 'nb' ? 'Tilbake til enkel visning' : 'Back to the simple view') : (language === 'nb' ? 'Tilpass spillet' : 'Customise the game');
     renderPlan();
   }
   function renderPortraits() {
@@ -794,6 +800,14 @@
     if (!Number.isSafeInteger(amount) || amount === 0 || Math.abs(amount) > 1000000 || !reason || reason.length > 160 || /[\u0000-\u001f\u007f]/.test(reason)) { $('#adjust-error').textContent=copy().adjustmentError; return; }
     if (act('adjustScore',$('#adjust-team').value,amount,reason)) $('#adjust-dialog').close();
   });
+  // Simple view = the preset tournament; Customise shows every setting.
+  function useSimpleView() {
+    if (advanced || state) return;
+    if (mode !== 'tournament') { readNames(); mode = 'tournament'; tour = null; }
+    if (names.length < 4) partyTeams.forEach(team => { if (names.length < 4 && !names.includes(team)) names.push(team); });
+  }
+  useSimpleView();
+  $('#customise').addEventListener('click', () => { readNames(); advanced = !advanced; useSimpleView(); save(); renderSetup(); if (advanced) $('#team-form').scrollIntoView({behavior:'smooth'}); else window.scrollTo({top:0, behavior:'smooth'}); });
   $('#add-team').addEventListener('click',() => { readNames(); if(names.length<maxTeams()) { const next = partyTeams.find(team => !names.some(name => name.trim().toLocaleLowerCase('en') === team.toLocaleLowerCase('en'))); names.push(next || copy().team+' '+(names.length+1)); } replanTeams(); renderSetup(); $('#team-inputs').lastElementChild?.querySelector('input')?.focus(); });
   $('#remove-team').addEventListener('click',() => { readNames(); if(names.length>2) names.pop(); replanTeams(); renderSetup(); });
   $('#language').addEventListener('click',() => {
