@@ -82,7 +82,7 @@
   // The party's prize; the bottle picture shows whenever the prize mentions Berliner Luft.
   const defaultPrize = 'A bottle of Berliner Luft';
   let prize = defaultPrize;
-  const prizePicture = text => /berliner\s*luft/i.test(text || '') ? 'assets/prize-berliner-luft.jpg' : '';
+  const prizePicture = text => /berliner\s*luft/i.test(text || '') ? 'assets/prize-berliner-luft.png' : '';
   let tour = null;
   let roundShown = false;
   let advanced = false; // false = the simple, preset start screen.
@@ -507,6 +507,7 @@
     const dialog = $('#finale-dialog');
     const prizeText = tour?.prize || '';
     $('#finale-eyebrow').textContent = result.winners.length > 1 ? (nb ? 'DELT SEIER' : 'A SHARED VICTORY') : copy().champions;
+    $('#finale-winner').classList.toggle('many', result.winners.length > 2); // shared wins get a smaller line
     $('#finale-winner').replaceChildren(...result.winners.map(name => { const box = element('span','finale-champ'); box.append(teamIcon(name,'finale-champ-icon'), element('span','',name)); return box; }));
     $('#finale-prize').hidden = !prizeText;
     $('#finale-prize').replaceChildren(...(prizeText ? [...(prizePicture(prizeText) ? [Object.assign(element('img','finale-prize-img'), {src: prizePicture(prizeText), alt: ''})] : []), document.createTextNode('🏆 ' + prizeText)] : []));

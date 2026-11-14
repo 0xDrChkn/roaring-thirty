@@ -506,11 +506,19 @@ select{font:inherit;color:var(--ivory);background:var(--black);border:1px solid 
 
 /* The prize bottle (Berliner Luft) in the rules and the finale. */
 #finale-prize{display:flex;align-items:center;gap:12px}
-.finale-prize-img{height:clamp(70px,16vh,140px);width:auto;border-radius:4px;background:#fff;padding:3px;box-shadow:0 0 18px #cfad7055}
+.finale-prize-img{height:clamp(80px,18vh,160px);width:auto;filter:drop-shadow(0 0 10px rgba(207,173,112,.75)) drop-shadow(0 0 22px rgba(207,173,112,.35))}
 .rules-ready{flex-direction:row;flex-wrap:wrap;justify-content:center;column-gap:18px}
 .rules-ready p{flex-basis:100%;text-align:center}
-.rules-prize-img{height:clamp(120px,32vh,300px);width:auto;border-radius:4px;background:#fff;padding:4px;box-shadow:0 0 22px #cfad7066}
+.rules-prize-img{height:clamp(130px,34vh,320px);width:auto;filter:drop-shadow(0 0 12px rgba(207,173,112,.8)) drop-shadow(0 0 28px rgba(207,173,112,.4))}
 @media(orientation:landscape) and (max-height:600px){
   .finale-prize-img{height:46px}
   .rules-prize-img{height:40svh}
+}
+
+/* The cut-out bottle glows on its own: no frame. */
+.rules-ready img.rules-prize-img{border:0;border-radius:0;box-shadow:none;filter:drop-shadow(0 0 12px rgba(207,173,112,.8)) drop-shadow(0 0 28px rgba(207,173,112,.4))}
+#finale-winner.many{font-size:clamp(20px,2.6vw,34px)}
+@media(orientation:landscape) and (max-height:600px){
+  .finale-prize-img{height:64px}
+  #finale-winner.many{font-size:18px}
 }
