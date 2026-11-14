@@ -417,7 +417,7 @@
       const tokens = state.powerUps.find(item => item.teamId === team.id);
       const powers = element('span','team-powers');
       ['double','letter','steal'].forEach(kind => {
-        const token = element('span',tokens[kind] ? 'spent' : '',{double:'×2',letter:'A…',steal:'↗'}[kind]);
+        const token = element('span',tokens[kind] ? 'spent' : '',{double:'×2',letter:'1st',steal:'↗'}[kind]);
         token.title = copy()[kind] + ': ' + (tokens[kind] ? copy().spent : copy().available);
         powers.append(token);
       });
@@ -626,12 +626,12 @@
     const stealing = stealTeam();
     $('#power-steal').disabled = locked || !stealing;
     $('#power-double').textContent = '×2 ' + copy().double;
-    $('#power-letter').textContent = 'A… ' + copy().letter;
+    $('#power-letter').textContent = copy().letter;
     $('#power-steal').textContent = copy().steal + (stealing ? ' → ' + stealing.name : '');
     $('#power-hint').textContent = copy().powerHint;
     $('#letter-hint').hidden = !state.letterRevealed;
     const meaningfulAnswer = text(clue.answer).trim().replace(/^(?:the|a|an|en|et)\s+/i,'');
-    $('#letter-hint').textContent = state.letterRevealed ? copy().firstLetter + ': ' + (meaningfulAnswer.match(/[\p{L}\p{N}]/u)?.[0] || '—') : '';
+    $('#letter-hint').textContent = state.letterRevealed ? copy().firstLetter + ': ' + (meaningfulAnswer.match(/[\p{L}\p{N}]/u)?.[0] || '—').toLocaleUpperCase() : '';
     const tried = state.attempts.some(a => a.clueId === clue.id && a.teamId === state.selectedTeamId);
     $('#correct').disabled = $('#wrong').disabled = !state.selectedTeamId || tried || state.resolved;
     const value = clue.value * (state.doubleTeamId === state.selectedTeamId ? 2 : 1);
@@ -842,7 +842,7 @@
       ])},
       {eyebrow: nb ? 'TRE HEMMELIGE VÅPEN' : 'THREE SECRET WEAPONS', title: nb ? 'Hvert lag: én gang hver per runde' : 'Each team: once each per round', body: (() => { const row = element('div','rules-powers'); row.append(
         card('×2 ' + (nb ? 'Doble poeng' : 'Double Up'), nb ? 'Sikre på svaret? Dobbelt så mange poeng. Men feil svar gir dobbelt tap.' : 'Sure of your answer? Double the points. But a wrong answer costs double.'),
-        card('A… ' + (nb ? 'Første bokstav' : 'First Letter'), nb ? 'Står dere fast? Verten avslører første bokstav i svaret.' : 'Stuck? The host reveals the first letter of the answer.'),
+        card(nb ? 'Første bokstav' : 'First Letter', nb ? 'Står dere fast? Verten avslører første bokstav i svaret.' : 'Stuck? The host reveals the first letter of the answer.'),
         card(nb ? 'Stjel' : 'Steal', nb ? 'Tror dere de andre bommer? Ta spørsmålet deres og svar selv.' : 'Think the other team will miss? Take their question and answer it yourselves.')
       ); return row; })(), note: nb ? 'Si ifra før svaret vises. Brukt er brukt.' : 'Call it before the answer is revealed. Once it’s used, it’s gone.'},
       {eyebrow: nb ? 'TURNERINGEN' : 'THE TOURNAMENT', title: nb ? 'Innledende runder, så finalen' : 'Heats, then the final', body: list(nb ? [
@@ -909,7 +909,7 @@
     powerPopTimeout = setTimeout(() => pop.remove(), 1800);
   }
   $('#power-double').addEventListener('click',() => { const label = $('#power-double').textContent; if (act('usePower','double')) powerPop('double', label); });
-  $('#power-letter').addEventListener('click',() => { const label = $('#power-letter').textContent; if (act('usePower','letter')) powerPop('letter', label); });
+  $('#power-letter').addEventListener('click',() => { if (act('usePower','letter')) powerPop('letter', $('#letter-hint').textContent || copy().letter); });
   $('#power-steal').addEventListener('click',() => { const team = stealTeam(); const label = $('#power-steal').textContent; if (team && act('usePower','steal',team.id)) { restartTimer(); powerPop('steal', label); } });
   $('#timer-toggle').addEventListener('click',() => {
     if(timer.running){pauseTimer();save();return;}

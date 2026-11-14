@@ -529,3 +529,7 @@ select{font:inherit;color:var(--ivory);background:var(--black);border:1px solid 
 .setup-prize-img{height:96px;width:auto;flex-shrink:0;filter:drop-shadow(0 0 10px rgba(207,173,112,.75)) drop-shadow(0 0 22px rgba(207,173,112,.35))}
 .setup-prize-img[hidden]{display:none}
 @media(orientation:landscape) and (max-height:600px){.setup-prize-img{height:58px}}
+
+/* The revealed first letter stays readable on the TV. */
+#clue-dialog .letter-hint{color:var(--gold);font:500 clamp(18px,2vw,26px)/1.2 "Cormorant Garamond",serif}
+@media(orientation:landscape) and (max-height:600px){#clue-dialog .letter-hint{font-size:18px;margin:2px 0 0}}
