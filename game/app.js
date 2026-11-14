@@ -82,7 +82,7 @@
   let tour = null;
   let roundShown = false;
   let answerTimes = {}; // 'stage|clueId|teamId' -> seconds taken, for the finale's fun facts.
-  const PLAN_VERSION = 4; // Bump to replace saved, unstarted tournament plans with the default.
+  const PLAN_VERSION = 5; // Bump to replace saved, unstarted tournament plans with the default.
   const openPickers = new Set();
   const maxTeams = () => mode === 'tournament' ? 12 : 6;
   let reactionsEnabled = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;

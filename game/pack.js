@@ -20,8 +20,8 @@
     // Default heat boards for a two-heat tournament; the final uses defaultCategoryIds.
     tournamentHeats: {
       2: [
-        ['finish-the-lyric', 'cocktail-hour', 'throwback-2000s', 'the-impostor', 'brand-new', 'wild-facts-2', 'girlhood', 'birthday-girl-h1'],
-        ['famous-saras', 'emoji-cinema', 'twenties', 'timeline', 'wild-facts', 'party-science', 'disney-princesses', 'birthday-girl-h2']
+        ['finish-the-lyric', 'cocktail-hour', 'throwback-2000s', 'the-impostor', 'brand-new', 'wild-facts-2', 'true-false-1', 'birthday-girl-h1'],
+        ['famous-saras', 'emoji-cinema', 'twenties', 'timeline', 'wild-facts', 'party-science', 'true-false-2', 'birthday-girl-h2']
       ]
     },
     // Two extra rows for the tournament final only (heats and single games keep five rows).
@@ -310,6 +310,45 @@
           { id: 'bg2-300', value: 300, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Angelina Jolie'), image: 'assets/face-angelina-jolie.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
           { id: 'bg2-400', value: 400, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Emma Watson'), image: 'assets/face-emma-watson.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
           draft('bg2-500', 500, 'New face coming: add the Sara × Harry Styles blend.', 'Nytt ansikt kommer: legg inn Sara × Harry Styles.')
+        ]
+      },
+      {
+        // Sara blended with US presidents (generated portraits; filenames hide the answers).
+        id: 'madam-president',
+        title: text('Madam President', 'Fru president'),
+        description: text('Sara in the Oval Office. Which president is she blended with?', 'Sara i Det ovale kontor. Hvilken president er hun blandet med?'),
+        clues: [
+          { id: 'pr-100', value: 100, question: text('Which US president is blended with Sara?', 'Hvilken amerikansk president er blandet med Sara?'), answer: text('Donald Trump'), acceptedAnswers: ['Trump'], image: 'assets/president-100.jpg', imageAlt: text('A fictional blended portrait. Name the president.', 'Et fiktivt blandet portrett. Finn presidenten.') },
+          { id: 'pr-200', value: 200, question: text('Which US president is blended with Sara?', 'Hvilken amerikansk president er blandet med Sara?'), answer: text('Abraham Lincoln'), acceptedAnswers: ['Lincoln'], image: 'assets/president-200.jpg', imageAlt: text('A fictional blended portrait. Name the president.', 'Et fiktivt blandet portrett. Finn presidenten.') },
+          { id: 'pr-300', value: 300, question: text('Which US president is blended with Sara?', 'Hvilken amerikansk president er blandet med Sara?'), answer: text('Barack Obama'), acceptedAnswers: ['Obama'], image: 'assets/president-300.jpg', imageAlt: text('A fictional blended portrait. Name the president.', 'Et fiktivt blandet portrett. Finn presidenten.') },
+          { id: 'pr-400', value: 400, question: text('Which US president is blended with Sara?', 'Hvilken amerikansk president er blandet med Sara?'), answer: text('John F. Kennedy'), acceptedAnswers: ['JFK', 'Kennedy'], image: 'assets/president-400.jpg', imageAlt: text('A fictional blended portrait. Name the president.', 'Et fiktivt blandet portrett. Finn presidenten.') },
+          { id: 'pr-500', value: 500, question: text('Which US president is blended with Sara?', 'Hvilken amerikansk president er blandet med Sara?'), answer: text('Richard Nixon'), acceptedAnswers: ['Nixon'], image: 'assets/president-500.jpg', imageAlt: text('A fictional blended portrait. Name the president.', 'Et fiktivt blandet portrett. Finn presidenten.') }
+        ]
+      },
+      {
+        // True or False for heat 1.
+        id: 'true-false-1',
+        title: text('True or False', 'Sant eller usant'),
+        description: text('Strange but checked. Every statement could go either way.', 'Rart, men sjekket. Hver påstand kan gå begge veier.'),
+        clues: [
+          { id: 'tf1-100', value: 100, question: text('True or false: Norway once knighted a penguin.', 'Sant eller usant: Norge har en gang slått en pingvin til ridder.'), answer: text('TRUE', 'SANT'), explanation: text('Sir Nils Olav, the King’s Guard mascot at Edinburgh Zoo, was knighted in 2008.', 'Sir Nils Olav, Kongens gardes maskot i Edinburgh Zoo, ble slått til ridder i 2008.') },
+          { id: 'tf1-200', value: 200, question: text('True or false: A goldfish only has a three-second memory.', 'Sant eller usant: En gullfisk husker bare i tre sekunder.'), answer: text('FALSE', 'USANT'), explanation: text('Goldfish can remember things for months.', 'Gullfisk kan huske ting i flere måneder.') },
+          { id: 'tf1-300', value: 300, question: text('True or false: Sharks have existed for longer than trees.', 'Sant eller usant: Haier har eksistert lenger enn trær.'), answer: text('TRUE', 'SANT'), explanation: text('Sharks are about 450 million years old; trees about 385 million.', 'Haier er rundt 450 millioner år gamle, trær rundt 385 millioner.') },
+          { id: 'tf1-400', value: 400, question: text('True or false: Vikings wore horned helmets into battle.', 'Sant eller usant: Vikingene brukte hjelmer med horn i kamp.'), answer: text('FALSE', 'USANT'), explanation: text('The horns were invented for 1800s operas and paintings.', 'Hornene ble funnet på i operaer og malerier på 1800-tallet.') },
+          { id: 'tf1-500', value: 500, question: text('True or false: Oxford University is older than the Aztec Empire.', 'Sant eller usant: Universitetet i Oxford er eldre enn Aztekerriket.'), answer: text('TRUE', 'SANT'), explanation: text('Teaching at Oxford began around 1096; the Aztec capital was founded in 1325.', 'Undervisningen i Oxford startet rundt 1096; aztekernes hovedstad ble grunnlagt i 1325.') }
+        ]
+      },
+      {
+        // True or False for heat 2.
+        id: 'true-false-2',
+        title: text('True or False', 'Sant eller usant'),
+        description: text('Strange but checked. Every statement could go either way.', 'Rart, men sjekket. Hver påstand kan gå begge veier.'),
+        clues: [
+          { id: 'tf2-100', value: 100, question: text('True or false: Scotland’s national animal is the unicorn.', 'Sant eller usant: Skottlands nasjonaldyr er enhjørningen.'), answer: text('TRUE', 'SANT'), explanation: text('It has been a Scottish symbol since the 1300s.', 'Den har vært et skotsk symbol siden 1300-tallet.') },
+          { id: 'tf2-200', value: 200, question: text('True or false: Bulls charge because the colour red makes them angry.', 'Sant eller usant: Okser angriper fordi den røde fargen gjør dem sinte.'), answer: text('FALSE', 'USANT'), explanation: text('They react to the movement of the cape, not its colour.', 'De reagerer på bevegelsen til kappen, ikke fargen.') },
+          { id: 'tf2-300', value: 300, question: text('True or false: A day on Venus is longer than a year on Venus.', 'Sant eller usant: Et døgn på Venus er lengre enn et år på Venus.'), answer: text('TRUE', 'SANT'), explanation: text('Venus takes 243 Earth days to turn once, and 225 to circle the Sun.', 'Venus bruker 243 jorddøgn på å snurre én gang, og 225 på å gå rundt sola.') },
+          { id: 'tf2-400', value: 400, question: text('True or false: Napoleon was unusually short for a man of his time.', 'Sant eller usant: Napoleon var uvanlig lav for en mann på sin tid.'), answer: text('FALSE', 'USANT'), explanation: text('He was about 1.69 m, average or taller for his day.', 'Han var rundt 1,69 m, gjennomsnittlig eller høyere for sin tid.') },
+          { id: 'tf2-500', value: 500, question: text('True or false: Cleopatra lived closer in time to the Moon landing than to the building of the Great Pyramid.', 'Sant eller usant: Kleopatra levde nærmere månelandingen i tid enn byggingen av den store pyramiden.'), answer: text('TRUE', 'SANT'), explanation: text('The Great Pyramid is from about 2560 BC; Cleopatra died in 30 BC.', 'Den store pyramiden er fra rundt 2560 f.Kr.; Kleopatra døde i 30 f.Kr.') }
         ]
       },
       {
