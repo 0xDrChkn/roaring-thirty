@@ -211,7 +211,13 @@ select{font:inherit;color:var(--ivory);background:var(--black);border:1px solid 
   .power-pop strong{font-size:26px}
   /* Pop-up dialogs (reactions, heat winner, end round) fit the short screen. */
   #round-dialog,#end-round-dialog,#reset-dialog,#adjust-dialog,#help-dialog{max-height:94svh;overflow:auto}
-  #reaction-dialog img{max-height:62svh}
+  /* Correct / Wrong pop-up side by side so nothing is cut off under Safari's bars. */
+  .reaction-dialog[open]{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto auto auto;align-items:center;justify-items:center;column-gap:22px;row-gap:4px;width:min(760px,calc(100vw - 24px));max-height:calc(100dvh - 12px);padding:8px 16px}
+  #reaction-dialog img{grid-column:1;grid-row:1/5;height:min(72dvh,260px);width:auto;max-width:44vw;margin:0}
+  .reaction-dialog .eyebrow{grid-column:2;grid-row:1;margin:0}
+  .reaction-dialog strong{grid-column:2;grid-row:2;font-size:clamp(44px,14dvh,72px);margin:0}
+  .reaction-dialog #reaction-team{grid-column:2;grid-row:3;margin:2px 0}
+  .reaction-dialog #reaction-close{grid-column:2;grid-row:4;min-height:36px}
   #clue-dialog .answer-extra{font-size:12px}
   #round-dialog{padding:10px 24px;width:min(720px,96vw)}
   #round-dialog #round-winner{font-size:30px;margin:2px 0 6px}
