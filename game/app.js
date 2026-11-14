@@ -729,7 +729,11 @@
   $('#team-form').addEventListener('submit',event => {
     event.preventDefault(); readNames();
     if (mode === 'tournament') {
-      if (names.length < heatCount * 2 || names.length > 12) { notice = copy().tourTeams; renderNotice(); return; }
+      // Start should just work: top up to four teams with the party's own team names, and use only as many heats as the teams can fill.
+      const filled = names.filter(name => name.trim());
+      if (filled.length < 4) { names = filled; partyTeams.forEach(team => { if (names.length < 4 && !names.some(name => name.trim().toLocaleLowerCase('en') === team.toLocaleLowerCase('en'))) names.push(team); }); while (names.length < 4) names.push(copy().team + ' ' + (names.length + 1)); tour = null; }
+      if (names.length < heatCount * 2) { heatCount = Math.max(2, Math.min(4, Math.floor(names.length / 2))); tour = null; }
+      if (names.length > 12) { notice = copy().tourTeams; renderNotice(); return; }
       const trimmed = names.map(name => name.trim());
       if (trimmed.some(name => !name || name.length > 40 || /[\u0000-\u001f\u007f]/.test(name)) || new Set(trimmed.map(name => name.toLocaleLowerCase('en'))).size !== trimmed.length) { notice = copy().names; renderNotice(); return; }
       names = trimmed;
