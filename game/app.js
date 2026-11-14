@@ -81,7 +81,7 @@
   let prize = '';
   let tour = null;
   let roundShown = false;
-  const PLAN_VERSION = 2; // Bump to replace saved, unstarted tournament plans with the default.
+  const PLAN_VERSION = 3; // Bump to replace saved, unstarted tournament plans with the default.
   const openPickers = new Set();
   const maxTeams = () => mode === 'tournament' ? 12 : 6;
   let reactionsEnabled = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -424,7 +424,10 @@
       const category = shown.categories.find(item => item.id === id);
       const column = element('section','category-column');
       const heading = element('div','category-heading');
-      heading.append(element('span','',String(index+1).padStart(2,'0')),element('h2','',text(category.title)));
+      const info = element('button','category-info','?'); info.type = 'button';
+      info.ariaLabel = (language === 'nb' ? 'Om ' : 'About ') + text(category.title);
+      info.addEventListener('click', event => { event.stopPropagation(); $('#category-info-title').textContent = text(category.title); $('#category-info-text').textContent = text(category.description); $('#category-info-dialog').showModal(); });
+      heading.append(element('span','',String(index+1).padStart(2,'0')),element('h2','',text(category.title)),info);
       column.append(heading);
       category.clues.forEach(clue => {
         const playable = engine.getClue(state,clue.id)?.playable;

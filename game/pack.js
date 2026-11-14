@@ -20,7 +20,7 @@
     // Default heat boards for a two-heat tournament; the final uses defaultCategoryIds.
     tournamentHeats: {
       2: [
-        ['famous-saras', 'finish-the-lyric', 'throwback-2000s', 'guess-the-year', 'famous-duos', 'cocktail-hour'],
+        ['finish-the-lyric', 'cocktail-hour', 'throwback-2000s', 'the-impostor', 'brand-new', 'wild-facts-2'],
         ['famous-saras', 'emoji-cinema', 'twenties', 'timeline', 'wild-facts', 'party-science']
       ]
     },
@@ -152,8 +152,8 @@
         clues: [
           { id: 'tb-100', value: 100, question: text('Troy and Gabriella sang their way through East High in which Disney Channel film?', 'Troy og Gabriella sang seg gjennom East High i hvilken Disney Channel-film?'), answer: text('High School Musical') },
           { id: 'tb-200', value: 200, question: text('Paris Hilton and Nicole Richie swapped luxury for farm life in which 2003 reality show?', 'Paris Hilton og Nicole Richie byttet luksus mot gårdsliv i hvilket realityprogram fra 2003?'), answer: text('The Simple Life') },
-          { id: 'tb-300', value: 300, question: text('Nintendo’s 2004 handheld had two screens. What was it called?', 'Nintendos håndholdte konsoll fra 2004 hadde to skjermer. Hva het den?'), answer: text('The Nintendo DS', 'Nintendo DS') },
-          { id: 'tb-400', value: 400, question: text('Which razor-thin Motorola flip phone was the must-have of the mid-2000s?', 'Hvilken tynn klapptelefon fra Motorola måtte alle ha midt på 2000-tallet?'), answer: text('The Motorola Razr (V3)', 'Motorola Razr (V3)') },
+          { id: 'tb-300', value: 300, question: text('“Hips Don’t Lie” (2006) was Shakira and which rapper?', '«Hips Don’t Lie» (2006) var Shakira og hvilken rapper?'), answer: text('Wyclef Jean') },
+          { id: 'tb-400', value: 400, question: text('Before Facebook took over, which site let you rank your “Top 8” friends?', 'Før Facebook tok over: Hvilken side lot deg rangere dine «Topp 8»-venner?'), answer: text('MySpace') },
           { id: 'tb-500', value: 500, question: text('He won the first Norwegian Idol in 2003, then World Idol. Who is he?', 'Han vant første sesong av Idol Norge i 2003 og deretter World Idol. Hvem er han?'), answer: text('Kurt Nilsen') }
         ]
       },
@@ -162,11 +162,11 @@
         title: text('Famous Duos', 'Kjente par'),
         description: text('Name the missing half.', 'Hvem er den andre halvdelen?'),
         clues: [
-          { id: 'fd-100', value: 100, question: text('Sesame Street’s best friends: Bert and…?', 'Sesam stasjons bestevenner: Bert og…?'), answer: text('Ernie') },
-          { id: 'fd-200', value: 200, question: text('Gotham’s crime fighters: Batman and…?', 'Gothams forbryterjegere: Batman og…?'), answer: text('Robin') },
-          { id: 'fd-300', value: 300, question: text('The Sound of Silence was sung by Simon and…?', 'The Sound of Silence ble sunget av Simon og…?'), answer: text('Garfunkel') },
-          { id: 'fd-400', value: 400, question: text('Stan and Ollie were the comedy duo known by which two surnames?', 'Stan og Ollie var komikerduoen kjent under hvilke to etternavn?'), answer: text('Laurel and Hardy', 'Laurel og Hardy (Helan og Halvan)') },
-          { id: 'fd-500', value: 500, question: text('Ben & Jerry’s ice cream. Name both founders’ surnames.', 'Ben & Jerry’s-iskrem. Hva er etternavnene til begge grunnleggerne?'), answer: text('Ben Cohen and Jerry Greenfield', 'Ben Cohen og Jerry Greenfield') }
+          { id: 'fd-100', value: 100, question: text('Super Mario’s brother in green: Mario and…?', 'Super Marios bror i grønt: Mario og…?'), answer: text('Luigi') },
+          { id: 'fd-200', value: 200, question: text('Hakuna Matata! Timon and…?', 'Hakuna Matata! Timon og…?'), answer: text('Pumbaa') },
+          { id: 'fd-300', value: 300, question: text('Friends’ on-again, off-again couple: Ross and…?', 'Venner for livets av-og-på-par: Ross og…?'), answer: text('Rachel') },
+          { id: 'fd-400', value: 400, question: text('The Norwegian brothers behind “What Does the Fox Say?”: Bård and…?', 'Brødrene bak «What Does the Fox Say?»: Bård og…?'), answer: text('Vegard (Ylvis)') },
+          { id: 'fd-500', value: 500, question: text('OutKast had the hit “Hey Ya!”. Name both members.', 'OutKast hadde hiten «Hey Ya!». Hva heter begge medlemmene?'), answer: text('André 3000 and Big Boi', 'André 3000 og Big Boi') }
         ]
       },
       {
@@ -179,6 +179,19 @@
           { id: 'wf-300', value: 300, question: text('How many hearts does an octopus have?', 'Hvor mange hjerter har en blekksprut (åttearmet)?'), answer: text('Three', 'Tre') },
           { id: 'wf-400', value: 400, question: text('Which Australian animal has fingerprints remarkably similar to a human’s?', 'Hvilket australsk dyr har fingeravtrykk som ligner påfallende mye på menneskers?'), answer: text('The koala', 'Koalaen') },
           { id: 'wf-500', value: 500, question: text('Flamingos are not born pink. What makes them pink?', 'Flamingoer er ikke rosa når de klekkes. Hva gjør dem rosa?'), answer: text('Their diet: pigments (carotenoids) in the algae and shrimp they eat.', 'Maten: fargestoffer (karotenoider) i algene og rekene de spiser.') }
+        ]
+      },
+      {
+        // Second Wild Facts board with new questions, used in tournament heat 1.
+        id: 'wild-facts-2',
+        title: text('Wild Facts', 'Ville fakta'),
+        description: text('The animal kingdom is stranger than you think.', 'Dyreriket er merkeligere enn du tror.'),
+        clues: [
+          { id: 'wf2-100', value: 100, question: text('Which animal is the tallest in the world?', 'Hvilket dyr er det høyeste i verden?'), answer: text('The giraffe', 'Sjiraffen') },
+          { id: 'wf2-200', value: 200, question: text('A group of crows has a spooky name. What is it called?', 'En flokk kråker har et skummelt navn på engelsk. Hva kalles den?'), answer: text('A murder of crows', 'A murder (of crows)') },
+          { id: 'wf2-300', value: 300, question: text('Name one of the only two kinds of mammals that lay eggs.', 'Nevn ett av de eneste to pattedyrene som legger egg.'), answer: text('The platypus or the echidna', 'Nebbdyret eller maurpinnsvinet'), acceptedAnswers: [text('Platypus', 'Nebbdyr'), text('Echidna', 'Maurpinnsvin')] },
+          { id: 'wf2-400', value: 400, question: text('A polar bear’s fur looks white. What colour is the skin underneath?', 'Isbjørnens pels ser hvit ut. Hvilken farge har huden under?'), answer: text('Black', 'Svart') },
+          { id: 'wf2-500', value: 500, question: text('Sea otters do something adorable while they sleep so they don’t drift apart. What?', 'Havoter gjør noe søtt når de sover, så de ikke driver fra hverandre. Hva?'), answer: text('They hold hands (paws).', 'De holder hverandre i hånden (labbene).') }
         ]
       },
       {
