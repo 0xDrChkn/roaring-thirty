@@ -896,7 +896,8 @@
   $('#reaction-close').addEventListener('click',() => reactionDialog.close());
   reactionDialog.addEventListener('close',() => { clearTimeout(reactionTimeout); if (resumeAfterReaction) { resumeAfterReaction=false; startTimer(); } });
   // Using a power pops up its own Sara sticker for a moment (only when reactions are on).
-  const powerFaces = {double:'assets/reaction-03.webp', letter:'assets/reaction-07.webp', steal:'assets/reaction-08.webp'};
+  // Double Up = muscle Sara, Steal = the owner's chosen photo; both cut out from their backgrounds.
+  const powerFaces = {double:'assets/power-double.webp', letter:'assets/reaction-07.webp', steal:'assets/power-steal.webp'};
   Object.values(powerFaces).forEach(src => { new Image().src = src; });
   let powerPopTimeout = null;
   function powerPop(power, label) {
