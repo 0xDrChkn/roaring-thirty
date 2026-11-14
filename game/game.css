@@ -503,3 +503,14 @@ select{font:inherit;color:var(--ivory);background:var(--black);border:1px solid 
   #clue-dialog .clue-bottom{margin-top:4px}
   #clue-dialog .secondary,#clue-dialog .primary{min-height:42px;padding:8px 16px}
 }
+
+/* The prize bottle (Berliner Luft) in the rules and the finale. */
+#finale-prize{display:flex;align-items:center;gap:12px}
+.finale-prize-img{height:clamp(70px,16vh,140px);width:auto;border-radius:4px;background:#fff;padding:3px;box-shadow:0 0 18px #cfad7055}
+.rules-ready{flex-direction:row;flex-wrap:wrap;justify-content:center;column-gap:18px}
+.rules-ready p{flex-basis:100%;text-align:center}
+.rules-prize-img{height:clamp(120px,32vh,300px);width:auto;border-radius:4px;background:#fff;padding:4px;box-shadow:0 0 22px #cfad7066}
+@media(orientation:landscape) and (max-height:600px){
+  .finale-prize-img{height:46px}
+  .rules-prize-img{height:40svh}
+}

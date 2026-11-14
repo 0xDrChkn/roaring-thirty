@@ -79,7 +79,10 @@
   // Tournament: heats on their own smaller boards, then the heat winners play the final.
   let mode = 'single';
   let heatCount = 2;
-  let prize = '';
+  // The party's prize; the bottle picture shows whenever the prize mentions Berliner Luft.
+  const defaultPrize = 'A bottle of Berliner Luft';
+  let prize = defaultPrize;
+  const prizePicture = text => /berliner\s*luft/i.test(text || '') ? 'assets/prize-berliner-luft.jpg' : '';
   let tour = null;
   let roundShown = false;
   let advanced = false; // false = the simple, preset start screen.
@@ -262,7 +265,7 @@
       if (typeof saved.reactionsEnabled === 'boolean') reactionsEnabled = saved.reactionsEnabled;
       if (saved.mode === 'tournament') mode = 'tournament';
       if ([2,3,4].includes(saved.heatCount)) heatCount = saved.heatCount;
-      if (typeof saved.prize === 'string') prize = saved.prize.slice(0,80);
+      if (typeof saved.prize === 'string' && saved.prize.trim() && !/champagne|champagne/i.test(saved.prize)) prize = saved.prize.slice(0,80);
       if (validTour(saved.tour)) tour = saved.tour;
       if (tour && tour.stage === 0 && !saved.state) tour.heats.forEach(heat => { heat.teams = heat.teams.map(team => team === 'Team 4' ? 'The Great Matilda' : team); });
       // A not-yet-started plan from before the party split is replaced by the agreed default.
@@ -506,7 +509,7 @@
     $('#finale-eyebrow').textContent = result.winners.length > 1 ? (nb ? 'DELT SEIER' : 'A SHARED VICTORY') : copy().champions;
     $('#finale-winner').replaceChildren(...result.winners.map(name => { const box = element('span','finale-champ'); box.append(teamIcon(name,'finale-champ-icon'), element('span','',name)); return box; }));
     $('#finale-prize').hidden = !prizeText;
-    $('#finale-prize').textContent = prizeText ? '🏆 ' + prizeText : '';
+    $('#finale-prize').replaceChildren(...(prizeText ? [...(prizePicture(prizeText) ? [Object.assign(element('img','finale-prize-img'), {src: prizePicture(prizeText), alt: ''})] : []), document.createTextNode('🏆 ' + prizeText)] : []));
     $('#finale-scores').replaceChildren(...result.scores.map(([name,score],index) => { const row = element('li'); row.style.setProperty('--i', index); row.append(element('span','finale-rank',String(index+1)), teamIcon(name,'finale-row-icon'), element('span','finale-name',name), element('strong','',String(score))); return row; }));
     $('#finale-facts').replaceChildren(...factCards(funFacts(false),'finale-fact'));
     dialog.classList.remove('play'); void dialog.offsetWidth; dialog.classList.add('play');
@@ -851,7 +854,7 @@
         'The final is bigger: seven rows, up to 700 points a question.',
         'In the final, every team gets all three secret weapons back.'
       ])},
-      {eyebrow: nb ? 'KLARE?' : 'READY?', title: nb ? 'Løft glassene.' : 'Raise your glasses.', body: (() => { const box = element('div','rules-ready'); const photo = element('img'); photo.src = '../assets/sara-gatsby-toast.jpg'; photo.alt = nb ? 'Sara skåler med champagne' : 'Sara raising a glass of champagne'; box.append(photo, element('p','', prize.trim() ? (nb ? 'Premien: ' : 'The prize: ') + prize.trim() : (nb ? 'Ære, berømmelse og evig skryt.' : 'Glory, fame and bragging rights forever.'))); return box; })()}
+      {eyebrow: nb ? 'KLARE?' : 'READY?', title: nb ? 'Løft glassene.' : 'Raise your glasses.', body: (() => { const box = element('div','rules-ready'); const photo = element('img'); photo.src = '../assets/sara-gatsby-toast.jpg'; if (prizePicture(prize)) { const bottle = element('img','rules-prize-img'); bottle.src = prizePicture(prize); bottle.alt = 'The prize: ' + prize.trim(); box.append(bottle); } photo.alt = nb ? 'Sara skåler med champagne' : 'Sara raising a glass of champagne'; box.append(photo, element('p','', prize.trim() ? (nb ? 'Premien: ' : 'The prize: ') + prize.trim() : (nb ? 'Ære, berømmelse og evig skryt.' : 'Glory, fame and bragging rights forever.'))); return box; })()}
     ];
   }
   function renderRules() {
