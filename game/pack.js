@@ -20,8 +20,8 @@
     // Default heat boards for a two-heat tournament; the final uses defaultCategoryIds.
     tournamentHeats: {
       2: [
-        ['finish-the-lyric', 'cocktail-hour', 'throwback-2000s', 'the-impostor', 'brand-new', 'wild-facts-2'],
-        ['famous-saras', 'emoji-cinema', 'twenties', 'timeline', 'wild-facts', 'party-science']
+        ['finish-the-lyric', 'cocktail-hour', 'throwback-2000s', 'the-impostor', 'brand-new', 'wild-facts-2', 'girlhood', 'birthday-girl-h1'],
+        ['famous-saras', 'emoji-cinema', 'twenties', 'timeline', 'wild-facts', 'party-science', 'disney-princesses', 'birthday-girl-h2']
       ]
     },
     // Two extra rows for the tournament final only (heats and single games keep five rows).
@@ -258,6 +258,58 @@
           { id: 'st-300', value: 300, question: text('What is the chemical symbol for gold?', 'Hva er det kjemiske symbolet for gull?'), answer: text('Au') },
           { id: 'st-400', value: 400, question: text('In a computer, what does CPU stand for?', 'Hva står den engelske forkortelsen CPU for i en datamaskin?'), answer: text('Central processing unit'), acceptedAnswers: [text('Central processor', 'Sentralprosessor')] },
           { id: 'st-500', value: 500, question: text('Define one light-year.', 'Hva er ett lysår?'), answer: text('The distance light travels through a vacuum in one year.', 'Avstanden lyset tilbakelegger i vakuum på ett år.') }
+        ]
+      },
+      {
+        // Heat 1 extra: a nostalgic girls' category.
+        id: 'girlhood',
+        title: text('Girlhood Classics', 'Jentetid'),
+        description: text('Dolls, Disney Channel and the films you watched at sleepovers.', 'Dukker, Disney Channel og filmene fra overnattingsbesøkene.'),
+        clues: [
+          { id: 'gh-100', value: 100, question: text('Which doll has a boyfriend called Ken?', 'Hvilken dukke har en kjæreste som heter Ken?'), answer: text('Barbie') },
+          { id: 'gh-200', value: 200, question: text('On Disney Channel, Miley Cyrus secretly lived a double life as which pop star?', 'På Disney Channel levde Miley Cyrus et hemmelig dobbeltliv som hvilken popstjerne?'), answer: text('Hannah Montana') },
+          { id: 'gh-300', value: 300, question: text('Blossom, Bubbles and Buttercup are better known as…?', 'Blossom, Bubbles og Buttercup er bedre kjent som…?'), answer: text('The Powerpuff Girls', 'Powerpuff-jentene / The Powerpuff Girls') },
+          { id: 'gh-400', value: 400, question: text('Big heads, big lips, big attitude: which 2000s doll brand took on Barbie?', 'Store hoder, store lepper og mye attitude: hvilket dukkemerke fra 2000-tallet utfordret Barbie?'), answer: text('Bratz') },
+          { id: 'gh-500', value: 500, question: text('Mean Girls: “On Wednesdays we wear…?”', 'Mean Girls: «On Wednesdays we wear…?»'), answer: text('Pink', 'Rosa (pink)') }
+        ]
+      },
+      {
+        // Heat 2 extra.
+        id: 'disney-princesses',
+        title: text('Disney Princesses', 'Disney-prinsesser'),
+        description: text('Glass slippers, singing snowmen and one very Norwegian kingdom.', 'Glasstøfler, syngende snømenn og ett svært norsk kongerike.'),
+        clues: [
+          { id: 'dp-100', value: 100, question: text('Which princess loses a glass slipper at midnight?', 'Hvilken prinsesse mister en glasstøffel ved midnatt?'), answer: text('Cinderella', 'Askepott (Cinderella)') },
+          { id: 'dp-200', value: 200, question: text('What is the name of the singing snowman in Frozen?', 'Hva heter den syngende snømannen i Frost?'), answer: text('Olaf') },
+          { id: 'dp-300', value: 300, question: text('Which princess has a pet tiger called Rajah?', 'Hvilken prinsesse har en tiger som heter Rajah?'), answer: text('Jasmine (Aladdin)') },
+          { id: 'dp-400', value: 400, question: text('What does Ariel give the sea witch in exchange for legs?', 'Hva gir Ariel til sjøheksa i bytte mot bein?'), answer: text('Her voice', 'Stemmen sin') },
+          { id: 'dp-500', value: 500, question: text('Frozen’s kingdom of Arendelle was inspired by which country?', 'Kongeriket Arendelle i Frost er inspirert av hvilket land?'), answer: text('Norway', 'Norge') }
+        ]
+      },
+      {
+        // The Birthday Girl for heat 1, from the spare face blends.
+        id: 'birthday-girl-h1',
+        title: text('The Birthday Girl', 'Bursdagsbarnet'),
+        description: text('Two faces, one portrait. Who is mixed with Sara?', 'To ansikter, ett portrett. Hvem er blandet med Sara?'),
+        clues: [
+          { id: 'bg1-100', value: 100, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Leonardo DiCaprio'), image: 'assets/clue-bg-100.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
+          { id: 'bg1-200', value: 200, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Marilyn Monroe'), image: 'assets/face-marilyn-monroe.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
+          { id: 'bg1-300', value: 300, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Beyoncé'), image: 'assets/face-beyonce.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
+          { id: 'bg1-400', value: 400, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Tom Cruise'), image: 'assets/face-tom-cruise.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
+          { id: 'bg1-500', value: 500, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Adele'), image: 'assets/face-adele.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') }
+        ]
+      },
+      {
+        // The Birthday Girl for heat 2. The 500 waits for a new face (Harry Styles) and stays locked until then.
+        id: 'birthday-girl-h2',
+        title: text('The Birthday Girl', 'Bursdagsbarnet'),
+        description: text('Two faces, one portrait. Who is mixed with Sara?', 'To ansikter, ett portrett. Hvem er blandet med Sara?'),
+        clues: [
+          { id: 'bg2-100', value: 100, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Chris Hemsworth'), image: 'assets/face-chris-hemsworth.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
+          { id: 'bg2-200', value: 200, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Margot Robbie'), image: 'assets/face-margot-robbie.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
+          { id: 'bg2-300', value: 300, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Angelina Jolie'), image: 'assets/face-angelina-jolie.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
+          { id: 'bg2-400', value: 400, question: text('Which celebrity is blended with Sara?', 'Hvilken kjendis er blandet med Sara?'), answer: text('Emma Watson'), image: 'assets/face-emma-watson.png', imageAlt: text('A fictional blended portrait. Name the celebrity.', 'Et fiktivt blandet portrett. Finn kjendisen.') },
+          draft('bg2-500', 500, 'New face coming: add the Sara × Harry Styles blend.', 'Nytt ansikt kommer: legg inn Sara × Harry Styles.')
         ]
       },
       {

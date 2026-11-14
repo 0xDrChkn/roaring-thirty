@@ -364,3 +364,58 @@ select{font:inherit;color:var(--ivory);background:var(--black);border:1px solid 
 @media(orientation:portrait) and (max-width:700px){
   .finale-dialog[open]{grid-template-columns:1fr;grid-template-rows:34svh 1fr;padding:14px}
 }
+
+/* Five fun stats: on the heat winner card and in the finale. */
+.finale-facts{grid-template-columns:repeat(5,minmax(0,1fr))}
+.round-facts{margin:14px 0 6px}
+.round-facts .finale-fact{text-align:left}
+@media(orientation:landscape) and (max-height:600px){
+  .finale-facts{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .round-facts{margin:4px 0}
+  #round-dialog .finale-fact{padding:4px 5px}
+  #round-dialog .finale-fact strong{font-size:16px}
+  #round-dialog .finale-fact small{font-size:7px}
+  #round-dialog .finale-fact-team{font-size:9px}
+  #round-dialog .round-crown,#round-dialog [aria-hidden=true]{display:none}
+  #round-dialog #round-winner{font-size:24px}
+  .playing .quiz-board{gap:3px}
+  .playing .clue-tile,.playing .tall-board .clue-tile{font-size:clamp(15px,2.3vw,20px)}
+  .playing .category-heading h2{font-size:9px}
+}
+/* Short sideways phones (Safari bars showing). */
+@media(orientation:landscape) and (max-height:600px){
+  /* Pop-up windows never run off the screen: they scroll instead. */
+  .small-dialog,#help-dialog,#adjust-dialog,#reset-dialog,#end-round-dialog,#conflict-dialog{max-height:calc(100dvh - 12px);overflow-y:auto;padding:14px 20px}
+  .small-dialog h2{font-size:24px;margin:2px 0 8px}
+  .small-dialog li,.small-dialog p{font-size:13px;line-height:1.35}
+  .rules-dialog .dialog-close{top:4px;right:6px;width:34px;height:34px;min-height:0;margin:0}
+}
+@media(orientation:landscape) and (max-height:345px){
+  /* Board: tighter heading and scores so all rows fit. */
+  .playing .board-heading{padding:3px 0 2px}
+  .playing .board-heading h1{font-size:16px}
+  .playing .board-tools{font-size:10px;gap:10px}
+  .playing .team-score{padding:2px 8px}
+  .playing .team-score strong{font-size:18px}
+  .playing .team-icon{width:20px;height:20px}
+  .playing .scoreboard{margin-bottom:3px}
+  .playing .category-column,.playing .tall-board .category-column{grid-template-rows:22px repeat(var(--rows,5),minmax(0,1fr));gap:2px}
+  .playing .clue-tile,.playing .tall-board .clue-tile{font-size:15px}
+  /* Question window: smaller type and controls so Reveal, Wrong/Correct and Undo/Skip stay on screen. */
+  #clue-dialog,#clue-dialog:has(.location-clue){padding-top:4px;padding-bottom:4px;row-gap:3px}
+  #clue-dialog .clue-top{padding:0}
+  #clue-dialog .clue-meta .icon-button{min-height:24px;height:24px}
+  #clue-dialog #clue-value{font-size:20px}
+  #clue-dialog .clue-stage h2{font-size:clamp(16px,2.6vw,22px)}
+  #clue-dialog .timer output{font-size:20px}
+  #clue-dialog .timer button{min-height:26px;padding:2px 6px;font-size:11px}
+  #clue-dialog .power-buttons button{min-height:26px;padding:2px 6px}
+  #clue-dialog .adjudication .eyebrow{display:none}
+  #clue-dialog .adjudication{gap:4px;margin-top:0}
+  #clue-dialog .answering-team,#clue-dialog .clue-teams strong{font-size:18px}
+  #clue-dialog .answering-icon{width:22px;height:22px}
+  #clue-dialog .award-buttons button{min-height:34px}
+  #clue-dialog #reveal{min-height:34px}
+  #clue-dialog .clue-bottom button{min-height:24px;padding:0 4px}
+  #clue-dialog .answer #answer-text{font-size:22px}
+}

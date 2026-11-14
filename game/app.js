@@ -82,7 +82,7 @@
   let tour = null;
   let roundShown = false;
   let answerTimes = {}; // 'stage|clueId|teamId' -> seconds taken, for the finale's fun facts.
-  const PLAN_VERSION = 3; // Bump to replace saved, unstarted tournament plans with the default.
+  const PLAN_VERSION = 4; // Bump to replace saved, unstarted tournament plans with the default.
   const openPickers = new Set();
   const maxTeams = () => mode === 'tournament' ? 12 : 6;
   let reactionsEnabled = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -159,7 +159,8 @@
       && list(value.finalCategoryIds) && Number.isInteger(value.stage) && value.stage >= 0 && value.stage <= value.heats.length && Array.isArray(value.results);
   }
   const shuffle = list => { const copyList = list.slice(); for (let i = copyList.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [copyList[i], copyList[j]] = [copyList[j], copyList[i]]; } return copyList; };
-  const readyCategoryIds = () => pack.categories.filter(category => category.clues.every(clue => !clue.draft)).map(category => category.id);
+  // Playable = at least four finished clues (a heat's Birthday Girl may still wait for its last face; The Sara Archives stays out).
+  const readyCategoryIds = () => pack.categories.filter(category => category.clues.filter(clue => !clue.draft).length >= 4).map(category => category.id);
   // keep: an earlier plan whose category choices should survive a team change.
   function planTour(keep) {
     const teams = shuffle(names.map(name => name.trim()));
@@ -215,7 +216,7 @@
       picker.open = openPickers.has(key);
       picker.addEventListener('toggle', () => { if (picker.open) openPickers.add(key); else openPickers.delete(key); });
       const status = element('p','tour-pick-count');
-      const showCount = () => { status.textContent = ids.length + ' / 6'; };
+      const showCount = () => { status.textContent = ids.length + ' / 8'; };
       picker.append(element('summary','',copy().pickCategories));
       const chips = element('div','tour-chips');
       readyCategoryIds().forEach(id => {
@@ -224,7 +225,7 @@
         chip.addEventListener('click', () => {
           const at = ids.indexOf(id);
           if (at >= 0) { if (ids.length === 1) return; ids.splice(at,1); }
-          else { if (ids.length >= 6) return; ids.push(id); }
+          else { if (ids.length >= 8) return; ids.push(id); }
           chip.setAttribute('aria-pressed', String(at < 0));
           cats.textContent = ids.map(title).join(' · '); showCount(); save();
         });
@@ -261,6 +262,7 @@
       if ([2,3,4].includes(saved.heatCount)) heatCount = saved.heatCount;
       if (typeof saved.prize === 'string') prize = saved.prize.slice(0,80);
       if (validTour(saved.tour)) tour = saved.tour;
+      if (tour && tour.stage === 0 && !saved.state) tour.heats.forEach(heat => { heat.teams = heat.teams.map(team => team === 'Team 4' ? 'The Great Matilda' : team); });
       // A not-yet-started plan from before the party split is replaced by the agreed default.
       if (tour && tour.stage === 0 && !tour.results.length && !saved.state && tour.plan !== PLAN_VERSION) tour = null;
       // Team names typed during setup survive a refresh.
@@ -465,24 +467,31 @@
   // Every judged answer of the current board, with team names and answer times.
   function stageAttempts() {
     const stage = tour ? tour.stage : 0;
-    return state.attempts.map(attempt => ({team: state.teams.find(team => team.id === attempt.teamId)?.name || '', sign: attempt.sign, value: attempt.value, seconds: answerTimes[stage + '|' + attempt.clueId + '|' + attempt.teamId]}));
+    return state.attempts.map(attempt => { const t = answerTimes[stage + '|' + attempt.clueId + '|' + attempt.teamId]; return {team: state.teams.find(team => team.id === attempt.teamId)?.name || '', sign: attempt.sign, value: attempt.value, seconds: typeof t === 'number' ? t : t?.s, doubled: !!t?.d}; });
   }
-  function funFacts() {
-    const all = (tour ? tour.results.slice(0, tour.stage).flatMap(result => result.attempts || []) : []).concat(stageAttempts());
+  function funFacts(onlyThisBoard) {
+    const all = (!onlyThisBoard && tour ? tour.results.slice(0, tour.stage).flatMap(result => result.attempts || []) : []).concat(stageAttempts());
     const nb = language === 'nb';
-    const by = {};
-    all.forEach(item => { const t = by[item.team] ||= {right:0, wrong:0, won:0}; if (item.sign === 1) { t.right++; t.won += item.value; } else t.wrong++; });
-    const teams = Object.entries(by);
-    const top = key => teams.slice().sort((a,b) => b[1][key] - a[1][key])[0];
+    const sec = n => n.toFixed(1).replace('.0','') + (nb ? ' sek' : ' s');
     const facts = [];
-    const fastest = all.filter(item => item.sign === 1 && typeof item.seconds === 'number' && item.seconds >= 0.5).sort((a,b) => a.seconds - b.seconds)[0];
-    if (fastest) facts.push({label: nb ? 'Raskeste svar' : 'Fastest answer', team: fastest.team, value: fastest.seconds.toFixed(1).replace('.0','') + (nb ? ' sek' : ' s')});
-    const right = top('right'); if (right && right[1].right) facts.push({label: nb ? 'Flest riktige' : 'Most correct', team: right[0], value: String(right[1].right)});
-    const wrong = top('wrong'); if (wrong && wrong[1].wrong) facts.push({label: nb ? 'Modigste gjettere' : 'Bravest guessers', team: wrong[0], value: (nb ? '' : '') + wrong[1].wrong + (nb ? ' feil' : ' wrong')});
-    const big = all.filter(item => item.sign === 1).sort((a,b) => b.value - a.value)[0];
-    if (big) facts.push({label: nb ? 'Største gevinst' : 'Biggest win', team: big.team, value: '+' + big.value});
-    facts.push({label: nb ? 'Spørsmål spilt' : 'Questions played', team: '', value: String(new Set(all.map(item => item)).size)});
-    return facts.slice(0,4);
+    const timed = all.filter(item => item.sign === 1 && typeof item.seconds === 'number' && item.seconds >= 0.5);
+    const fastest = timed.slice().sort((a,b) => a.seconds - b.seconds)[0];
+    facts.push(fastest ? {label: nb ? 'Lynrask' : 'Lightning fingers', team: fastest.team, value: sec(fastest.seconds)} : {label: nb ? 'Lynrask' : 'Lightning fingers', team: '', value: '–'});
+    const closest = timed.filter(item => timerDuration - item.seconds < 3).sort((a,b) => (timerDuration - a.seconds) - (timerDuration - b.seconds))[0];
+    facts.push(closest ? {label: nb ? 'Fotofinish' : 'Photo finish', team: closest.team, value: sec(Math.max(0, timerDuration - closest.seconds)) + (nb ? ' igjen' : ' left')} : {label: nb ? 'Fotofinish' : 'Photo finish', team: '', value: nb ? 'Ingen nære' : 'No close calls'});
+    const streaks = {}; const run = {};
+    all.forEach(item => { run[item.team] = item.sign === 1 ? (run[item.team] || 0) + 1 : 0; streaks[item.team] = Math.max(streaks[item.team] || 0, run[item.team]); });
+    const hot = Object.entries(streaks).sort((a,b) => b[1] - a[1])[0];
+    facts.push(hot && hot[1] > 1 ? {label: nb ? 'Het rekke' : 'Hot streak', team: hot[0], value: hot[1] + (nb ? ' på rad' : ' in a row')} : {label: nb ? 'Het rekke' : 'Hot streak', team: '', value: '–'});
+    const gamble = all.filter(item => item.doubled).sort((a,b) => b.value - a.value)[0];
+    facts.push(gamble ? {label: nb ? 'Største sjanse' : 'Biggest gamble', team: gamble.team, value: (gamble.sign === 1 ? '+' : '−') + gamble.value} : {label: nb ? 'Største sjanse' : 'Biggest gamble', team: '', value: nb ? 'Ingen turte' : 'Nobody dared'});
+    const wrong = {}; all.forEach(item => { if (item.sign !== 1) wrong[item.team] = (wrong[item.team] || 0) + 1; });
+    const brave = Object.entries(wrong).sort((a,b) => b[1] - a[1])[0];
+    facts.push(brave ? {label: nb ? 'Modigste gjettere' : 'Bravest guessers', team: brave[0], value: brave[1] + (nb ? ' feil' : ' wrong')} : {label: nb ? 'Modigste gjettere' : 'Bravest guessers', team: '', value: nb ? 'Ingen feil!' : 'No misses!'});
+    return facts;
+  }
+  function factCards(facts, className) {
+    return facts.map((fact,index) => { const card = element('div',className); card.style.setProperty('--i', index); card.append(element('small','',fact.label), element('strong','',fact.value)); if (fact.team) { const who = element('span','finale-fact-team'); who.append(teamIcon(fact.team,'finale-fact-icon'), document.createTextNode(fact.team)); card.append(who); } return card; });
   }
   function showFinale(result) {
     const nb = language === 'nb';
@@ -493,7 +502,7 @@
     $('#finale-prize').hidden = !prizeText;
     $('#finale-prize').textContent = prizeText ? '🏆 ' + prizeText : '';
     $('#finale-scores').replaceChildren(...result.scores.map(([name,score],index) => { const row = element('li'); row.style.setProperty('--i', index); row.append(element('span','finale-rank',String(index+1)), teamIcon(name,'finale-row-icon'), element('span','finale-name',name), element('strong','',String(score))); return row; }));
-    $('#finale-facts').replaceChildren(...funFacts().map((fact,index) => { const card = element('div','finale-fact'); card.style.setProperty('--i', index); card.append(element('small','',fact.label), element('strong','',fact.value)); if (fact.team) { const who = element('span','finale-fact-team'); who.append(teamIcon(fact.team,'finale-fact-icon'), document.createTextNode(fact.team)); card.append(who); } return card; }));
+    $('#finale-facts').replaceChildren(...factCards(funFacts(false),'finale-fact'));
     dialog.classList.remove('play'); void dialog.offsetWidth; dialog.classList.add('play');
     if (!dialog.open) dialog.showModal();
     startConfetti();
@@ -533,6 +542,7 @@
     $('#round-prize').textContent = isFinal && prizeText ? '🏆 ' + copy().prizeLabel + ': ' + prizeText : '';
     $('#round-scores').replaceChildren(...result.scores.map(([name,score]) => { const row = element('li'); row.append(element('span','',name), element('strong','',String(score))); return row; }));
     $('#round-next').textContent = !tour || isFinal ? copy().playAgain : tour.stage + 1 < tour.heats.length ? copy().nextHeat(tour.stage+2) : copy().toFinal;
+    $('#round-facts').replaceChildren(...factCards(funFacts(true),'finale-fact'));
     $('#round-dialog').classList.toggle('is-final', isFinal);
     if (!$('#round-dialog').open) $('#round-dialog').showModal();
   }
@@ -665,7 +675,7 @@
     const team = state.teams.find(team => team.id === state.selectedTeamId);
     const value = clue.value * (state.doubleTeamId === team.id ? 2 : 1);
     const seconds = timer.running ? timerDuration - Math.max(0,(timer.deadline - Date.now()) / 1000) : timerDuration - timer.remaining;
-    answerTimes[(tour ? tour.stage : 0) + '|' + clue.id + '|' + team.id] = Math.max(0, Math.round(seconds * 10) / 10);
+    answerTimes[(tour ? tour.stage : 0) + '|' + clue.id + '|' + team.id] = {s: Math.max(0, Math.round(seconds * 10) / 10), d: state.doubleTeamId === team.id};
     pauseTimer(); resumeAfterReaction = false;
     if (act('answerClue',sign)) {
       if (reactionsEnabled) showReaction(sign === 1 ? 'correct' : 'wrong',value,team.name);
@@ -737,7 +747,9 @@
       const trimmed = names.map(name => name.trim());
       if (trimmed.some(name => !name || name.length > 40 || /[\u0000-\u001f\u007f]/.test(name)) || new Set(trimmed.map(name => name.toLocaleLowerCase('en'))).size !== trimmed.length) { notice = copy().names; renderNotice(); return; }
       names = trimmed;
-      if (!tour || tour.stage !== 0) tour = planTour();
+      // The plan must hold exactly the teams in the name boxes (an older saved plan could still say "Team 4"); keep its category choices.
+      const sameTeams = tour && tour.stage === 0 && [...tour.heats.flatMap(heat => heat.teams)].sort().join('|') === [...names].sort().join('|');
+      if (!tour || tour.stage !== 0) tour = planTour(); else if (!sameTeams) tour = planTour(tour);
       tour.prize = prize.trim();
       try { startStage(); save(); render(); window.scrollTo({top:0}); } catch { notice = copy().names; renderNotice(); }
       return;
@@ -782,7 +794,7 @@
     if (!Number.isSafeInteger(amount) || amount === 0 || Math.abs(amount) > 1000000 || !reason || reason.length > 160 || /[\u0000-\u001f\u007f]/.test(reason)) { $('#adjust-error').textContent=copy().adjustmentError; return; }
     if (act('adjustScore',$('#adjust-team').value,amount,reason)) $('#adjust-dialog').close();
   });
-  $('#add-team').addEventListener('click',() => { readNames(); if(names.length<maxTeams()) names.push(copy().team+' '+(names.length+1)); replanTeams(); renderSetup(); $('#team-inputs').lastElementChild?.querySelector('input')?.focus(); });
+  $('#add-team').addEventListener('click',() => { readNames(); if(names.length<maxTeams()) { const next = partyTeams.find(team => !names.some(name => name.trim().toLocaleLowerCase('en') === team.toLocaleLowerCase('en'))); names.push(next || copy().team+' '+(names.length+1)); } replanTeams(); renderSetup(); $('#team-inputs').lastElementChild?.querySelector('input')?.focus(); });
   $('#remove-team').addEventListener('click',() => { readNames(); if(names.length>2) names.pop(); replanTeams(); renderSetup(); });
   $('#language').addEventListener('click',() => {
     if (!state) readNames();

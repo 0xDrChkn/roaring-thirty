@@ -12,8 +12,8 @@ const bank=JSON.parse(JSON.stringify(context.window.BIRTHDAY_GAME_PACK));
 const images=bank.categories.flatMap(category => category.clues.flatMap(clue => [clue.image,clue.answerImage].filter(Boolean)));
 function exported(){return JSON.parse(tools.exportPack(bank));}
 
-test('the expanded bank offers twenty-three categories and a complete general thirty-clue game',() => {
-  assert.equal(bank.categories.length,23);
+test('the expanded bank offers twenty-seven categories and a complete general thirty-clue game',() => {
+  assert.equal(bank.categories.length,27);
   let state=engine.create(['One','Two'],bank,['cocktail-hour','emoji-cinema','science-tech','norway-knows','movie-plots','name-that-tune']);
   assert.equal(state.clueCatalog.length,30);
   assert.equal(state.clueCatalog.filter(clue => clue.playable).length,30);
@@ -23,7 +23,7 @@ test('the expanded bank offers twenty-three categories and a complete general th
 });
 test('an exported bank imports cleanly and keeps existing bundled picture clues',() => {
   const imported=tools.parse(tools.exportPack(bank),images);
-  assert.equal(imported.categories.length,23);
+  assert.equal(imported.categories.length,27);
   assert.equal(imported.categories.find(category => category.id==='countries').clues[0].image,bank.categories.find(category => category.id==='countries').clues[0].image);
   assert.equal(imported.reactions,undefined);
   assert.equal(engine.create(['One','Two'],imported,['cocktail-hour','emoji-cinema','science-tech','norway-knows','movie-plots','name-that-tune']).clueCatalog.filter(clue => clue.playable).length,30);
