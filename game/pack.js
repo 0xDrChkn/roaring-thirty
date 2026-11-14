@@ -301,7 +301,7 @@
           { id: 'bg1-200', value: 200, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Napoleon Bonaparte'), acceptedAnswers: ['Napoleon'], image: 'assets/hist-400.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
           { id: 'bg1-300', value: 300, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Gordon Ramsay'), acceptedAnswers: ['Ramsay'], image: 'assets/clue-bg-200.png', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
           { id: 'bg1-400', value: 400, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('John F. Kennedy'), acceptedAnswers: ['JFK', 'Kennedy'], image: 'assets/president-400.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
-          { id: 'bg1-500', value: 500, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Emma Watson'), acceptedAnswers: ['Watson'], image: 'assets/face-emma-watson.png', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') }
+          { id: 'bg1-500', value: 500, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Jennifer Aniston'), acceptedAnswers: ['Aniston'], image: 'assets/face-jennifer-aniston.png', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') }
         ]
       },
       {
