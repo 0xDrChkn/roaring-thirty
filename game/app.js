@@ -84,7 +84,7 @@
   let roundShown = false;
   let advanced = false; // false = the simple, preset start screen.
   let answerTimes = {}; // 'stage|clueId|teamId' -> seconds taken, for the finale's fun facts.
-  const PLAN_VERSION = 6; // Bump to replace saved, unstarted tournament plans with the default.
+  const PLAN_VERSION = 7; // Bump to replace saved, unstarted tournament plans with the default.
   const openPickers = new Set();
   const maxTeams = () => mode === 'tournament' ? 12 : 6;
   let reactionsEnabled = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -178,7 +178,7 @@
     }
     // The final gets the recommended six (the best categories); the heats share out the rest.
     const best = (pack.tournamentFinal || pack.defaultCategoryIds || []).filter(id => ready.includes(id));
-    const finalCategoryIds = (best.length ? best : shuffle(ready)).slice(0,6);
+    const finalCategoryIds = (best.length ? best : shuffle(ready)).slice(0,8);
     let pool = shuffle(ready.filter(id => !finalCategoryIds.includes(id)));
     if (pool.length < heatCount) pool = shuffle(ready);
     const perHeat = Math.max(1, Math.min(4, Math.floor(pool.length / heatCount)));

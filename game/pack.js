@@ -18,7 +18,7 @@
     subtitle: text('A roaring birthday quiz', 'En bursdagsquiz med stil'),
     defaultCategoryIds: ['birthday-girl', 'countries', 'movie-plots', 'name-that-tune', 'science-tech', 'norway-knows'],
     // Default heat boards for a two-heat tournament; the final uses defaultCategoryIds.
-    tournamentFinal: ['birthday-girl-final', 'countries', 'movie-plots', 'name-that-tune', 'science-tech', 'norway-knows'],
+    tournamentFinal: ['birthday-girl-final', 'countries', 'movie-plots', 'name-that-tune', 'science-tech', 'norway-knows', 'true-false-final'],
     tournamentHeats: {
       2: [
         ['finish-the-lyric', 'cocktail-hour', 'throwback-2000s', 'the-impostor', 'brand-new', 'wild-facts-2', 'true-false-1', 'birthday-girl-h1'],
@@ -28,6 +28,10 @@
     // Two extra rows for the tournament final only (heats and single games keep five rows).
     // The Birthday Girl's 600/700 come from spare celebrity portraits at runtime.
     finalRows: {
+      'true-false-final': [
+        { id: 'tff-600', value: 600, question: text('True or false: Measured from base to peak, Mount Everest is the tallest mountain on Earth.', 'Sant eller usant: Målt fra fot til topp er Mount Everest verdens høyeste fjell.'), answer: text('FALSE', 'USANT'), explanation: text('Mauna Kea in Hawaii is taller from its base on the sea floor.', 'Mauna Kea på Hawaii er høyere målt fra foten på havbunnen.') },
+        { id: 'tff-700', value: 700, question: text('True or false: Cleopatra lived closer in time to the Moon landing than to the building of the Great Pyramid.', 'Sant eller usant: Kleopatra levde nærmere månelandingen i tid enn byggingen av den store pyramiden.'), answer: text('TRUE', 'SANT'), explanation: text('The Great Pyramid is from about 2560 BC; Cleopatra died in 30 BC.', 'Den store pyramiden er fra rundt 2560 f.Kr.; Kleopatra døde i 30 f.Kr.') }
+      ],
       'birthday-girl-final': [
         { id: 'bgf-600', value: 600, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Brad Pitt'), image: 'assets/face-brad-pitt.png', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
         { id: 'bgf-700', value: 700, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Richard Nixon'), acceptedAnswers: ['Nixon'], image: 'assets/president-500.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') }
@@ -323,11 +327,11 @@
         title: text('True or False', 'Sant eller usant'),
         description: text('Strange but checked. Every statement could go either way.', 'Rart, men sjekket. Hver påstand kan gå begge veier.'),
         clues: [
-          { id: 'tf1-100', value: 100, question: text('True or false: Norway once knighted a penguin.', 'Sant eller usant: Norge har en gang slått en pingvin til ridder.'), answer: text('TRUE', 'SANT'), explanation: text('Sir Nils Olav, the King’s Guard mascot at Edinburgh Zoo, was knighted in 2008.', 'Sir Nils Olav, Kongens gardes maskot i Edinburgh Zoo, ble slått til ridder i 2008.') },
+          { id: 'tf1-100', value: 100, question: text('True or false: The Eiffel Tower can be more than 10 cm taller in summer.', 'Sant eller usant: Eiffeltårnet kan bli over 10 cm høyere om sommeren.'), answer: text('TRUE', 'SANT'), explanation: text('The iron expands in the heat, by up to about 15 cm.', 'Jernet utvider seg i varmen, med opptil rundt 15 cm.') },
           { id: 'tf1-200', value: 200, question: text('True or false: A goldfish only has a three-second memory.', 'Sant eller usant: En gullfisk husker bare i tre sekunder.'), answer: text('FALSE', 'USANT'), explanation: text('Goldfish can remember things for months.', 'Gullfisk kan huske ting i flere måneder.') },
           { id: 'tf1-300', value: 300, question: text('True or false: Sharks have existed for longer than trees.', 'Sant eller usant: Haier har eksistert lenger enn trær.'), answer: text('TRUE', 'SANT'), explanation: text('Sharks are about 450 million years old; trees about 385 million.', 'Haier er rundt 450 millioner år gamle, trær rundt 385 millioner.') },
-          { id: 'tf1-400', value: 400, question: text('True or false: Vikings wore horned helmets into battle.', 'Sant eller usant: Vikingene brukte hjelmer med horn i kamp.'), answer: text('FALSE', 'USANT'), explanation: text('The horns were invented for 1800s operas and paintings.', 'Hornene ble funnet på i operaer og malerier på 1800-tallet.') },
-          { id: 'tf1-500', value: 500, question: text('True or false: Oxford University is older than the Aztec Empire.', 'Sant eller usant: Universitetet i Oxford er eldre enn Aztekerriket.'), answer: text('TRUE', 'SANT'), explanation: text('Teaching at Oxford began around 1096; the Aztec capital was founded in 1325.', 'Undervisningen i Oxford startet rundt 1096; aztekernes hovedstad ble grunnlagt i 1325.') }
+          { id: 'tf1-400', value: 400, question: text('True or false: People swallow about eight spiders a year in their sleep.', 'Sant eller usant: Folk svelger rundt åtte edderkopper i året mens de sover.'), answer: text('FALSE', 'USANT'), explanation: text('A myth: spiders avoid sleeping, breathing humans.', 'En myte: edderkopper holder seg unna sovende, pustende mennesker.') },
+          { id: 'tf1-500', value: 500, question: text('True or false: The man who designed the Pringles can was buried in one.', 'Sant eller usant: Mannen som designet Pringles-boksen ble gravlagt i en.'), answer: text('TRUE', 'SANT'), explanation: text('Fredric Baur’s ashes were partly buried in a Pringles can in 2008.', 'En del av asken til Fredric Baur ble gravlagt i en Pringles-boks i 2008.') }
         ]
       },
       {
@@ -338,9 +342,9 @@
         clues: [
           { id: 'tf2-100', value: 100, question: text('True or false: Scotland’s national animal is the unicorn.', 'Sant eller usant: Skottlands nasjonaldyr er enhjørningen.'), answer: text('TRUE', 'SANT'), explanation: text('It has been a Scottish symbol since the 1300s.', 'Den har vært et skotsk symbol siden 1300-tallet.') },
           { id: 'tf2-200', value: 200, question: text('True or false: Bulls charge because the colour red makes them angry.', 'Sant eller usant: Okser angriper fordi den røde fargen gjør dem sinte.'), answer: text('FALSE', 'USANT'), explanation: text('They react to the movement of the cape, not its colour.', 'De reagerer på bevegelsen til kappen, ikke fargen.') },
-          { id: 'tf2-300', value: 300, question: text('True or false: A day on Venus is longer than a year on Venus.', 'Sant eller usant: Et døgn på Venus er lengre enn et år på Venus.'), answer: text('TRUE', 'SANT'), explanation: text('Venus takes 243 Earth days to turn once, and 225 to circle the Sun.', 'Venus bruker 243 jorddøgn på å snurre én gang, og 225 på å gå rundt sola.') },
+          { id: 'tf2-300', value: 300, question: text('True or false: There are more trees on Earth than stars in the Milky Way.', 'Sant eller usant: Det finnes flere trær på jorda enn stjerner i Melkeveien.'), answer: text('TRUE', 'SANT'), explanation: text('About 3 trillion trees, against 100–400 billion stars.', 'Rundt 3 billioner trær, mot 100–400 milliarder stjerner.') },
           { id: 'tf2-400', value: 400, question: text('True or false: Napoleon was unusually short for a man of his time.', 'Sant eller usant: Napoleon var uvanlig lav for en mann på sin tid.'), answer: text('FALSE', 'USANT'), explanation: text('He was about 1.69 m, average or taller for his day.', 'Han var rundt 1,69 m, gjennomsnittlig eller høyere for sin tid.') },
-          { id: 'tf2-500', value: 500, question: text('True or false: Cleopatra lived closer in time to the Moon landing than to the building of the Great Pyramid.', 'Sant eller usant: Kleopatra levde nærmere månelandingen i tid enn byggingen av den store pyramiden.'), answer: text('TRUE', 'SANT'), explanation: text('The Great Pyramid is from about 2560 BC; Cleopatra died in 30 BC.', 'Den store pyramiden er fra rundt 2560 f.Kr.; Kleopatra døde i 30 f.Kr.') }
+          { id: 'tf2-500', value: 500, question: text('True or false: Wombat poo is cube-shaped.', 'Sant eller usant: Vombat-bæsj er kubeformet.'), answer: text('TRUE', 'SANT'), explanation: text('Their intestines shape it into cubes, which stay put on rocks.', 'Tarmen former den til kuber, som blir liggende på steiner.') }
         ]
       },
       {
@@ -354,6 +358,19 @@
           { id: 'bgf-300', value: 300, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Cleopatra'), image: 'assets/hist-300.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
           { id: 'bgf-400', value: 400, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Rihanna'), image: 'assets/clue-bg-400.png', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') },
           { id: 'bgf-500', value: 500, question: text('Who is blended with Sara?', 'Hvem er blandet med Sara?'), answer: text('Volodymyr Zelenskyy'), acceptedAnswers: ['Zelensky', 'Zelenskyj'], image: 'assets/president2-200.jpg', imageAlt: text('A fictional blended portrait. Name the famous face.', 'Et fiktivt blandet portrett. Finn det kjente ansiktet.') }
+        ]
+      },
+      {
+        // True or False for the tournament final (600/700 are final-only rows).
+        id: 'true-false-final',
+        title: text('True or False', 'Sant eller usant'),
+        description: text('Strange but checked. Every statement could go either way.', 'Rart, men sjekket. Hver påstand kan gå begge veier.'),
+        clues: [
+          { id: 'tff-100', value: 100, question: text('True or false: Norway once knighted a penguin.', 'Sant eller usant: Norge har en gang slått en pingvin til ridder.'), answer: text('TRUE', 'SANT'), explanation: text('Sir Nils Olav, the King’s Guard mascot at Edinburgh Zoo, was knighted in 2008.', 'Sir Nils Olav, Kongens gardes maskot i Edinburgh Zoo, ble slått til ridder i 2008.') },
+          { id: 'tff-200', value: 200, question: text('True or false: Bananas are berries, but strawberries are not.', 'Sant eller usant: Bananer er bær, men jordbær er det ikke.'), answer: text('TRUE', 'SANT'), explanation: text('Botanically a banana is a berry; a strawberry is not.', 'Botanisk sett er bananen et bær, jordbæret ikke.') },
+          { id: 'tff-300', value: 300, question: text('True or false: Vikings wore horned helmets into battle.', 'Sant eller usant: Vikingene brukte hjelmer med horn i kamp.'), answer: text('FALSE', 'USANT'), explanation: text('The horns were invented for 1800s operas and paintings.', 'Hornene ble funnet på i operaer og malerier på 1800-tallet.') },
+          { id: 'tff-400', value: 400, question: text('True or false: A day on Venus is longer than a year on Venus.', 'Sant eller usant: Et døgn på Venus er lengre enn et år på Venus.'), answer: text('TRUE', 'SANT'), explanation: text('Venus takes 243 Earth days to turn once, and 225 to circle the Sun.', 'Venus bruker 243 jorddøgn på å snurre én gang, og 225 på å gå rundt sola.') },
+          { id: 'tff-500', value: 500, question: text('True or false: Oxford University is older than the Aztec Empire.', 'Sant eller usant: Universitetet i Oxford er eldre enn Aztekerriket.'), answer: text('TRUE', 'SANT'), explanation: text('Teaching at Oxford began around 1096; the Aztec capital was founded in 1325.', 'Undervisningen i Oxford startet rundt 1096; aztekernes hovedstad ble grunnlagt i 1325.') }
         ]
       },
       {
