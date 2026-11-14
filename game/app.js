@@ -264,6 +264,8 @@
   indexClues();
   function renderNotice() {
     $('#notice').textContent = storageFailed ? copy().savedError : restoreFailed ? copy().restoreError : notice;
+    // The start button is far from the top notice on a phone, so setup errors also show next to it.
+    const startError = $('#start-error'); if (startError) startError.textContent = state ? '' : notice;
   }
   function renderLocale() {
     document.documentElement.lang = language;
@@ -706,7 +708,8 @@
   function rulesSlides() {
     const nb = language === 'nb';
     const seconds = timerDuration;
-    const card = (img, title, body) => { const box = element('div','rules-power'); const face = element('img'); face.src = img; face.alt = ''; box.append(face, element('strong','',title), element('p','',body)); return box; };
+    // No Sara stickers here: the reaction faces stay a surprise until the game.
+    const card = (title, body) => { const box = element('div','rules-power'); box.append(element('strong','',title), element('p','',body)); return box; };
     const list = items => { const ol = element('ol','rules-list'); items.forEach(item => ol.append(element('li','',item))); return ol; };
     return [
       {eyebrow: nb ? 'SLIK SPILLER DERE' : 'HOW IT WORKS', title: nb ? 'Velg. Svar. Vinn.' : 'Pick. Answer. Win.', body: list(nb ? [
@@ -721,22 +724,22 @@
         'Bigger number, harder question.'
       ])},
       {eyebrow: nb ? 'TRE HEMMELIGE VÅPEN' : 'THREE SECRET WEAPONS', title: nb ? 'Hvert lag: én gang hver per runde' : 'Each team: once each per round', body: (() => { const row = element('div','rules-powers'); row.append(
-        card('assets/reaction-03.webp', '×2 ' + (nb ? 'Doble poeng' : 'Double Up'), nb ? 'Dobbelt så mange poeng. Eller dobbelt tap.' : 'Double the points. Or double the loss.'),
-        card('assets/reaction-07.webp', 'A… ' + (nb ? 'Første bokstav' : 'First Letter'), nb ? 'Verten avslører første bokstav i svaret.' : 'The host reveals the first letter of the answer.'),
-        card('assets/reaction-08.webp', nb ? 'Stjel' : 'Steal', nb ? 'Tror dere de andre bommer? Ta spørsmålet og svar selv.' : 'Think they’ll miss? Take their question and answer it yourselves.')
+        card('×2 ' + (nb ? 'Doble poeng' : 'Double Up'), nb ? 'Sikre på svaret? Dobbelt så mange poeng. Men feil svar gir dobbelt tap.' : 'Sure of your answer? Double the points. But a wrong answer costs double.'),
+        card('A… ' + (nb ? 'Første bokstav' : 'First Letter'), nb ? 'Står dere fast? Verten avslører første bokstav i svaret.' : 'Stuck? The host reveals the first letter of the answer.'),
+        card(nb ? 'Stjel' : 'Steal', nb ? 'Tror dere de andre bommer? Ta spørsmålet deres og svar selv.' : 'Think the other team will miss? Take their question and answer it yourselves.')
       ); return row; })(), note: nb ? 'Si ifra før svaret vises. Brukt er brukt.' : 'Call it before the answer is revealed. Once it’s used, it’s gone.'},
       {eyebrow: nb ? 'TURNERINGEN' : 'THE TOURNAMENT', title: nb ? 'Innledende runder, så finalen' : 'Heats, then the final', body: list(nb ? [
         'Lagene er delt i ' + heatCount + ' innledende runder. Hver runde har sitt eget brett.',
         'Vinneren av hver runde går videre til finalen.',
         'Finalen er større: sju rader, opptil 700 poeng per spørsmål.',
-        'Supervåpnene fylles opp igjen i hver runde.'
+        'I finalen får hvert lag alle tre hemmelige våpen tilbake.'
       ] : [
         'The teams are split into ' + heatCount + ' heats. Every heat has its own board.',
         'The winner of each heat goes through to the final.',
         'The final is bigger: seven rows, up to 700 points a question.',
-        'Your secret weapons refill every round.'
+        'In the final, every team gets all three secret weapons back.'
       ])},
-      {eyebrow: nb ? 'KLARE?' : 'READY?', title: nb ? 'Sara følger med.' : 'Sara is watching.', body: (() => { const box = element('div','rules-ready'); const face = element('img'); face.src = 'assets/reaction-02.webp'; face.alt = ''; box.append(face, element('p','', prize.trim() ? (nb ? 'Premien: ' : 'The prize: ') + prize.trim() : (nb ? 'Ære, berømmelse og bursdagsjenta sin respekt.' : 'Glory, fame and the birthday girl’s respect.'))); return box; })()}
+      {eyebrow: nb ? 'KLARE?' : 'READY?', title: nb ? 'Løft glassene.' : 'Raise your glasses.', body: (() => { const box = element('div','rules-ready'); const photo = element('img'); photo.src = '../assets/sara-gatsby-toast.jpg'; photo.alt = nb ? 'Sara skåler med champagne' : 'Sara raising a glass of champagne'; box.append(photo, element('p','', prize.trim() ? (nb ? 'Premien: ' : 'The prize: ') + prize.trim() : (nb ? 'Ære, berømmelse og evig skryt.' : 'Glory, fame and bragging rights forever.'))); return box; })()}
     ];
   }
   function renderRules() {
