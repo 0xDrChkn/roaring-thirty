@@ -522,3 +522,10 @@ select{font:inherit;color:var(--ivory);background:var(--black);border:1px solid 
   .finale-prize-img{height:64px}
   #finale-winner.many{font-size:18px}
 }
+
+/* Start screen: the prize bottle next to the prize box. */
+.prize-row{display:flex;align-items:center;gap:14px}
+.prize-row>label{flex:1;min-width:0}
+.setup-prize-img{height:96px;width:auto;flex-shrink:0;filter:drop-shadow(0 0 10px rgba(207,173,112,.75)) drop-shadow(0 0 22px rgba(207,173,112,.35))}
+.setup-prize-img[hidden]{display:none}
+@media(orientation:landscape) and (max-height:600px){.setup-prize-img{height:58px}}

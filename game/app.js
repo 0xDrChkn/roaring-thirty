@@ -324,6 +324,7 @@
     $('#tournament-options').hidden = mode !== 'tournament';
     $('#heat-count').value = String(heatCount);
     $('#prize').value = prize;
+    $('#setup-prize-img').hidden = !prizePicture(prize);
     $('#setup').classList.toggle('simple', !advanced);
     $('#customise').textContent = advanced ? (language === 'nb' ? 'Tilbake til enkel visning' : 'Back to the simple view') : (language === 'nb' ? 'Tilpass spillet' : 'Customise the game');
     renderPlan();
@@ -713,7 +714,7 @@
     tour = null; save(); renderSetup();
   }));
   $('#heat-count').addEventListener('change', () => { readNames(); heatCount = Number($('#heat-count').value); tour = null; save(); renderSetup(); });
-  $('#prize').addEventListener('input', () => { prize = $('#prize').value.slice(0,80); if (tour) tour.prize = prize.trim(); save(); });
+  $('#prize').addEventListener('input', () => { prize = $('#prize').value.slice(0,80); if (tour) tour.prize = prize.trim(); $('#setup-prize-img').hidden = !prizePicture(prize); save(); });
   // Renaming a team keeps its heat and the chosen categories; only a different team count re-plans the heats.
   function syncTeams() {
     if (state) return;
