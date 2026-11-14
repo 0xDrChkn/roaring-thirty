@@ -642,9 +642,12 @@
       return false;
     }
   }
+  // The tournament final gets its own pair of Sara stickers (owner's pick: #4 correct, #5 wrong).
+  const finalReactions = {correct:['assets/reaction-04.webp'], wrong:['assets/reaction-05.webp']};
+  Object.values(finalReactions).flat().forEach(src => { new Image().src = src; });
   function showReaction(kind,value,team,src) {
     pauseTimer(); clearTimeout(reactionTimeout);
-    const list = pack.reactions[kind] || [];
+    const list = (tour && tour.stage === tour.heats.length ? finalReactions[kind] : null) || pack.reactions[kind] || [];
     const image = src || list[reactionIndex[kind]++ % list.length];
     if (!image) return;
     reactionDialog.classList.toggle('wrong',kind === 'wrong');
