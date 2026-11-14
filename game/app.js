@@ -67,6 +67,14 @@
   let language = 'en';
   let state = null;
   let names = ['The Bootleggers', 'Champagne Problems', 'The Old Sports'];
+  const partyTeams = ['The Bootleggers', 'Champagne Problems', 'The Old Sports', 'The Great Matilda'];
+  // Team emblems: drop a PNG at assets/team-<name>.png (e.g. team-the-great-matilda.png). Missing files are simply not shown.
+  const teamSlug = name => String(name).toLocaleLowerCase('en').normalize('NFKD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  function teamIcon(name, className = 'team-icon') {
+    const img = element('img', className); img.alt = ''; img.src = 'assets/team-' + teamSlug(name) + '.png';
+    img.addEventListener('error', () => img.remove());
+    return img;
+  }
   // Tournament: heats on their own smaller boards, then the heat winners play the final.
   let mode = 'single';
   let heatCount = 2;
@@ -251,6 +259,7 @@
       // A not-yet-started plan from before the party split is replaced by the agreed default.
       if (tour && tour.stage === 0 && !tour.results.length && !saved.state && tour.plan !== PLAN_VERSION) tour = null;
       // Team names typed during setup survive a refresh.
+      if (Array.isArray(saved.names) && saved.names[3] === 'Team 4' && !saved.names.includes('The Great Matilda')) saved.names[3] = 'The Great Matilda';
       if (Array.isArray(saved.names) && saved.names.length >= 2 && saved.names.length <= 12 && saved.names.every(name => typeof name === 'string' && name.length <= 40)) names = saved.names.slice();
       roundShown = saved.roundShown === true;
       if (saved.state) {
@@ -394,7 +403,7 @@
         token.title = copy()[kind] + ': ' + (tokens[kind] ? copy().spent : copy().available);
         powers.append(token);
       });
-      details.append(powers); button.append(details,element('strong','',String(team.score)));
+      details.append(powers); button.append(teamIcon(team.name),details,element('strong','',String(team.score)));
       button.addEventListener('click',() => act('selectTeam',team.id));
       return button;
     }));
@@ -453,7 +462,7 @@
     const result = standingsOf(state);
     const isFinal = !tour || tour.stage === tour.heats.length;
     $('#round-eyebrow').textContent = !tour ? (result.winners.length > 1 ? copy().tie : copy().roundWinner) : isFinal ? copy().champions : copy().heatWinner(tour.stage+1);
-    $('#round-winner').textContent = result.winners.join(' & ');
+    $('#round-winner').replaceChildren(...result.winners.flatMap((name,index) => [...(index ? [document.createTextNode(' & ')] : []), teamIcon(name,'winner-icon'), document.createTextNode(name)]));
     const prizeText = tour?.prize || '';
     $('#round-prize').hidden = !(isFinal && prizeText);
     $('#round-prize').textContent = isFinal && prizeText ? '🏆 ' + copy().prizeLabel + ': ' + prizeText : '';
@@ -523,7 +532,7 @@
     $('#answer-extra').hidden = !state.revealed || !extra;
     $('#reveal').disabled = state.revealed;
     const answering = state.teams.find(team => team.id === state.selectedTeamId);
-    $('#clue-teams').replaceChildren(element('strong','answering-team',answering?.name || copy().pick));
+    $('#clue-teams').replaceChildren(...(answering ? [teamIcon(answering.name,'answering-icon')] : []), element('strong','answering-team',answering?.name || copy().pick));
     const tokens = state.powerUps.find(item => item.teamId === state.selectedTeamId);
     const locked = state.revealed || state.resolved || !answering;
     $('#power-double').disabled = locked || tokens?.double;
@@ -609,7 +618,7 @@
   document.querySelectorAll('input[name="mode"]').forEach(input => input.addEventListener('change', () => {
     readNames(); mode = input.value === 'tournament' ? 'tournament' : 'single';
     if (mode === 'single' && names.length > 6) names = names.slice(0,6);
-    if (mode === 'tournament') while (names.length < 4) names.push(copy().team + ' ' + (names.length+1));
+    if (mode === 'tournament') while (names.length < 4) names.push(partyTeams[names.length] && !names.includes(partyTeams[names.length]) ? partyTeams[names.length] : copy().team + ' ' + (names.length+1));
     tour = null; save(); renderSetup();
   }));
   $('#heat-count').addEventListener('change', () => { readNames(); heatCount = Number($('#heat-count').value); tour = null; save(); renderSetup(); });

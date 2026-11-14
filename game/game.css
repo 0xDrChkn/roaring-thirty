@@ -277,3 +277,15 @@ select{font:inherit;color:var(--ivory);background:var(--black);border:1px solid 
   #clue-dialog .award-buttons{display:flex;gap:8px;margin-top:6px}
   #clue-dialog .award-buttons button{flex:1;min-height:50px}
 }
+
+/* Team emblems (optional images in assets/team-<name>.png). */
+.team-score{justify-content:flex-start}
+.team-score>strong{margin-left:auto}
+.team-icon{width:44px;height:44px;object-fit:contain;flex-shrink:0;border-radius:50%}
+#clue-teams{display:flex;align-items:center;gap:10px}
+.answering-icon{width:46px;height:46px;object-fit:contain;border-radius:50%}
+.winner-icon{width:1.1em;height:1.1em;object-fit:contain;vertical-align:-.15em;margin-right:.25em;border-radius:50%}
+@media(orientation:landscape) and (max-height:600px){
+  .playing .team-icon{width:26px;height:26px}
+  .answering-icon{width:30px;height:30px}
+}
