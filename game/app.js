@@ -424,10 +424,7 @@
       const category = shown.categories.find(item => item.id === id);
       const column = element('section','category-column');
       const heading = element('div','category-heading');
-      const info = element('button','category-info','?'); info.type = 'button';
-      info.ariaLabel = (language === 'nb' ? 'Om ' : 'About ') + text(category.title);
-      info.addEventListener('click', event => { event.stopPropagation(); $('#category-info-title').textContent = text(category.title); $('#category-info-text').textContent = text(category.description); $('#category-info-dialog').showModal(); });
-      heading.append(element('span','',String(index+1).padStart(2,'0')),element('h2','',text(category.title)),info);
+      heading.append(element('span','',String(index+1).padStart(2,'0')),element('h2','',text(category.title)));
       column.append(heading);
       category.clues.forEach(clue => {
         const playable = engine.getClue(state,clue.id)?.playable;
@@ -590,7 +587,8 @@
     $('#reaction-heading').textContent = kind === 'correct' ? copy().correct : copy().incorrect;
     $('#reaction-image').src = image;
     $('#reaction-points').textContent = value == null ? (kind === 'correct' ? '✓' : '×') : (kind === 'correct' ? '+' : '−') + value;
-    $('#reaction-team').textContent = team || copy().preview;
+    // The team's emblem sits next to its name, like on the scoreboard.
+    $('#reaction-team').replaceChildren(...(team ? [teamIcon(team,'reaction-team-icon')] : []), document.createTextNode(team || copy().preview));
     if (!reactionDialog.open) reactionDialog.showModal();
     reactionTimeout = setTimeout(() => { if (reactionDialog.open) reactionDialog.close(); },2600);
   }

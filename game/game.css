@@ -290,13 +290,7 @@ select{font:inherit;color:var(--ivory);background:var(--black);border:1px solid 
   .answering-icon{width:30px;height:30px}
 }
 
-/* "?" on each category heading: tells the room what the category is about. */
-.category-heading{position:relative}
-.category-info{position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;border:1px solid var(--gold);background:transparent;color:var(--gold);font:600 13px/1 'Jost',sans-serif;cursor:pointer;padding:0;display:grid;place-items:center}
-.category-info:hover{background:var(--gold);color:#111}
-.category-info-dialog h2{font-size:clamp(28px,4vw,46px);margin:6px 0 12px}
-.category-info-dialog #category-info-text{font-size:clamp(17px,2vw,24px);line-height:1.4;margin-bottom:18px}
-@media(orientation:landscape) and (max-height:600px){
-  .playing .category-heading{padding-right:22px}
-  .category-info{width:18px;height:18px;font-size:10px;top:50%;transform:translateY(-50%);right:2px}
-}
+/* Team emblem on the Correct / Wrong pop-up. */
+#reaction-team{display:flex;align-items:center;justify-content:center;gap:12px}
+#reaction-dialog #reaction-team img.reaction-team-icon{width:56px;height:56px;max-width:56px;max-height:56px;min-height:0;margin:0;object-fit:contain;border-radius:50%;filter:none;animation:none;transform:none;position:static}
+@media(orientation:landscape) and (max-height:600px){#reaction-dialog #reaction-team img.reaction-team-icon{width:34px;height:34px;max-width:34px;max-height:34px}}
