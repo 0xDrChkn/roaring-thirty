@@ -533,3 +533,33 @@ select{font:inherit;color:var(--ivory);background:var(--black);border:1px solid 
 /* The revealed first letter stays readable on the TV. */
 #clue-dialog .letter-hint{color:var(--gold);font:500 clamp(18px,2vw,26px)/1.2 "Cormorant Garamond",serif}
 @media(orientation:landscape) and (max-height:600px){#clue-dialog .letter-hint{font-size:18px;margin:2px 0 0}}
+
+/* Photo collage: full-screen slideshow, photos slide side to side with a slow zoom. */
+.slides-dialog{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:#000;color:#f4ead7;overflow:hidden}
+.slides-dialog::backdrop{background:#000}
+.slides-track{position:absolute;inset:0;overflow:hidden}
+.slide{position:absolute;inset:0;margin:0;transform:translateX(0);transition:transform 1s cubic-bezier(.65,0,.35,1)}
+.slide.entering{transform:translateX(var(--from,100%))}
+.slide.leaving{transform:translateX(var(--to,-100%))}
+.slide-blur{position:absolute;inset:-40px;background:center/cover no-repeat;filter:blur(28px) brightness(.45) saturate(1.1)}
+.slide-img{position:absolute;inset:0;margin:auto;max-width:92%;max-height:84%;object-fit:contain;box-shadow:0 20px 60px #000c,0 0 0 1px #cfad7066;animation:slide-zoom 7s ease-out both}
+@keyframes slide-zoom{from{transform:scale(1)}to{transform:scale(1.06)}}
+.slides-caption{position:absolute;left:0;right:0;bottom:3.5%;text-align:center;font:500 clamp(18px,3vw,40px)/1.2 'Cormorant Garamond',serif;color:var(--gold);text-shadow:0 2px 14px #000;margin:0;z-index:2}
+.slides-count{position:absolute;top:12px;left:16px;margin:0;font-size:12px;letter-spacing:.2em;color:#ffffff88;z-index:2}
+.slides-nav{position:absolute;top:0;bottom:0;width:22%;background:transparent;border:0;color:#ffffff55;font-size:56px;z-index:2;cursor:pointer}
+.slides-nav:hover{color:#fff}
+.slides-prev{left:0;text-align:left;padding-left:2%}
+.slides-next{right:0;text-align:right;padding-right:2%}
+.slides-close{position:absolute;top:8px;right:12px;z-index:3;color:#fff;font-size:28px}
+.category-start .slides-open{white-space:nowrap}
+@media(orientation:landscape) and (max-height:600px){
+  .slide-img{max-height:80%}
+  .slides-caption{font-size:20px;bottom:2%}
+}
+@media(prefers-reduced-motion:reduce){.slide{transition:none}.slide-img{animation:none}}
+
+/* Start screen buttons: Rules, Photo collage and Start share one row. */
+.setup.simple .category-start{flex-wrap:wrap}
+.setup.simple .category-start .rules-open,.setup.simple .category-start .slides-open{flex:0 1 auto}
+.setup.simple .category-start .start-button{flex:1 1 200px;min-width:0;width:auto}
+@media(orientation:landscape) and (max-height:600px){.setup.simple .category-start{gap:8px}.setup.simple .category-start .rules-open,.setup.simple .category-start .slides-open{padding:6px 12px;font-size:14px}}

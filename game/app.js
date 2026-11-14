@@ -820,6 +820,55 @@
     language = language === 'en' ? 'nb' : 'en'; renderLocale(); renderSetup(); renderGallery(); save(); render();
   });
   $('#help-open').addEventListener('click',() => { pauseTimer(); $('#help-dialog').showModal(); });
+  // Photo collage: every invitation photo plus any extras, sliding side to side on a 6-second loop.
+  function slideshowPhotos() {
+    const config = window.BIRTHDAY_CONFIG || {};
+    const pick = value => typeof value === 'string' ? value : (value?.[language] || value?.en || '');
+    const fromInvite = [...(config.photos || []), ...(config.heroPhoto ? [config.heroPhoto] : [])]
+      .filter(photo => photo && photo.src).map(photo => ({src: '../' + photo.src, caption: pick(photo.caption)}));
+    const extra = (window.SLIDESHOW_EXTRA || []).filter(photo => photo && photo.src).map(photo => ({src: photo.src, caption: pick(photo.caption)}));
+    return [...fromInvite, ...extra];
+  }
+  let slideIndex = 0, slideTimer = null, slidePhotos = [];
+  function showSlide(next, direction = 1) {
+    const track = $('#slides-track');
+    if (!slidePhotos.length) return;
+    slideIndex = (next + slidePhotos.length) % slidePhotos.length;
+    const photo = slidePhotos[slideIndex];
+    const slide = element('figure','slide entering');
+    slide.style.setProperty('--from', direction > 0 ? '100%' : '-100%');
+    const blur = element('div','slide-blur'); blur.style.backgroundImage = 'url("' + photo.src + '")';
+    const img = element('img','slide-img'); img.src = photo.src; img.alt = photo.caption || '';
+    slide.append(blur, img);
+    const old = [...track.children];
+    old.forEach(node => { node.style.setProperty('--to', direction > 0 ? '-100%' : '100%'); node.classList.add('leaving'); setTimeout(() => node.remove(), 1100); });
+    track.append(slide);
+    requestAnimationFrame(() => requestAnimationFrame(() => slide.classList.remove('entering')));
+    $('#slides-caption').textContent = photo.caption || '';
+    $('#slides-count').textContent = (slideIndex + 1) + ' / ' + slidePhotos.length;
+    new Image().src = slidePhotos[(slideIndex + 1) % slidePhotos.length].src; // preload the next one
+  }
+  function restartSlides() { clearInterval(slideTimer); slideTimer = setInterval(() => showSlide(slideIndex + 1, 1), 6000); }
+  function openSlides() {
+    pauseTimer();
+    slidePhotos = slideshowPhotos();
+    $('#slides-track').replaceChildren();
+    $('#slides-dialog').showModal();
+    showSlide(0, 1); restartSlides();
+    const root = document.documentElement;
+    if (root.requestFullscreen && !document.fullscreenElement) root.requestFullscreen().catch(() => {});
+  }
+  function closeSlides() { clearInterval(slideTimer); if ($('#slides-dialog').open) $('#slides-dialog').close(); if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {}); }
+  document.querySelectorAll('.slides-open').forEach(button => button.addEventListener('click', openSlides));
+  $('#slides-next').addEventListener('click', event => { event.stopPropagation(); showSlide(slideIndex + 1, 1); restartSlides(); });
+  $('#slides-prev').addEventListener('click', event => { event.stopPropagation(); showSlide(slideIndex - 1, -1); restartSlides(); });
+  $('#slides-close').addEventListener('click', event => { event.stopPropagation(); closeSlides(); });
+  $('#slides-dialog').addEventListener('close', () => clearInterval(slideTimer));
+  $('#slides-dialog').addEventListener('keydown', event => { if (event.key === 'ArrowRight') $('#slides-next').click(); if (event.key === 'ArrowLeft') $('#slides-prev').click(); });
+  // Swipe on the phone.
+  let swipeX = null;
+  $('#slides-dialog').addEventListener('touchstart', event => { swipeX = event.touches[0].clientX; }, {passive:true});
+  $('#slides-dialog').addEventListener('touchend', event => { if (swipeX === null) return; const dx = event.changedTouches[0].clientX - swipeX; swipeX = null; if (Math.abs(dx) > 40) (dx < 0 ? $('#slides-next') : $('#slides-prev')).click(); });
   // Guest-facing rules: four big slides to show on the TV before the first heat.
   let rulesIndex = 0;
   function rulesSlides() {
